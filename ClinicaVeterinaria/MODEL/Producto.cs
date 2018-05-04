@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClinicaVeterinaria.MODEL;
+
+
+namespace ClinicaVeterinaria.MODEL
+{
+    [Table("Producto")]
+    public class Producto : PropertyValidateModel
+    {
+        public Producto()
+        {
+            LineasVentas = new HashSet<LineaVenta>();
+        }
+        public int ProductoId { get; set; }
+        public double Precio { get; set; }
+        public string NombreProducto { get; set; }
+        public string NombreMarca { get; set; }
+        public string AnimalDirigido { get; set; }
+        public double Peso { get; set; }
+        public double Tamaño { get; set; }
+        public virtual ICollection<LineaVenta> LineasVentas { get; set;}
+        public string Imagen { get; set; }
+        public int Stock { get; set; }
+    }
+}

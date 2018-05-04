@@ -89,7 +89,7 @@
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorList" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="btBucarList">
-                                <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png" Height="28" Width="28"/>
+                                <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"  Width="28"/>
                             </Button>
                         </StackPanel>
                        
