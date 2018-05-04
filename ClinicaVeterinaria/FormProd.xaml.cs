@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
@@ -18,24 +17,19 @@ using ClinicaVeterinaria.MODEL;
 namespace ClinicaVeterinaria
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para FormProd.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FormProd : Window
     {
-        private Producto productoSelect = new Producto();
-        public MainWindow()
+        UnityOfWork uow = new UnityOfWork();
+        public FormProd(Producto prod)
         {
             InitializeComponent();
-            //prueba lista
-          
         }
-        #region Producto
-        private void btAgregarProd_Click(object sender, RoutedEventArgs e)
+
+        private void btGuardarProd_Click(object sender, RoutedEventArgs e)
         {
-            Producto prod = new Producto();
-            FormProd fp = new FormProd(prod);
-            fp.Show();
+
         }
-        #endregion
     }
 }

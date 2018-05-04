@@ -1,0 +1,72 @@
+﻿<Window x:Class="ClinicaVeterinaria.FormProd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClinicaVeterinaria"
+        mc:Ignorable="d"
+        Title="FormProd" Height="820" Width="800"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <Grid x:Name="gridProductoSelect"  Margin="10,10,10,10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+               
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+
+
+            </Grid.RowDefinitions>
+            <Label x:Name="lgridProdTitulo" Content="Datos del producto" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" VerticalAlignment="Center"/>
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" Margin="10,10,10,10" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left">
+
+                <Image x:Name="imgProd"   Margin="5,5,5,5" ClipToBounds="True" />
+
+            </Button>
+            <Label Content="Nombre" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbNombreProd" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="4"></TextBox>
+            <Label Content="Marca" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbMarcaProd" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="4"></TextBox>
+            <Label Content="Animal dirigido" Grid.Column="0" Grid.Row="4" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbAnimalDirigoProd" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" Grid.ColumnSpan="4"></TextBox>
+            <Label Content="Tamaño" Grid.Column="0" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbTamProd" Grid.Column="1" Grid.Row="5" Margin="10,10,10,10"></TextBox>
+            <Label Content="cm" Grid.Column="2" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"></Label>
+            <Label Content="Peso" Grid.Column="3" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            <TextBox x:Name="tbPesokProd" Grid.Column="4" Grid.Row="5" Margin="10,10,10,10"></TextBox>
+            <Label Content="kg" Grid.Column="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Label Content="Precio" Grid.Column="3" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+            <TextBox x:Name="tbPrecioProd" Grid.Column="4" Grid.Row="6" Margin="10,10,10,10"></TextBox>
+            <Label Content="€" Grid.Column="5" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Label Content="Stock" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10"></TextBox>
+            <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="7" Margin="10,10,10,10" Click="btGuardarProd_Click"  />
+            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="7" Margin="10,10,10,10" />
+
+        </Grid>
+
+
+    </Grid>
+</Window>

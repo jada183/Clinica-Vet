@@ -17,7 +17,7 @@
         >
     <Grid x:Name="gridPrueba">
 
-        <Grid x:Name="gridAcceso">
+        <Grid x:Name="gridAcceso" Visibility="Hidden">
             <Grid.Background>
                 <ImageBrush ImageSource="Imagenes/fondoLogin.jpg" Opacity="0.85"/>
             </Grid.Background>
@@ -67,7 +67,7 @@
             </StackPanel>
 
         </Grid>
-        <Grid x:Name="gridGestion" Visibility="Hidden">
+        <Grid x:Name="gridGestion">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18" Cursor="Hand" Background="{x:Null}">
                     <TabItem.Header>
@@ -101,7 +101,7 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="btAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
