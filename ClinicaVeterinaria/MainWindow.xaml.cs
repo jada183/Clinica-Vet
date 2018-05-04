@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClinicaVeterinaria.DAL;
+using ClinicaVeterinaria.MODEL;
 
 namespace ClinicaVeterinaria
 {
@@ -20,9 +22,23 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class MainWindow : Window
     {
+        class Producto
+        {
+            string nombre;
+            double precio;
+            string marca;
+
+            public string Nombre { get => nombre; set => nombre = value; }
+            public double Precio { get => precio; set => precio = value; }
+            public string Marca { get => marca; set => marca = value; }
+        }
         public MainWindow()
         {
             InitializeComponent();
+            //prueba lista
+          
         }
+
+    
     }
 }
