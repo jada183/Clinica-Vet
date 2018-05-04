@@ -113,6 +113,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201805040725187_Initial.cs" />
+    <Compile Include="Migrations\201805040725187_Initial.Designer.cs">
+      <DependentUpon>201805040725187_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MODEL\Cita.cs" />
     <Compile Include="MODEL\Cliente.cs" />
     <Compile Include="MODEL\Empleado.cs" />
@@ -122,6 +127,7 @@
     <Compile Include="MODEL\Paciente.cs" />
     <Compile Include="MODEL\Producto.cs" />
     <Compile Include="MODEL\PropertyValidateModel.cs" />
+    <Compile Include="MODEL\Proveedor.cs" />
     <Compile Include="MODEL\Servicio.cs" />
     <Compile Include="MODEL\ServicioOfrecido.cs" />
     <Compile Include="MODEL\Vacuna.cs" />
@@ -139,6 +145,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201805040725187_Initial.resx">
+      <DependentUpon>201805040725187_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
