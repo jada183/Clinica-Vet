@@ -89,7 +89,7 @@
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorList" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="btBucarList">
-                                <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"  Width="28"/>
+                                <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
                        
@@ -97,12 +97,17 @@
                             <Label Content="Nombre del producto" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorProd" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button x:Name="btBuscarProd"   Margin="5,5,5,5">
-                                <Image x:Name="imgBuscarProd" Source="Imagenes/lupa.png" Width="28"></Image>
+                                <Image x:Name="imgBuscarProd" Source="Imagenes/lupa.png"></Image>
                             </Button>
                         </StackPanel>
-                        <Button DockPanel.Dock="Bottom"  HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd"> 
-                            <Image Source="Imagenes/add.png" Width="28"></Image>
-                        </Button>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
+                                <Image x:Name="imgBorrarHor" Source="Imagenes/delete.png"></Image>
+                            </Button>
+                        </StackPanel>
                         <DataGrid x:Name="dgProd" Margin="10,10,10,15"  />
 
                     </DockPanel>
