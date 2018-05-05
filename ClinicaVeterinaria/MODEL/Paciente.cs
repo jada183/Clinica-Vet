@@ -34,6 +34,8 @@ namespace ClinicaVeterinaria.MODEL
 
         public string Sexo { get; set; }       
 
+        public bool Ingresado { get; set; }
+
         public virtual Cliente Propietario { get; set; }
         public int ClienteId{ get; set; }
 

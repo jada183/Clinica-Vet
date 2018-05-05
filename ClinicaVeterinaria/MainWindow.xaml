@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="1*"/>
 
             </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="22,10.2,10,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="123" Width="360">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,10,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="123" Width="382" >
                 <StackPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#7FC5BCBC" Offset="0"/>
@@ -78,7 +78,7 @@
                     </TabItem.Header>
                     <DockPanel LastChildFill="True">
                         <Label x:Name="lProductosTitulo"  Content="Productos" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
-                        
+
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListProd">
                                 <ComboBoxItem Content="Todos" x:Name="cbListProdTodos" IsSelected="True"></ComboBoxItem>
@@ -92,7 +92,7 @@
                                 <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                       
+
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Nombre del producto" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorProd" Width="400"  Margin="5,5,5,5"></TextBox>
@@ -101,7 +101,7 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="btAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
@@ -120,7 +120,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-                        
+
                     </DockPanel>
                 </TabItem>
             </TabControl>
