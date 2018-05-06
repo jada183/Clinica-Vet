@@ -37,9 +37,17 @@ namespace ClinicaVeterinaria.DAL
             protected override void Seed(DAL.Context context)
             {
                 context.Empleados.AddOrUpdate(
-                    
-                     new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario" , Apellidos="garcia garcia" , Email="correEjemp"}
-                     );
+
+                  new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario", Apellidos = "garcia garcia", Email = "correEjemp" }
+                  );
+                context.Proveedores.AddOrUpdate(
+                   new Proveedor { Nombre = "proveedor prueba", Apellidos = "apellidos", Email = "proveedor@gmail.com" }
+                   );
+
+                context.Productos.AddOrUpdate(
+                  new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProovedorId = 1, Tamaño = 0, Peso = 0, Stock = 0 ,FechaCaducidad=DateTime.Today,Precio=1}
+                  );
+
             }
         }
     

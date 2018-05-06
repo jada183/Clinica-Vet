@@ -3,7 +3,7 @@ namespace ClinicaVeterinaria.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class first : DbMigration
     {
         public override void Up()
         {
@@ -167,13 +167,14 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         ProductoId = c.Int(nullable: false, identity: true),
                         Precio = c.Double(nullable: false),
-                        NombreProducto = c.String(),
+                        NombreProducto = c.String(nullable: false, maxLength: 25),
                         NombreMarca = c.String(),
-                        AnimalDirigido = c.String(),
+                        AnimalDirigido = c.String(nullable: false),
                         Peso = c.Double(nullable: false),
                         Tamaño = c.Double(nullable: false),
                         Imagen = c.String(),
                         Stock = c.Int(nullable: false),
+                        FechaCaducidad = c.DateTime(nullable: false),
                         ProovedorId = c.Int(),
                         Proveedor_ProveedorId = c.Int(),
                     })
