@@ -33,7 +33,7 @@ namespace ClinicaVeterinaria.MODEL
         public virtual ICollection<LineaVenta> LineasVentas { get; set;}
         public string Imagen { get; set; }
         public int Stock { get; set; } 
-        public DateTime FechaCaducidad { get; set; }
+        public string Categoria { get; set; }
         public virtual Proveedor Proveedor{ get; set; }
         public int? ProovedorId { get; set; }
     }

@@ -25,20 +25,22 @@ namespace ClinicaVeterinaria
         UnityOfWork uow;
         CultureInfo ci = new CultureInfo("Es-Es");
         Producto pr= new Producto();
+        bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
+
         public FormProd(Producto prod, UnityOfWork uw)
         {
 
             InitializeComponent();
             pr = prod;
             gridProductoSelect.DataContext = pr;
-            dpCaducidadProd.DisplayDateStart = DateTime.Today;
+            
             
             uow = uw;
             //para identificar si es para crear un nuevo producto o para modificar uno existente
             if (prod.ProductoId == 0)
             {
                 btEliminarProd.Visibility = Visibility.Hidden;
-                
+                NuevoProd = true;
             }
             else
             {
@@ -50,17 +52,24 @@ namespace ClinicaVeterinaria
 
         private void BtGuardarProd_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DatePicker dp = dpCaducidadProd;
-                pr.FechaCaducidad = Convert.ToDateTime(dp.Text);
-                uow.RepositorioProducto.crear(pr);
-                MessageBox.Show("se ha guardado correctamente el producto");
-                this.Close();
+            //guardar
+            if (NuevoProd) {
+                try
+                {
+                  
+                    uow.RepositorioProducto.crear(pr);
+                    MessageBox.Show("se ha guardado correctamente el producto");
+                    this.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("error falt aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                }
             }
-            catch
+            //modificar
+            else
             {
-                MessageBox.Show("error falt aun campo obligatorio por cubrir");
+
             }
         }
     }

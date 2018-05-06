@@ -174,7 +174,7 @@ namespace ClinicaVeterinaria.Migrations
                         Tamaño = c.Double(nullable: false),
                         Imagen = c.String(),
                         Stock = c.Int(nullable: false),
-                        FechaCaducidad = c.DateTime(nullable: false),
+                        Categoria = c.String(),
                         ProovedorId = c.Int(),
                         Proveedor_ProveedorId = c.Int(),
                     })
