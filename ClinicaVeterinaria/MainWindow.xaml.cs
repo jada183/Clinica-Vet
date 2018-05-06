@@ -23,20 +23,31 @@ namespace ClinicaVeterinaria
     public partial class MainWindow : Window
     {
         UnityOfWork uow = new UnityOfWork();
-        private Producto productoSelect = new Producto();
+        //variables usadas en la gestion de producto
+            private Producto productoSelect = new Producto();
+            private List<Producto> productosDtGrid = new List<Producto>();
+
         public MainWindow()
         {
             InitializeComponent();
-            //prueba lista
-           
+            //carga inicial de producto
+                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
         }
         #region Producto
+        //metodos
+        public void CargardgProductos(List<Producto> lp)
+        {
+            productosDtGrid = lp;
+            dgProd.ItemsSource = productosDtGrid;
+        }
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
         {
             Producto prod = new Producto();
-            FormProd fp = new FormProd(prod,uow);
+            FormProd fp = new FormProd(prod,uow,this);
             fp.Show();
         }
+       
         #endregion
     }
 }
