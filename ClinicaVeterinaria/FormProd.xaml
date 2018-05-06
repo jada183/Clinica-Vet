@@ -64,7 +64,7 @@
             <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Stock, Mode=TwoWay}"></TextBox>
             <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom"/>
-            <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbTipoEmp" Text="{Binding Path=Tipo}" SelectedIndex="0">
+            <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbTipoEmp" Text="{Binding Path=Categoria}" SelectedIndex="0">
                 <ComboBoxItem IsSelected="True" Content="{Binding Path=Categoria}" x:Name="defaulcomboboxitem"/>
                 <ComboBoxItem Content="Alimento"></ComboBoxItem>
                 <ComboBoxItem Content="Accesorio"></ComboBoxItem>

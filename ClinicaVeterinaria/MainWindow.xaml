@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"  x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="489.182" Width="790"
+        Title="MainWindow" Height="489.182" Width="810"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip"     
+        ResizeMode="CanResizeWithGrip"
+        WindowState="Maximized"
         >
     <Grid x:Name="gridPrueba">
 
@@ -108,7 +109,18 @@
                                 <Image x:Name="imgBorrarHor" Source="Imagenes/delete.png"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProd" Margin="10,10,10,15"  />
+                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=NombreProducto}"/>
+                                <DataGridTextColumn Header="Categoria" Width="2*" Binding="{Binding Path=Categoria}"/>
+                                <DataGridTextColumn Header="Marca" Width="2*"  Binding="{Binding Path=NombreMarca}"/>
+                                <DataGridTextColumn Header="Animal dirigido" Width="2*" Binding="{Binding Path=AnimalDirigido}"/>
+                                <DataGridTextColumn Header="Tamaño" Width="*" Binding="{Binding Path=Tamaño}"/>
+                                <DataGridTextColumn Header="Peso" Width="*" Binding="{Binding Path=Peso}"/>
+                                <DataGridTextColumn Header="Stock" Width="*" Binding="{Binding Path=Stock}"/>
+                                <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=Precio}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </DockPanel>
                 </TabItem>

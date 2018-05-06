@@ -24,18 +24,20 @@ namespace ClinicaVeterinaria
     {
         UnityOfWork uow;
         CultureInfo ci = new CultureInfo("Es-Es");
-        Producto pr= new Producto();
+        Producto pr= new Producto();//producto local
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
+        MainWindow main = new MainWindow();//la mainwindows local
 
-        public FormProd(Producto prod, UnityOfWork uw)
+        public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
         {
 
             InitializeComponent();
-            pr = prod;
+            pr = prod;//el producto que paso por parametro lo asigno a una variable local
+            main = mw;//asigno a una variable local la main window que paso por parametro
+            uow = uw;//la unity que deben tener en comun ambas ventanas
+
             gridProductoSelect.DataContext = pr;
-            
-            
-            uow = uw;
+           
             //para identificar si es para crear un nuevo producto o para modificar uno existente
             if (prod.ProductoId == 0)
             {
@@ -59,6 +61,8 @@ namespace ClinicaVeterinaria
                   
                     uow.RepositorioProducto.crear(pr);
                     MessageBox.Show("se ha guardado correctamente el producto");
+                    main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
                     this.Close();
                 }
                 catch
