@@ -33,7 +33,7 @@ namespace ClinicaVeterinaria
             InitializeComponent();
             pr = prod;
             gridProductoSelect.DataContext = pr;
-            dpCaducidadProd.DisplayDateStart = DateTime.Today;
+            
             
             uow = uw;
             //para identificar si es para crear un nuevo producto o para modificar uno existente
@@ -56,8 +56,7 @@ namespace ClinicaVeterinaria
             if (NuevoProd) {
                 try
                 {
-                    DatePicker dp = dpCaducidadProd;
-                    pr.FechaCaducidad = Convert.ToDateTime(dp.Text);
+                  
                     uow.RepositorioProducto.crear(pr);
                     MessageBox.Show("se ha guardado correctamente el producto");
                     this.Close();
