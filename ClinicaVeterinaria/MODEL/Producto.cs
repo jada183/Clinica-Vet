@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,21 @@ namespace ClinicaVeterinaria.MODEL
         }
         public int ProductoId { get; set; }
         public double Precio { get; set; }
+
+        [Required]
+        [StringLength(25)]
         public string NombreProducto { get; set; }
+
         public string NombreMarca { get; set; }
+
+        [Required]
         public string AnimalDirigido { get; set; }
         public double Peso { get; set; }
         public double Tamaño { get; set; }
         public virtual ICollection<LineaVenta> LineasVentas { get; set;}
         public string Imagen { get; set; }
-        public int Stock { get; set; }
+        public int Stock { get; set; } 
+        public DateTime FechaCaducidad { get; set; }
         public virtual Proveedor Proveedor{ get; set; }
         public int? ProovedorId { get; set; }
     }

@@ -25,7 +25,7 @@ namespace ClinicaVeterinaria.DAL
 
         private RepositorioHorario repositorioHorario;
         private RepositorioHistorialClinico repositorioHistorialClinico;
-
+        private RepositorioProveedor repositorioProveedor;
 
         public RepositorioCliente RepositorioCliente
         {
@@ -153,6 +153,17 @@ namespace ClinicaVeterinaria.DAL
                     this.repositorioHistorialClinico = new RepositorioHistorialClinico(context);
                 }
                 return repositorioHistorialClinico;
+            }
+        }
+        public RepositorioProveedor RepositorioProveedor
+        {
+            get
+            {
+                if (this.repositorioProveedor == null)
+                {
+                    this.repositorioProveedor = new RepositorioProveedor(context);
+                }
+                return repositorioProveedor;
             }
         }
     }   

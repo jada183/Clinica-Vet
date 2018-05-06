@@ -22,18 +22,19 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class MainWindow : Window
     {
+        UnityOfWork uow = new UnityOfWork();
         private Producto productoSelect = new Producto();
         public MainWindow()
         {
             InitializeComponent();
             //prueba lista
-          
+           
         }
         #region Producto
-        private void btAgregarProd_Click(object sender, RoutedEventArgs e)
+        private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
         {
             Producto prod = new Producto();
-            FormProd fp = new FormProd(prod);
+            FormProd fp = new FormProd(prod,uow);
             fp.Show();
         }
         #endregion

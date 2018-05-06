@@ -101,7 +101,7 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="btAgregarProd_Click">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="BtAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
@@ -120,7 +120,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-
+                    
                     </DockPanel>
                 </TabItem>
             </TabControl>

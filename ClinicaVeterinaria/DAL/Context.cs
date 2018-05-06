@@ -52,9 +52,8 @@ namespace ClinicaVeterinaria.DAL
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<HistorialClinico> HistorialesClinicos{get;set;}
         public DbSet<Horario> Horarios { get; set; }
-        
-        public DbSet<Servicio> Servicios { get; set; }
-       
+        public DbSet<Proveedor> Proveedores { get; set; }
+        public DbSet<Servicio> Servicios { get; set; }   
         public DbSet<Vacuna> Vacunas { get; set; }
         public DbSet<LineaVenta> LineasVenta { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
