@@ -26,6 +26,7 @@ namespace ClinicaVeterinaria
         //variables usadas en la gestion de producto
             private Producto productoSelect = new Producto();
             private List<Producto> productosDtGrid = new List<Producto>();
+            private Producto prodSelect = new Producto();
 
         public MainWindow()
         {
@@ -41,13 +42,37 @@ namespace ClinicaVeterinaria
             productosDtGrid = lp;
             dgProd.ItemsSource = productosDtGrid;
         }
+        //eventos
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
         {
             Producto prod = new Producto();
             FormProd fp = new FormProd(prod,uow,this);
             fp.Show();
         }
-       
+        private void dgProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+            }
+            catch { }
+            
+        }
+        private void btEditarProd_Click(object sender, RoutedEventArgs e)
+        {
+            FormProd fp = new FormProd(prodSelect, uow, this);
+            fp.Show();
+        }
+
+        private void dgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            prodSelect = (Producto)(dgProd.SelectedItem);
+            FormProd fp = new FormProd(prodSelect, uow, this);
+            fp.Show();
+        }
+
         #endregion
+
+
     }
 }
