@@ -106,10 +106,13 @@
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
-                                <Image x:Name="imgBorrarHor" Source="Imagenes/delete.png"></Image>
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProd" Click="btEditarProd_Click">
+                                <Image Source="Imagenes/editIcon.png"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False">
+                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="dgProd_SelectionChanged" MouseDoubleClick="dgProd_MouseDoubleClick" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=NombreProducto}"/>
                                 <DataGridTextColumn Header="Categoria" Width="2*" Binding="{Binding Path=Categoria}"/>

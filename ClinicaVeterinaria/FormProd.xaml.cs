@@ -35,7 +35,7 @@ namespace ClinicaVeterinaria
             pr = prod;//el producto que paso por parametro lo asigno a una variable local
             main = mw;//asigno a una variable local la main window que paso por parametro
             uow = uw;//la unity que deben tener en comun ambas ventanas
-
+         
             gridProductoSelect.DataContext = pr;
            
             //para identificar si es para crear un nuevo producto o para modificar uno existente
@@ -47,7 +47,8 @@ namespace ClinicaVeterinaria
             else
             {
                 btGuardarProd.Content = "modificar";
-               
+              
+
             }
 
         }
