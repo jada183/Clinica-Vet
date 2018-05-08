@@ -105,11 +105,11 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="BtAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd" Click="btBorrarProd_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProd" Click="btEditarProd_Click">
-                                <Image Source="Imagenes/editIcon.png"></Image>
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
                         <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="dgProd_SelectionChanged" MouseDoubleClick="dgProd_MouseDoubleClick" IsReadOnly="True">
