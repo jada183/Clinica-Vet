@@ -12,7 +12,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
     <Grid>
         <Grid x:Name="gridProductoSelect"  Margin="10,10,10,10">
 
@@ -40,9 +40,9 @@
 
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Datos del producto" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" VerticalAlignment="Center"/>
-            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" Margin="10,10,10,10" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left">
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left" Click="btImgProd_Click">
 
-                <Image x:Name="imgProd"   Margin="5,5,5,5" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" />
+                <Image x:Name="imgProd" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" Stretch="Fill" Margin="5,5,5,5" />
 
             </Button>
             <Label Content="Nombre" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
@@ -64,15 +64,21 @@
             <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Stock, Mode=TwoWay}"></TextBox>
             <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom"/>
-            <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbTipoEmp" Text="{Binding Path=Tipo}" SelectedIndex="0">
-                <ComboBoxItem IsSelected="True" Content="{Binding Path=Categoria}" x:Name="defaulcomboboxitem"/>
+            <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbCatProd" Text="{Binding Path=Categoria, Mode=TwoWay}">
+               
                 <ComboBoxItem Content="Alimento"></ComboBoxItem>
                 <ComboBoxItem Content="Accesorio"></ComboBoxItem>
                 <ComboBoxItem Content="Medicamento"></ComboBoxItem>
          
             </ComboBox>
-            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="BtGuardarProd_Click"  />
-            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" />
+            <Label Content="Proveedor" Grid.Column="3" Grid.Row="7" VerticalAlignment="Bottom"/>
+            <ComboBox Grid.Column="4" Grid.Row="7" Margin="10,10,10,10" x:Name="cbProvProd">
+                <ComboBoxItem Content="Alimento"></ComboBoxItem>
+                <ComboBoxItem Content="Accesorio"></ComboBoxItem>
+                <ComboBoxItem Content="Medicamento"></ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
+            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="btEliminarProd_Click" />
 
         </Grid>
 

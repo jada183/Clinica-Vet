@@ -23,20 +23,97 @@ namespace ClinicaVeterinaria
     public partial class MainWindow : Window
     {
         UnityOfWork uow = new UnityOfWork();
-        private Producto productoSelect = new Producto();
+        //variables usadas en la gestion de producto
+            
+            private List<Producto> productosDtGrid = new List<Producto>();
+            private Producto prodSelect = new Producto();
+
         public MainWindow()
         {
             InitializeComponent();
-            //prueba lista
-           
+            //carga inicial de producto
+                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
         }
         #region Producto
+        //metodos
+        public void CargardgProductos(List<Producto> lp)
+        {
+            productosDtGrid = lp;
+            dgProd.ItemsSource = productosDtGrid;
+        }
+        //eventos
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
         {
             Producto prod = new Producto();
-            FormProd fp = new FormProd(prod,uow);
+            FormProd fp = new FormProd(prod,uow,this);
             fp.Show();
         }
+        private void dgProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+            }
+            catch { }
+            
+        }
+        private void btEditarProd_Click(object sender, RoutedEventArgs e)
+        {
+            if (prodSelect.NombreProducto != null)
+            {
+                FormProd fp = new FormProd(prodSelect, uow, this);
+                fp.Show();
+            }
+            else
+            {
+                MessageBox.Show("seleccione un producto");
+            }
+        }
+
+        private void dgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            prodSelect = (Producto)(dgProd.SelectedItem);
+            FormProd fp = new FormProd(prodSelect, uow, this);
+            fp.Show();
+        }
+
+        private void btBorrarProd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este producto?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioProducto.eliminar(prodSelect);
+                        CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un producto");
+            }
+        }
         #endregion
+
+
     }
 }
