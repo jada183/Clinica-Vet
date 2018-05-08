@@ -31,15 +31,15 @@ namespace ClinicaVeterinaria
         Producto pr= new Producto();//producto local
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
         MainWindow main = new MainWindow();//la mainwindows local
-        string nombrePrOriginal="";
-        string marcaPrOriginal="";
+        string prNombreOrigen = "";
+        string prMarcaOrigen="";
         public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
         {
 
             InitializeComponent();
             pr = prod;//el producto que paso por parametro lo asigno a una variable local
-            marcaPrOriginal = pr.NombreMarca;
-            nombrePrOriginal = pr.NombreProducto;
+            prNombreOrigen = pr.NombreProducto;
+            prMarcaOrigen = pr.NombreMarca;
             main = mw;//asigno a una variable local la main window que paso por parametro
             uow = uw;//la unity que deben tener en comun ambas ventanas
          
@@ -106,13 +106,14 @@ namespace ClinicaVeterinaria
                     catch
                     {
                         MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                      
                     }
                 }
                 else
                 {
                     MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    pr.NombreProducto= nombrePrOriginal;
-                    pr.NombreMarca= marcaPrOriginal;
+                    pr.NombreProducto = pr.NombreProducto;
+                    pr.NombreMarca = pr.NombreMarca;
                 }
             }
         }
@@ -200,5 +201,9 @@ namespace ClinicaVeterinaria
         {
             main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
         }
+
+        
+        //para devolver los valores con los que entro el producto a la ventana
+
     }
 }
