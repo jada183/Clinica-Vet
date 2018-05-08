@@ -24,7 +24,7 @@ namespace ClinicaVeterinaria
     {
         UnityOfWork uow = new UnityOfWork();
         //variables usadas en la gestion de producto
-            private Producto productoSelect = new Producto();
+            
             private List<Producto> productosDtGrid = new List<Producto>();
             private Producto prodSelect = new Producto();
 
@@ -60,8 +60,15 @@ namespace ClinicaVeterinaria
         }
         private void btEditarProd_Click(object sender, RoutedEventArgs e)
         {
-            FormProd fp = new FormProd(prodSelect, uow, this);
-            fp.Show();
+            if (prodSelect.NombreProducto != null)
+            {
+                FormProd fp = new FormProd(prodSelect, uow, this);
+                fp.Show();
+            }
+            else
+            {
+                MessageBox.Show("seleccione un producto");
+            }
         }
 
         private void dgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -71,6 +78,40 @@ namespace ClinicaVeterinaria
             fp.Show();
         }
 
+        private void btBorrarProd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este producto?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioProducto.eliminar(prodSelect);
+                        CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un producto");
+            }
+        }
         #endregion
 
 
