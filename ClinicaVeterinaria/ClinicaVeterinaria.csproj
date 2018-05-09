@@ -144,7 +144,6 @@
     <Compile Include="MODEL\PropertyValidateModel.cs" />
     <Compile Include="MODEL\Proveedor.cs" />
     <Compile Include="MODEL\Servicio.cs" />
-    <Compile Include="MODEL\ServicioOfrecido.cs" />
     <Compile Include="MODEL\Vacuna.cs" />
     <Compile Include="MODEL\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

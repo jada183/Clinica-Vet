@@ -24,7 +24,7 @@ namespace ClinicaVeterinaria.Migrations
                );
 
             context.Productos.AddOrUpdate(
-              new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProovedorId = 1, Tamaño = 0, Peso = 0, Stock = 0, Categoria = "alimento", Precio = 1, ProductoId = 1 }
+              new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProovedorId = 1, Tamaño = 0, Peso = 0, Stock = 0, Categoria = "Alimento", Precio = 1, ProductoId = 1 }
               );
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
