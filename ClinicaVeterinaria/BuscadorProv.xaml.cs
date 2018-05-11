@@ -55,7 +55,7 @@ namespace ClinicaVeterinaria
                
             }
         }
-        //muestra todos los proveedores en datagrid
+        //muestra todos los proveedores en datagrid de ventana
         private void btMostrarTodos_Click(object sender, RoutedEventArgs e)
         {
             listProv = uow.RepositorioProveedor.obtenerTodos();
