@@ -42,14 +42,18 @@ namespace ClinicaVeterinaria
             productosDtGrid = lp;
             dgProd.ItemsSource = productosDtGrid;
         }
+        public void CargarVentanaFormProd(Producto p)
+        {
+            FormProd fp = new FormProd(p, uow, this);
+            fp.Show();
+        }
         //eventos
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
         {
             Producto prod = new Producto();
-            FormProd fp = new FormProd(prod,uow,this);
-            fp.Show();
+            CargarVentanaFormProd(prod);
         }
-        private void dgProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DgProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -58,27 +62,33 @@ namespace ClinicaVeterinaria
             catch { }
             
         }
-        private void btEditarProd_Click(object sender, RoutedEventArgs e)
+        private void BtEditarProd_Click(object sender, RoutedEventArgs e)
         {
-            if (prodSelect.NombreProducto != null)
+            try
             {
-                FormProd fp = new FormProd(prodSelect, uow, this);
-                fp.Show();
-            }
-            else
+                if (prodSelect.NombreProducto != null)
+                {
+                    FormProd fp = new FormProd(prodSelect, uow, this);
+                    fp.Show();
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un producto");
+                }
+            }catch
             {
-                MessageBox.Show("seleccione un producto");
+                MessageBox.Show("seleccione un producto primero");
             }
+        
         }
 
-        private void dgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             prodSelect = (Producto)(dgProd.SelectedItem);
-            FormProd fp = new FormProd(prodSelect, uow, this);
-            fp.Show();
+            CargarVentanaFormProd(prodSelect);
         }
 
-        private void btBorrarProd_Click(object sender, RoutedEventArgs e)
+        private void BtBorrarProd_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -112,6 +122,72 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("seleccione un producto");
             }
         }
+        private void BtBucarList_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbBuscarListProd.Text == "Todos")
+            {
+                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+
+            }
+            else if (cbBuscarListProd.Text == "Marca")
+            {
+                try
+                {
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.NombreMarca == tbBuscadorList.Text));
+                }
+                catch { }
+            }
+            else if (cbBuscarListProd.Text == "Animal dirigido")
+            {
+                try
+                {
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.AnimalDirigido == tbBuscadorList.Text));
+                }
+                catch
+                {
+                }
+
+            }
+            else if (cbBuscarListProd.Text == "Sin stock")
+            {
+                try
+                {
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Stock == 0));
+                }
+                catch { }
+            }
+            else if (cbBuscarListProd.Text == "Categoria")
+            {
+                try
+                {
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Categoria == tbBuscadorList.Text));
+                }
+                catch { }
+            }
+            tbBuscadorList.Text = "";
+        }
+        private void BtBuscarProd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Producto aux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == tbBuscadorProdNombre.Text && c.NombreMarca==tbBuscadorProdMarca.Text);
+                if (aux.ProductoId != 0)
+                {
+                    prodSelect = aux;
+                    CargarVentanaFormProd(prodSelect);
+
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ningun producto con ese nombre y esa marca");
+                }
+            }
+            catch{
+                MessageBox.Show("no se ha encontrado ningun producto con ese nombre y esa marca");
+            }
+        }
+
+
         #endregion
 
 

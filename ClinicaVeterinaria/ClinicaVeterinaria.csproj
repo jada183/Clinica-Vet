@@ -115,7 +115,6 @@
     <Compile Include="DAL\RepositorioProducto.cs" />
     <Compile Include="DAL\RepositorioProveedor.cs" />
     <Compile Include="DAL\RepositorioServicio.cs" />
-    <Compile Include="DAL\RepositorioServicioOfrecido.cs" />
     <Compile Include="DAL\RepositorioVacuna.cs" />
     <Compile Include="DAL\RepositorioVenta.cs" />
     <Compile Include="DAL\UnityOfWork.cs" />

@@ -86,18 +86,19 @@
                                 <ComboBoxItem Content="Marca"></ComboBoxItem>
                                 <ComboBoxItem Content="Animal dirigido"></ComboBoxItem>
                                 <ComboBoxItem Content="Sin stock"></ComboBoxItem>
-
+                                <ComboBoxItem Content="Categoria"></ComboBoxItem>
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorList" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="btBucarList">
+                            <Button   Margin="5,5,5,5" x:Name="btBucarList" Click="BtBucarList_Click">
                                 <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
 
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
-                            <Label Content="Nombre del producto" Margin="5,5,5,5"></Label>
-                            <TextBox x:Name="tbBuscadorProd" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button x:Name="btBuscarProd"   Margin="5,5,5,5">
+                            <Label Content="Nombre y marca" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorProdNombre" Width="250"   Margin="5,5,5,5"></TextBox>
+                            <TextBox x:Name="tbBuscadorProdMarca" Width="250" Margin="5,5,5,5"></TextBox>
+                            <Button x:Name="btBuscarProd"   Margin="5,5,5,5" Click="BtBuscarProd_Click">
                                 <Image x:Name="imgBuscarProd" Source="Imagenes/lupa.png"></Image>
                             </Button>
                         </StackPanel>
@@ -105,14 +106,14 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="BtAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd" Click="btBorrarProd_Click">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd" Click="BtBorrarProd_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProd" Click="btEditarProd_Click">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProd" Click="BtEditarProd_Click">
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="dgProd_SelectionChanged" MouseDoubleClick="dgProd_MouseDoubleClick" IsReadOnly="True">
+                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=NombreProducto}"/>
                                 <DataGridTextColumn Header="Categoria" Width="2*" Binding="{Binding Path=Categoria}"/>
