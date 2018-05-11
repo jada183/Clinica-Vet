@@ -117,13 +117,13 @@ namespace ClinicaVeterinaria
                 else
                 {
                     MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    pr.NombreProducto = pr.NombreProducto;
-                    pr.NombreMarca = pr.NombreMarca;
+                    pr.NombreProducto = prNombreOrigen;
+                    pr.NombreMarca = prMarcaOrigen;
                 }
             }
         }
 
-        private void btImgProd_Click(object sender, RoutedEventArgs e)
+        private void BtImgProd_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -169,7 +169,7 @@ namespace ClinicaVeterinaria
             catch { }
         }
 
-        private void btEliminarProd_Click(object sender, RoutedEventArgs e)
+        private void BtEliminarProd_Click(object sender, RoutedEventArgs e)
         {
             try
             {

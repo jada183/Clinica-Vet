@@ -36,11 +36,11 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-
+                <RowDefinition Height="1*"/>
 
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Datos del producto" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" VerticalAlignment="Center"/>
-            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left" Click="btImgProd_Click">
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left" Click="BtImgProd_Click" Grid.RowSpan="2" VerticalAlignment="Top">
 
                 <Image x:Name="imgProd" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" Stretch="Fill" Margin="5,5,5,5" />
 
@@ -63,7 +63,7 @@
             <Label Content="Stock" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
             <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Stock, Mode=TwoWay}"></TextBox>
             <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom"/>
+            <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
             <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbCatProd" Text="{Binding Path=Categoria, Mode=TwoWay}">
 
                 <ComboBoxItem Content="Alimento"></ComboBoxItem>
@@ -72,14 +72,14 @@
 
             </ComboBox>
 
-            <Label Content="Proveedor" Grid.Column="3" Grid.Row="7" VerticalAlignment="Bottom"  Margin="10,10,10,10"/>
-            <TextBox x:Name="ProvProd" Grid.Column="4" Grid.Row="7" Margin="10,10,10,10" IsEnabled="False" Text="{Binding Path=Proveedor.Email}"></TextBox>
-            <Button   Margin="4.6,0,51.6,9.8" x:Name="btBucarProv" Grid.Column="5" Grid.Row="7" VerticalAlignment="Bottom" Height="27" Background="#fff" Click="BtBucarProv_Click">
+            <Label Content="Proveedor" Grid.Column="0" Grid.Row="8" VerticalAlignment="Bottom"  Margin="10,10,10,10"/>
+            <TextBox x:Name="ProvProd" Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" IsEnabled="False" Text="{Binding Path=Proveedor.Email}" Grid.ColumnSpan="4"></TextBox>
+            <Button   Margin="4.6,0,51.6,9.8" x:Name="btBucarProv" Grid.Column="5" Grid.Row="8" VerticalAlignment="Bottom" Height="27" Width="45" Background="#fff" HorizontalAlignment="Left" Click="BtBucarProv_Click">
                 <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
             </Button>
 
-            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
-            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="btEliminarProd_Click" />
+            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="9" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
+            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="9" Margin="10,10,10,10" Click="BtEliminarProd_Click" />
 
         </Grid>
 
