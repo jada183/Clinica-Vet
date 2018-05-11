@@ -27,12 +27,17 @@ namespace ClinicaVeterinaria
     public partial class FormProd : Window
     {
         UnityOfWork uow;
-        CultureInfo ci = new CultureInfo("Es-Es");
+
         Producto pr= new Producto();//producto local
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
         MainWindow main = new MainWindow();//la mainwindows local
+        Proveedor prov = new Proveedor();//proveedor del producto que lo cargaremos desde otra ventana
+        //variables del producto
         string prNombreOrigen = "";
         string prMarcaOrigen="";
+
+
+      
         public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
         {
 
@@ -134,6 +139,7 @@ namespace ClinicaVeterinaria
 
                         string directorioImagenDestino = @"Imagenes\" + directorioImagen;
 
+
                         FileInfo f = new FileInfo(directorioImagen);
 
                         if (!File.Exists(Environment.CurrentDirectory + "\\" + directorioImagenDestino))
@@ -158,6 +164,7 @@ namespace ClinicaVeterinaria
                 {
                     System.Windows.MessageBox.Show("No se ha cargado ninguna imagen");
                 }
+
             }
             catch { }
         }
@@ -202,7 +209,13 @@ namespace ClinicaVeterinaria
             main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
         }
 
-        
+
+        private void BtBucarProv_Click(object sender, RoutedEventArgs e)
+        {
+            BuscadorProv bp = new BuscadorProv(pr,uow);
+            bp.Show();
+        }
+
         //para devolver los valores con los que entro el producto a la ventana
 
     }

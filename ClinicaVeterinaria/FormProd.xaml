@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         mc:Ignorable="d"
-        Title="FormProd" Height="820" Width="800"
+        Title="FormProd" Height="820" Width="850"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-               
+
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/> 
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
 
 
@@ -65,18 +65,19 @@
             <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom"/>
             <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbCatProd" Text="{Binding Path=Categoria, Mode=TwoWay}">
-               
+
                 <ComboBoxItem Content="Alimento"></ComboBoxItem>
                 <ComboBoxItem Content="Accesorio"></ComboBoxItem>
                 <ComboBoxItem Content="Medicamento"></ComboBoxItem>
-         
+
             </ComboBox>
-            <Label Content="Proveedor" Grid.Column="3" Grid.Row="7" VerticalAlignment="Bottom"/>
-            <ComboBox Grid.Column="4" Grid.Row="7" Margin="10,10,10,10" x:Name="cbProvProd">
-                <ComboBoxItem Content="Alimento"></ComboBoxItem>
-                <ComboBoxItem Content="Accesorio"></ComboBoxItem>
-                <ComboBoxItem Content="Medicamento"></ComboBoxItem>
-            </ComboBox>
+
+            <Label Content="Proveedor" Grid.Column="3" Grid.Row="7" VerticalAlignment="Bottom"  Margin="10,10,10,10"/>
+            <TextBox x:Name="ProvProd" Grid.Column="4" Grid.Row="7" Margin="10,10,10,10" IsEnabled="False" Text="{Binding Path=Proveedor.Email}"></TextBox>
+            <Button   Margin="4.6,0,51.6,9.8" x:Name="btBucarProv" Grid.Column="5" Grid.Row="7" VerticalAlignment="Bottom" Height="27" Background="#fff" Click="BtBucarProv_Click">
+                <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
+            </Button>
+
             <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
             <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="btEliminarProd_Click" />
 
