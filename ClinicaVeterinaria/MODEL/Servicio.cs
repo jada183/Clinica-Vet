@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace ClinicaVeterinaria.MODEL
         }
 
         public int ServicioId { get; set; }
+
+        [Required(ErrorMessage = "No te olvides del nombre del servicio")]
         public string Nombre { get; set; }
         public double CosteServicio { get; set; }
         public string Descripcion { get; set; }

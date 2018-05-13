@@ -32,19 +32,25 @@ namespace ClinicaVeterinaria
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
         MainWindow main = new MainWindow();//la mainwindows local
         Proveedor prov = new Proveedor();//proveedor del producto que lo cargaremos desde otra ventana
-        //variables del producto
+        bool modificado = false;//comprueba que el producto fue modificado correctamente para no reinicializarlo
+        //variables del producto cuando inicia
         string prNombreOrigen = "";
         string prMarcaOrigen="";
+        string prImagenOrige = "";
+        string prAnimalDirigido = "";
+        double prTamañoOrigen;
+        double prPesoOrigen;
+        double prPrecioOrigen;
+        int prStockOrigen;
+        string prcategoriaOrigen="";
+        Proveedor prOrigen = new Proveedor();
 
-
-      
         public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
         {
 
             InitializeComponent();
             pr = prod;//el producto que paso por parametro lo asigno a una variable local
-            prNombreOrigen = pr.NombreProducto;
-            prMarcaOrigen = pr.NombreMarca;
+            GuardarrValoresProdEntrada();
             main = mw;//asigno a una variable local la main window que paso por parametro
             uow = uw;//la unity que deben tener en comun ambas ventanas
          
@@ -78,6 +84,7 @@ namespace ClinicaVeterinaria
 
                         uow.RepositorioProducto.crear(pr);
                         MessageBox.Show("se ha guardado correctamente el producto");
+                        modificado = true;
                         main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
 
                         this.Close();
@@ -85,11 +92,13 @@ namespace ClinicaVeterinaria
                     catch
                     {
                         MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        RecuperarValoresProdEntrada();
                     }
                 }
                 else
                 {
                     MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
+                    RecuperarValoresProdEntrada();
                 }
             }
             //modificar
@@ -104,6 +113,7 @@ namespace ClinicaVeterinaria
 
                         uow.RepositorioProducto.actualizar(pr);
                         MessageBox.Show("se ha modificado correctamente el producto");
+                        modificado = true;
                         main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
 
                         this.Close();
@@ -111,14 +121,14 @@ namespace ClinicaVeterinaria
                     catch
                     {
                         MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
-                      
+                        RecuperarValoresProdEntrada();
                     }
                 }
                 else
                 {
                     MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    pr.NombreProducto = prNombreOrigen;
-                    pr.NombreMarca = prMarcaOrigen;
+                    RecuperarValoresProdEntrada();
+
                 }
             }
         }
@@ -206,6 +216,10 @@ namespace ClinicaVeterinaria
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            if (modificado == false)
+            {
+                RecuperarValoresProdEntrada();
+            }
             main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
         }
 
@@ -215,6 +229,35 @@ namespace ClinicaVeterinaria
             BuscadorProv bp = new BuscadorProv(pr,uow);
             bp.Show();
         }
+        public void GuardarrValoresProdEntrada()
+        {
+
+            prNombreOrigen = pr.NombreProducto;
+            prMarcaOrigen = pr.NombreMarca;
+            prImagenOrige = pr.Imagen;
+            prAnimalDirigido = pr.AnimalDirigido;
+            prTamañoOrigen = pr.Tamaño;
+            prPesoOrigen = pr.Peso;
+            prPrecioOrigen = pr.Precio;
+            prStockOrigen = pr.Stock;
+            prcategoriaOrigen = pr.Categoria;
+        }
+        public void RecuperarValoresProdEntrada()
+        {
+
+            pr.NombreProducto= prNombreOrigen;
+            pr.NombreMarca = prMarcaOrigen;
+            pr.Imagen = prImagenOrige;
+            pr.AnimalDirigido = prAnimalDirigido;
+            pr.Tamaño = prTamañoOrigen;
+            pr.Peso = prTamañoOrigen;
+            pr.Precio = prPrecioOrigen;
+            pr.Stock = prStockOrigen;
+            pr.Categoria = prcategoriaOrigen;
+        }
+
+
+
 
         //para devolver los valores con los que entro el producto a la ventana
 
