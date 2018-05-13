@@ -127,9 +127,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201805131523166_initial.cs" />
-    <Compile Include="Migrations\201805131523166_initial.Designer.cs">
-      <DependentUpon>201805131523166_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201805131542245_initial.cs" />
+    <Compile Include="Migrations\201805131542245_initial.Designer.cs">
+      <DependentUpon>201805131542245_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MODEL\Cita.cs" />
@@ -158,8 +158,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201805131523166_initial.resx">
-      <DependentUpon>201805131523166_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805131542245_initial.resx">
+      <DependentUpon>201805131542245_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

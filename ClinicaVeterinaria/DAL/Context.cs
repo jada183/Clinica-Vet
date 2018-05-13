@@ -48,7 +48,7 @@ namespace ClinicaVeterinaria.DAL
                    );
 
                 context.Productos.AddOrUpdate(
-                  new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProovedorId = 1, Tamaño = 0, Peso = 0, Stock = 0 ,Categoria="Alimento",Precio=1,ProductoId=1}
+                  new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProveedorId = 1, Tamaño = 0, Peso = 0, Stock = 0 ,Categoria="Alimento",Precio=1,ProductoId=1}
                   );
                 context.Servicios.AddOrUpdate(
                     new Servicio{ ServicioId=1, Nombre="servicio prueba", Descripcion="descripcion de prueba", CosteServicio=10.55,Tiempo=30 }

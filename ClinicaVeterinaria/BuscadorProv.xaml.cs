@@ -32,6 +32,7 @@ namespace ClinicaVeterinaria
             prod= p;
             listProv = uow.RepositorioProveedor.obtenerTodos();
             dgProveedor.ItemsSource = listProv;
+            uow=uw;
         }
         //carga el proveedor en el datagrid
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -76,8 +77,8 @@ namespace ClinicaVeterinaria
             try
             {
                 prov = (Proveedor)(dgProveedor.SelectedItem);
-                prod.Proveedor = prov;
-                prod.ProovedorId = prov.ProveedorId;
+                prod.ProveedorId = prov.ProveedorId;
+                prod.Proveedor = uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
                 this.Close();
             }
             catch { }
@@ -87,8 +88,9 @@ namespace ClinicaVeterinaria
         {
             if (prov != null)
             {
-                prod.Proveedor = prov;
-                prod.ProovedorId = prov.ProveedorId;
+                
+                prod.ProveedorId = prov.ProveedorId;
+                prod.Proveedor = uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
                 this.Close();
             }
             else
