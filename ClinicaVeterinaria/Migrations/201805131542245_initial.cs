@@ -3,7 +3,7 @@ namespace ClinicaVeterinaria.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,7 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         CitaId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
-                        Hora = c.String(),
+                        Hora = c.String(nullable: false),
                         PacienteId = c.Int(),
                         EmpleadoId = c.String(),
                         ServicioId = c.Int(),
@@ -34,16 +34,16 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         PacienteId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                        Especie = c.String(),
+                        Nombre = c.String(nullable: false),
+                        Especie = c.String(nullable: false),
                         Raza = c.String(),
                         Peso = c.Double(nullable: false),
                         Altura = c.Double(nullable: false),
-                        Edad = c.DateTime(nullable: false),
-                        Sexo = c.String(),
+                        FechaNacimiento = c.DateTime(nullable: false),
+                        Imagen = c.String(),
+                        Sexo = c.String(nullable: false),
                         Ingresado = c.Boolean(nullable: false),
                         ClienteId = c.Int(nullable: false),
-                        Imagen = c.String(),
                     })
                 .PrimaryKey(t => t.PacienteId)
                 .ForeignKey("dbo.Cliente", t => t.ClienteId, cascadeDelete: true)
@@ -56,7 +56,7 @@ namespace ClinicaVeterinaria.Migrations
                         HistorialClinicoId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
                         PacienteId = c.Int(),
-                        Enfermedad = c.String(),
+                        Enfermedad = c.String(nullable: false),
                         Detalles = c.String(),
                         EmpleadoId = c.String(),
                         Empleado_Usuario = c.String(maxLength: 128),
@@ -72,15 +72,15 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         Usuario = c.String(nullable: false, maxLength: 128),
-                        Tipo = c.String(),
-                        Nombre = c.String(),
-                        Apellidos = c.String(),
+                        Tipo = c.String(nullable: false),
+                        Nombre = c.String(nullable: false),
+                        Apellidos = c.String(nullable: false),
                         Telefono = c.String(),
                         Movil = c.String(),
                         Titulacion = c.String(),
                         Direccion = c.String(),
-                        Email = c.String(),
-                        Contraseña = c.String(),
+                        Email = c.String(nullable: false),
+                        Contraseña = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Usuario);
             
@@ -89,9 +89,9 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         HorarioId = c.Int(nullable: false, identity: true),
-                        Dia = c.String(),
-                        HoraInic = c.String(),
-                        HoraFin = c.String(),
+                        Dia = c.String(nullable: false),
+                        HoraInic = c.String(nullable: false),
+                        HoraFin = c.String(nullable: false),
                         EmpleadoId = c.String(),
                         Empleado_Usuario = c.String(maxLength: 128),
                     })
@@ -105,7 +105,7 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         VacunaId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
-                        Nombre = c.String(),
+                        Nombre = c.String(nullable: false),
                         PacienteId = c.Int(),
                         EmpleadoId = c.String(),
                         Empleado_Usuario = c.String(maxLength: 128),
@@ -137,12 +137,12 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         ClienteId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                        Apellidos = c.String(),
+                        Nombre = c.String(nullable: false),
+                        Apellidos = c.String(nullable: false),
                         Telefono = c.String(),
                         Movil = c.String(),
                         Direccion = c.String(),
-                        Email = c.String(),
+                        Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ClienteId);
             
@@ -167,31 +167,31 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         ProductoId = c.Int(nullable: false, identity: true),
                         Precio = c.Double(nullable: false),
-                        NombreProducto = c.String(),
-                        NombreMarca = c.String(),
+                        NombreProducto = c.String(nullable: false, maxLength: 25),
+                        NombreMarca = c.String(nullable: false, maxLength: 25),
                         AnimalDirigido = c.String(),
                         Peso = c.Double(nullable: false),
                         Tamaño = c.Double(nullable: false),
                         Imagen = c.String(),
                         Stock = c.Int(nullable: false),
-                        ProovedorId = c.Int(),
-                        Proveedor_ProveedorId = c.Int(),
+                        Categoria = c.String(),
+                        ProveedorId = c.Int(),
                     })
                 .PrimaryKey(t => t.ProductoId)
-                .ForeignKey("dbo.Proveedor", t => t.Proveedor_ProveedorId)
-                .Index(t => t.Proveedor_ProveedorId);
+                .ForeignKey("dbo.Proveedor", t => t.ProveedorId)
+                .Index(t => t.ProveedorId);
             
             CreateTable(
                 "dbo.Proveedor",
                 c => new
                     {
                         ProveedorId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                        Apellidos = c.String(),
+                        Nombre = c.String(nullable: false),
+                        Apellidos = c.String(nullable: false),
                         Telefono = c.String(),
                         Movil = c.String(),
                         Direccion = c.String(),
-                        Email = c.String(),
+                        Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ProveedorId);
             
@@ -200,7 +200,7 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         ServicioId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
+                        Nombre = c.String(nullable: false),
                         CosteServicio = c.Double(nullable: false),
                         Descripcion = c.String(),
                         Tiempo = c.Int(nullable: false),
@@ -214,7 +214,7 @@ namespace ClinicaVeterinaria.Migrations
             DropForeignKey("dbo.Cita", "ServicioId", "dbo.Servicio");
             DropForeignKey("dbo.HistorialClinico", "PacienteId", "dbo.Paciente");
             DropForeignKey("dbo.LineaVenta", "VentaId", "dbo.Venta");
-            DropForeignKey("dbo.Producto", "Proveedor_ProveedorId", "dbo.Proveedor");
+            DropForeignKey("dbo.Producto", "ProveedorId", "dbo.Proveedor");
             DropForeignKey("dbo.LineaVenta", "ProductoId", "dbo.Producto");
             DropForeignKey("dbo.Venta", "EmpleadoVenta_Usuario", "dbo.Empleado");
             DropForeignKey("dbo.Paciente", "ClienteId", "dbo.Cliente");
@@ -225,7 +225,7 @@ namespace ClinicaVeterinaria.Migrations
             DropForeignKey("dbo.HistorialClinico", "Empleado_Usuario", "dbo.Empleado");
             DropForeignKey("dbo.Cita", "Sanitario_Usuario", "dbo.Empleado");
             DropForeignKey("dbo.Cita", "PacienteId", "dbo.Paciente");
-            DropIndex("dbo.Producto", new[] { "Proveedor_ProveedorId" });
+            DropIndex("dbo.Producto", new[] { "ProveedorId" });
             DropIndex("dbo.LineaVenta", new[] { "VentaId" });
             DropIndex("dbo.LineaVenta", new[] { "ProductoId" });
             DropIndex("dbo.Venta", new[] { "EmpleadoVenta_Usuario" });

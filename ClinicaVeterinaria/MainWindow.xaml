@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"  x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="489.182" Width="790"
+        Title="MainWindow" Height="489.182" Width="810"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip"     
+        ResizeMode="CanResizeWithGrip"
+        WindowState="Maximized"
         >
     <Grid x:Name="gridPrueba">
 
@@ -85,30 +86,45 @@
                                 <ComboBoxItem Content="Marca"></ComboBoxItem>
                                 <ComboBoxItem Content="Animal dirigido"></ComboBoxItem>
                                 <ComboBoxItem Content="Sin stock"></ComboBoxItem>
-
+                                <ComboBoxItem Content="Categoria"></ComboBoxItem>
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorList" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="btBucarList">
+                            <Button   Margin="5,5,5,5" x:Name="btBucarList" Click="BtBucarList_Click">
                                 <Image x:Name="imgBuscarListProd" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
 
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
-                            <Label Content="Nombre del producto" Margin="5,5,5,5"></Label>
-                            <TextBox x:Name="tbBuscadorProd" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button x:Name="btBuscarProd"   Margin="5,5,5,5">
+                            <Label Content="Nombre y marca" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorProdNombre" Width="250"   Margin="5,5,5,5"></TextBox>
+                            <TextBox x:Name="tbBuscadorProdMarca" Width="250" Margin="5,5,5,5"></TextBox>
+                            <Button x:Name="btBuscarProd"   Margin="5,5,5,5" Click="BtBuscarProd_Click">
                                 <Image x:Name="imgBuscarProd" Source="Imagenes/lupa.png"></Image>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="btAgregarProd_Click">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProd" Click="BtAgregarProd_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd">
-                                <Image x:Name="imgBorrarHor" Source="Imagenes/delete.png"></Image>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProd" Click="BtBorrarProd_Click">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProd" Click="BtEditarProd_Click">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProd" Margin="10,10,10,15"  />
+                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=NombreProducto}"/>
+                                <DataGridTextColumn Header="Categoria" Width="2*" Binding="{Binding Path=Categoria}"/>
+                                <DataGridTextColumn Header="Marca" Width="2*"  Binding="{Binding Path=NombreMarca}"/>
+                                <DataGridTextColumn Header="Animal dirigido" Width="2*" Binding="{Binding Path=AnimalDirigido}"/>
+                                <DataGridTextColumn Header="Tamaño" Width="*" Binding="{Binding Path=Tamaño}"/>
+                                <DataGridTextColumn Header="Peso" Width="*" Binding="{Binding Path=Peso}"/>
+                                <DataGridTextColumn Header="Stock" Width="*" Binding="{Binding Path=Stock}"/>
+                                <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=Precio}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </DockPanel>
                 </TabItem>
@@ -120,7 +136,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-
+                    
                     </DockPanel>
                 </TabItem>
             </TabControl>

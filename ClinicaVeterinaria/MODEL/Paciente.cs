@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,10 @@ namespace ClinicaVeterinaria.MODEL
         }
 
         public int PacienteId { get; set; }
+        [Required(ErrorMessage = "No te olvides del nombre")]
         public string Nombre { get; set; }
 
+        [Required(ErrorMessage = "No te olvides de la especie")]
         public string Especie { get; set; }
 
         public string Raza { get; set; }
@@ -30,8 +33,11 @@ namespace ClinicaVeterinaria.MODEL
         public double Altura { get; set; }
        
 
-        public DateTime Edad { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
+        public string Imagen { get; set; }
+
+        [Required(ErrorMessage = "No te olvides del sexo")]
         public string Sexo { get; set; }       
 
         public bool Ingresado { get; set; }
@@ -45,11 +51,6 @@ namespace ClinicaVeterinaria.MODEL
 
         public ICollection<Vacuna> Vacunas { get; set; }
     
-        
-
-        public string Imagen { get; set; }
-
-
     }
    
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,16 +16,22 @@ namespace ClinicaVeterinaria.MODEL
         }
         public int ProveedorId { get; set; }
 
+        [Required(ErrorMessage = "No te olvides del nombre")]
         public string Nombre { get; set; }
 
+        [Required(ErrorMessage = "No te olvides de los apellidos")]
         public string Apellidos { get; set; }
 
+        [DataType(DataType.PhoneNumber, ErrorMessage = "El telefono no es valido")]
         public string Telefono { get; set; }
 
+        [DataType(DataType.PhoneNumber, ErrorMessage = "El telefono movil no es valido")]
         public string Movil { get; set; }
 
         public string Direccion { get; set; }
 
+        [Required(ErrorMessage = "No te olvides del correo")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "El email no es valido")]
         public string Email { get; set; }
 
         public ICollection<Producto> Productos { get; set; }
