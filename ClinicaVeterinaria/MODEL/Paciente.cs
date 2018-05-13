@@ -33,7 +33,7 @@ namespace ClinicaVeterinaria.MODEL
         public double Altura { get; set; }
        
 
-        public DateTime Edad { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
         public string Imagen { get; set; }
 

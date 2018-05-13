@@ -36,6 +36,7 @@ namespace ClinicaVeterinaria.MODEL
         public string Imagen { get; set; }
         public int Stock { get; set; } 
         public string Categoria { get; set; }
+
         public virtual Proveedor Proveedor{ get; set; }
         public int? ProovedorId { get; set; }
     }
