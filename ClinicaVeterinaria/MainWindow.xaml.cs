@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
-
+using ClinicaVeterinaria.Service;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -23,10 +23,14 @@ namespace ClinicaVeterinaria
     public partial class MainWindow : Window
     {
         UnityOfWork uow = new UnityOfWork();
-        //variables usadas en la gestion de producto
-            
-            private List<Producto> productosDtGrid = new List<Producto>();
-            private Producto prodSelect = new Producto();
+
+        //variables usadas en la gestion de producto     
+        private List<Producto> productosDtGrid = new List<Producto>();
+        private Producto prodSelect = new Producto();
+
+        //variables usadas para la gestion de servicios
+        private List<Servicio> servicios = new List<Servicio>();
+        private Servicio serviSelect = new Servicio();
 
         public MainWindow()
         {
@@ -189,6 +193,24 @@ namespace ClinicaVeterinaria
         }
 
 
+        #endregion
+        #region Servicio
+        //metodos
+        public void CargardgServicio(List<Servicio> sv)
+        {
+            servicios = sv;
+            dgServicios.ItemsSource = servicios;
+        }
+        public void CargarVentanaFormServ(Servicio s)
+        {
+            FormService fs = new Service.FormService(s,uow,this);
+            fs.Show();
+        }
+        private void BtAgregarServ_Click(object sender, RoutedEventArgs e)
+        {
+            Servicio  serv= new Servicio();
+            CargarVentanaFormServ(serv);
+        }
         #endregion
 
 
