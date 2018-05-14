@@ -166,6 +166,7 @@ namespace ClinicaVeterinaria
             }
             tbBuscadorList.Text = "";
         }
+
         private void BtBuscarProd_Click(object sender, RoutedEventArgs e)
         {
             try

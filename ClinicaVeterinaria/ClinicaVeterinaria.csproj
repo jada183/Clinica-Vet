@@ -84,11 +84,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BuscadorProv.xaml">
+    <Page Include="Prod\BuscadorProv.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormProd.xaml">
+    <Page Include="Prod\FormProd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,7 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BuscadorProv.xaml.cs">
+    <Compile Include="Prod\BuscadorProv.xaml.cs">
       <DependentUpon>BuscadorProv.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL\Context.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="DAL\RepositorioVacuna.cs" />
     <Compile Include="DAL\RepositorioVenta.cs" />
     <Compile Include="DAL\UnityOfWork.cs" />
-    <Compile Include="FormProd.xaml.cs">
+    <Compile Include="Prod\FormProd.xaml.cs">
       <DependentUpon>FormProd.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
