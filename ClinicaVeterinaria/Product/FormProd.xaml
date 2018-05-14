@@ -14,12 +14,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="665*"/>
-            <ColumnDefinition Width="28*"/>
-            <ColumnDefinition Width="149*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="gridProductoSelect"  Margin="10,10,10,10" Grid.ColumnSpan="3">
+       
+        <Grid x:Name="gridProductoSelect"  Margin="10,10,10,10">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>

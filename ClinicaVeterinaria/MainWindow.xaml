@@ -142,7 +142,7 @@
                             <Label Content="Nombre" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorServNombre" Width="450" Margin="5,5,5,5"></TextBox>
                             
-                            <Button x:Name="btBuscarServ"   Margin="5,5,5,5">
+                            <Button x:Name="btBuscarServ"   Margin="5,5,5,5" Click="BtBuscarServ_Click">
                                 <Image Source="Imagenes/lupa.png"></Image>
                             </Button>
                         </StackPanel>
@@ -153,11 +153,11 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarServ">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarServ">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarServ" Click="btEditarServ_Click">
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgServicios" Margin="10,10,10,15" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                        <DataGrid x:Name="dgServ" Margin="10,10,10,15" AutoGenerateColumns="False"  IsReadOnly="True" SelectionChanged="DgServicios_SelectionChanged" MouseDoubleClick="DgServ_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="3*" Binding="{Binding Path=Nombre}"/>
                                 <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=CosteServicio}"/>

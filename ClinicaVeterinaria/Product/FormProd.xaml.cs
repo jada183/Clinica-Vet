@@ -43,7 +43,7 @@ namespace ClinicaVeterinaria
         double prPrecioOrigen;
         int prStockOrigen;
         string prcategoriaOrigen="";
-        Proveedor prOrigen = new Proveedor();
+       
 
         public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
         {

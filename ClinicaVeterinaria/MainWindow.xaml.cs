@@ -35,8 +35,9 @@ namespace ClinicaVeterinaria
         public MainWindow()
         {
             InitializeComponent();
-            //carga inicial de producto
-                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+            //carga de datos inicial    
+            CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+            CargardgServicio(uow.RepositorioServicio.obtenerTodos());
 
         }
         #region Producto
@@ -72,8 +73,7 @@ namespace ClinicaVeterinaria
             {
                 if (prodSelect.NombreProducto != null)
                 {
-                    FormProd fp = new FormProd(prodSelect, uow, this);
-                    fp.Show();
+                    CargarVentanaFormProd(prodSelect);
                 }
                 else
                 {
@@ -199,18 +199,74 @@ namespace ClinicaVeterinaria
         public void CargardgServicio(List<Servicio> sv)
         {
             servicios = sv;
-            dgServicios.ItemsSource = servicios;
+            dgServ.ItemsSource = servicios;
         }
         public void CargarVentanaFormServ(Servicio s)
         {
             FormService fs = new Service.FormService(s,uow,this);
             fs.Show();
         }
+        //eventos
         private void BtAgregarServ_Click(object sender, RoutedEventArgs e)
         {
             Servicio  serv= new Servicio();
             CargarVentanaFormServ(serv);
         }
+        private void DgServicios_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                serviSelect = (Servicio)(dgServ.SelectedItem);
+            }
+            catch { }
+        }
+        private void DgServ_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            serviSelect = (Servicio)(dgServ.SelectedItem);
+            CargarVentanaFormServ(serviSelect);
+        }
+
+        private void BtBuscarServ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text);
+                if (aux.ServicioId != 0)
+                {
+                    serviSelect = aux;
+                    CargarVentanaFormServ(serviSelect);
+
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ningun producto con ese nombre y esa marca");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun producto con ese nombre y esa marca");
+            }
+        }
+
+        private void btEditarServ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (serviSelect.Nombre != null)
+                {
+                    CargarVentanaFormServ(serviSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un servicio");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un servicio");
+            }
+        }
+
         #endregion
 
 
