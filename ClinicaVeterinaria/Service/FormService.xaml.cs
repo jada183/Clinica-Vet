@@ -169,5 +169,14 @@ namespace ClinicaVeterinaria.Service
                 MessageBox.Show("Error no se ha podido borrar este producto");
             }
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (modificado == false)
+            {
+                RecuperarValoresServEntrada();
+            }
+            main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+        }
     }
 }

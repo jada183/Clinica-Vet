@@ -166,6 +166,44 @@
                         </DataGrid>
                     </DockPanel>
                 </TabItem>
+                <TabItem  x:Name="tabProv"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/proveedorIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Proveedores" FontSize="18"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel LastChildFill="True">
+                        <Label Content="Proveedores" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <Label Content="Nombre" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorProvNombre" Width="450"   Margin="5,5,5,5"></TextBox>
+                           
+                            <Button x:Name="btBuscarProv"   Margin="5,5,5,5" Click="BtBuscarProd_Click">
+                                <Image  Source="Imagenes/lupa.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarProv">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProv">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProv">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgProv" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
+                                <DataGridTextColumn Header="Email" Width="2*"  Binding="{Binding Path=Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </DockPanel>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>
