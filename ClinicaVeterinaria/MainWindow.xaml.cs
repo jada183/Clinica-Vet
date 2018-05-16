@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.Service;
+using ClinicaVeterinaria.proveed;
+
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -300,6 +302,16 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("seleccione un Servicio");
               
             }
+        }
+        #endregion
+
+        #region Proveedor
+
+        //eventos
+        private void BtAgregarProv_Click(object sender, RoutedEventArgs e)
+        {
+            FormProv fpv = new FormProv();
+            fpv.Show();
         }
         #endregion
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria.Service"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="ClinicaVeterinaria.Service.FormService"
         mc:Ignorable="d"
-        Title="FormService" Height="550" Width="800"
+        Title="FormService" Height="650" Width="800"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -47,7 +47,7 @@
             <Label Content="Descripción" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
             <TextBox x:Name="tbDescripcionServ" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Text="{Binding Descripcion, Mode=TwoWay}" Margin="10,10,10,10" MinLines="3" MaxLines="8" Grid.RowSpan="2" TextWrapping="Wrap"/>
             <Button x:Name="BtGuardarServ" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="6" Margin="5,10,5,10" Click="BtGuardarServ_Click"/>
-            <Button x:Name="BtEliminarServ" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="6" Margin="10,10,10,10" Click="BtEliminarServ_Click" />
+            <Button x:Name="BtEliminarServ" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="6" Margin="5,10,5,10" Click="BtEliminarServ_Click" />
         </Grid>
     </Grid>
 </Window>
