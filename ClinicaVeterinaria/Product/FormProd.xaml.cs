@@ -32,7 +32,7 @@ namespace ClinicaVeterinaria
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
         MainWindow main = new MainWindow();//la mainwindows local
         Proveedor prov = new Proveedor();//proveedor del producto que lo cargaremos desde otra ventana
-        bool modificado = false;//comprueba que el producto fue modificado correctamente para no reinicializarlo
+        bool modificado = false;//comprueba que el producto fue modificado correctamente para no reinicializar los valores
         //variables del producto cuando inicia
         string prNombreOrigen = "";
         string prMarcaOrigen="";
@@ -53,7 +53,7 @@ namespace ClinicaVeterinaria
             GuardarrValoresProdEntrada();
             main = mw;//asigno a una variable local la main window que paso por parametro
             uow = uw;//la unity que deben tener en comun ambas ventanas
-         
+            
             gridProductoSelect.DataContext = pr;
            
             //para identificar si es para crear un nuevo producto o para modificar uno existente
@@ -224,7 +224,7 @@ namespace ClinicaVeterinaria
         }
 
 
-        private void BtBucarProv_Click(object sender, RoutedEventArgs e)
+        private void BtBuscarProv_Click(object sender, RoutedEventArgs e)
         {
             BuscadorProv bp = new BuscadorProv(pr,uow);
             bp.Show();

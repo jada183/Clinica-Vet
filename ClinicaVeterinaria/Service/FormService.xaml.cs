@@ -97,9 +97,9 @@ namespace ClinicaVeterinaria.Service
                     {
 
                         uow.RepositorioServicio.actualizar(ser);
-                        MessageBox.Show("se ha modificado correctamente el producto");
+                        MessageBox.Show("se ha modificado correctamente el servicio");
                         modificado = true;
-                        main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                        main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
 
                         this.Close();
                     }
@@ -111,7 +111,7 @@ namespace ClinicaVeterinaria.Service
                 }
                 else
                 {
-                    MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
+                    MessageBox.Show("existe un servicio con el mismo nombre y marca ya registrado");
                     RecuperarValoresServEntrada();
 
                 }

@@ -176,10 +176,10 @@
                     <DockPanel LastChildFill="True">
                         <Label Content="Proveedores" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
-                            <Label Content="Nombre" Margin="5,5,5,5"></Label>
-                            <TextBox x:Name="tbBuscadorProvNombre" Width="450"   Margin="5,5,5,5"></TextBox>
+                            <Label Content="Email" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorProvEmail" Width="450"   Margin="5,5,5,5"></TextBox>
                            
-                            <Button x:Name="btBuscarProv"   Margin="5,5,5,5" Click="BtBuscarProd_Click">
+                            <Button x:Name="btBuscarProv"   Margin="5,5,5,5" Click="btBuscarProv_Click">
                                 <Image  Source="Imagenes/lupa.png"></Image>
                             </Button>
                         </StackPanel>
@@ -187,14 +187,14 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarProv" Click="BtAgregarProv_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProv">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProv" Click="BtBorrarProv_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProv">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProv" Click="BtEditarProv_Click">
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProv" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
+                        <DataGrid x:Name="dgProv" Margin="10,10,10,15" AutoGenerateColumns="False" IsReadOnly="True" SelectedIndex="0" SelectionChanged="DgProv_SelectionChanged" MouseDoubleClick="DgProv_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="*" Binding="{Binding Path=Nombre}"/>
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>

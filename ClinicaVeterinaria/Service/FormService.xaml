@@ -37,15 +37,15 @@
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Datos del servicio" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" VerticalAlignment="Center"/>
             <Label Content="Nombre" Grid.Column="0" Grid.Row="1" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbNombreProd" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="5" Text="{Binding Nombre, Mode=TwoWay}"/>
+            <TextBox x:Name="tbNombreProd" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="5" Text="{Binding Path=Nombre, Mode=TwoWay}"/>
             <Label Content="Precio" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Text="{Binding CosteServicio, Mode=TwoWay}"/>
+            <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" Text="{Binding Path=CosteServicio, Mode=TwoWay}"/>
             <Label Content="€" Grid.Column="2" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Duración" Grid.Column="3" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbDuracionServ" Grid.Column="4" Grid.Row="2" Margin="10,10,10,10" Text="{Binding Tiempo, Mode=TwoWay}"/>
+            <TextBox x:Name="tbDuracionServ" Grid.Column="4" Grid.Row="2" Margin="10,10,10,10" Text="{Binding Path=Tiempo, Mode=TwoWay}"/>
             <Label Content="min" Grid.Column="5" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Descripción" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbDescripcionServ" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Text="{Binding Descripcion, Mode=TwoWay}" Margin="10,10,10,10" MinLines="3" MaxLines="8" Grid.RowSpan="2" TextWrapping="Wrap"/>
+            <TextBox x:Name="tbDescripcionServ" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Text="{Binding Path=Descripcion, Mode=TwoWay}" Margin="10,10,10,10" MinLines="3" MaxLines="8" Grid.RowSpan="2" TextWrapping="Wrap"/>
             <Button x:Name="BtGuardarServ" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="6" Margin="5,10,5,10" Click="BtGuardarServ_Click"/>
             <Button x:Name="BtEliminarServ" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="6" Margin="5,10,5,10" Click="BtEliminarServ_Click" />
         </Grid>

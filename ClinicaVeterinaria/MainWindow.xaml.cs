@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.Service;
-using ClinicaVeterinaria.proveed;
+using ClinicaVeterinaria.Proveed;
 
 namespace ClinicaVeterinaria
 {
@@ -34,12 +34,17 @@ namespace ClinicaVeterinaria
         private List<Servicio> servicios = new List<Servicio>();
         private Servicio serviSelect = new Servicio();
 
+        //variables usadas para la gestion de proveedor
+        private List<Proveedor> proveedores = new List<Proveedor>();
+        private Proveedor provSelect= new Proveedor();
+
         public MainWindow()
         {
             InitializeComponent();
             //carga de datos inicial    
             CargardgProductos(uow.RepositorioProducto.obtenerTodos());
             CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+            CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
 
         }
         #region Producto
@@ -306,12 +311,109 @@ namespace ClinicaVeterinaria
         #endregion
 
         #region Proveedor
-
+        //metodos
+        public void CargarVentanaFormProv(Proveedor p)
+        {
+            FormProv fpv = new FormProv(p, uow, this);
+            fpv.Show();
+        }
         //eventos
         private void BtAgregarProv_Click(object sender, RoutedEventArgs e)
         {
-            FormProv fpv = new FormProv();
-            fpv.Show();
+            Proveedor proveedor = new Proveedor();
+            CargarVentanaFormProv(proveedor);
+        }
+        public void CargardgProveedor(List<Proveedor> lpv)
+        {
+           proveedores = lpv;
+           dgProv.ItemsSource = proveedores;
+        }
+        private void DgProv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                provSelect = (Proveedor)(dgProv.SelectedItem);
+            }
+            catch { }
+        }
+
+        private void DgProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            prodSelect = (Producto)(dgProd.SelectedItem);
+            CargarVentanaFormProv(provSelect);
+        }
+        private void BtEditarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (provSelect.Nombre != null)
+                {
+                    CargarVentanaFormProv(provSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un proveedor");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un proveedor primero");
+            }
+        }
+        private void BtBorrarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este proveedor?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioProveedor.eliminar(provSelect);
+                        CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un proveedor");
+            }
+        }
+        private void btBuscarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text);
+                if (aux.ProveedorId != 0)
+                {
+                    provSelect = aux;
+                    CargarVentanaFormProv(provSelect);
+
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ningun proveedor con ese email");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun proveedor con ese email");
+            }
         }
         #endregion
 
