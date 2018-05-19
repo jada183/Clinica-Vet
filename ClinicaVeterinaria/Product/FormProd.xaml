@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         mc:Ignorable="d"
-        Title="FormProd" Height="820" Width="800"
+        Title="FormProd" Height="850" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -38,10 +38,11 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
 
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Datos del producto" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6" VerticalAlignment="Center"/>
-            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120" MaxHeight="130" MinWidth="120" MinHeight="130" HorizontalAlignment="Left" Click="BtImgProd_Click" Grid.RowSpan="2" VerticalAlignment="Top">
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120"  MinWidth="120" MinHeight="115" HorizontalAlignment="Left" Click="BtImgProd_Click" Grid.RowSpan="2" VerticalAlignment="Top">
 
                 <Image x:Name="imgProd" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" Stretch="Fill" Margin="5,5,5,5" />
 
@@ -79,8 +80,8 @@
                 <Image x:Name="imgBuscarListProd" Source="../Imagenes/lupa.png"/>
             </Button>
 
-            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="9" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
-            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="9" Margin="5,10,5,10" Click="BtEliminarProd_Click" />
+            <Button x:Name="btGuardarProd" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="10" Margin="5,10,5,10" Click="BtGuardarProd_Click"  />
+            <Button x:Name="btEliminarProd" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="10" Margin="5,10,5,10" Click="BtEliminarProd_Click" />
 
         </Grid>
 

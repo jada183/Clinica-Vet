@@ -16,7 +16,7 @@ using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.Service;
 using ClinicaVeterinaria.Proveed;
-
+using ClinicaVeterinaria.Emple;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -38,6 +38,9 @@ namespace ClinicaVeterinaria
         private List<Proveedor> proveedores = new List<Proveedor>();
         private Proveedor provSelect= new Proveedor();
 
+        //variable usadas para la gestion de empleado
+        private List<Empleado> empleados = new List<Empleado>();
+        private Empleado empSelect = new Empleado();
         public MainWindow()
         {
             InitializeComponent();
@@ -45,7 +48,7 @@ namespace ClinicaVeterinaria
             CargardgProductos(uow.RepositorioProducto.obtenerTodos());
             CargardgServicio(uow.RepositorioServicio.obtenerTodos());
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
-
+            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
         }
         #region Producto
         //metodos
@@ -309,7 +312,6 @@ namespace ClinicaVeterinaria
             }
         }
         #endregion
-
         #region Proveedor
         //metodos
         public void CargarVentanaFormProv(Proveedor p)
@@ -394,7 +396,7 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("seleccione un proveedor");
             }
         }
-        private void btBuscarProv_Click(object sender, RoutedEventArgs e)
+        private void BtBuscarProv_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -414,6 +416,44 @@ namespace ClinicaVeterinaria
             {
                 MessageBox.Show("no se ha encontrado ningun proveedor con ese email");
             }
+        }
+        #endregion
+        #region Empleado
+        //metodos
+        public void CargardgEmpleado(List<Empleado> lemp)
+        {
+            empleados = lemp;
+            dgEmpleado.ItemsSource = empleados;
+        }
+        public void CargarVentanaFormEmp(Empleado em)
+        {
+            FormEmp femp = new FormEmp(em, uow, this);
+            femp.Show();
+        }
+        //eventos
+        private void BtAgregarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            Empleado emp = new Empleado();
+            CargarVentanaFormEmp(emp);
+        }
+        private void DgEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            }
+            catch { }
+        }
+        private void DgEmpleado_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            CargarVentanaFormEmp(empSelect);
+        }
+
+        private void BtEditarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            CargarVentanaFormEmp(empSelect);
         }
         #endregion
 
