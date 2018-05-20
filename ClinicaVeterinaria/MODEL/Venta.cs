@@ -18,7 +18,7 @@ namespace ClinicaVeterinaria.MODEL
         public DateTime FechaVenta { get; set; }
         public virtual ICollection<LineaVenta> LineasVenta{ get; set; }
         public virtual  Empleado EmpleadoVenta { get; set; }
-        public string  EmpleadoId { get; set; }
+        public int?  EmpleadoId { get; set; }
         
         public virtual Cliente ClienteVenta { get; set; }
         public int? ClienteId { get; set; }

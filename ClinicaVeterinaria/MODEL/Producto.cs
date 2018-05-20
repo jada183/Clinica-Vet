@@ -21,14 +21,14 @@ namespace ClinicaVeterinaria.MODEL
         public double Precio { get; set; }
 
         [Required(ErrorMessage = "No te olvides del nombre de producto")]
-        [StringLength(25)]
+        [StringLength(40)]
         public string NombreProducto { get; set; }
 
         [Required(ErrorMessage = "No te olvides de la marca")]
-        [StringLength(25)]
+        [StringLength(40)]
         public string NombreMarca { get; set; }
 
-        
+        [StringLength(40)]
         public string AnimalDirigido { get; set; }
         public double Peso { get; set; }
         public double Tamaño { get; set; }

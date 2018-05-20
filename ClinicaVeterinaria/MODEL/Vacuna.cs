@@ -15,11 +15,13 @@ namespace ClinicaVeterinaria.MODEL
         public DateTime Fecha { get; set; }
 
         [Required(ErrorMessage = "No te olvides del nombre")]
+        [StringLength(40, MinimumLength = 2)]
         public string Nombre { get; set; }
+
         public virtual Paciente Paciente { get; set; }
         public int? PacienteId{ get; set; }
         public virtual Empleado Empleado { get; set; }
 
-        public string EmpleadoId { get; set; }
+        public int? EmpleadoId { get; set; }
     }
 }
