@@ -21,7 +21,7 @@ namespace ClinicaVeterinaria.MODEL
         }
 
 
-      
+        
         [Key]
         public string Usuario { get; set; }
 
@@ -51,8 +51,8 @@ namespace ClinicaVeterinaria.MODEL
 
 
 
-        [Required(ErrorMessage = "No te olvides del tipo de empleado")]
-        [DataType(DataType.Password, ErrorMessage = "la contraseña no es valida no es valido")]
+        [Required(ErrorMessage = "No te olvides de la contraseña")]
+        [DataType(DataType.Password, ErrorMessage = "la contraseña no es valida")]
         public string Contraseña { get; set; }
 
         public ICollection<Venta> Ventas { get; set; }
