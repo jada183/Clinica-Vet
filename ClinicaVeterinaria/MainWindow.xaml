@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"  x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="489.182" Width="810"
+        Title="MainWindow" Height="650" Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -70,7 +70,7 @@
         </Grid>
         <Grid x:Name="gridGestion">
             <TabControl>
-                <TabItem  x:Name="tabProd"  FontSize="18" Cursor="Hand" Background="{x:Null}">
+                <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Imagenes/ProdIcon32.png" Margin="5,10,5,10"/>
@@ -113,7 +113,7 @@
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True">
+                        <DataGrid x:Name="dgProd" Margin="10,10,10,15" AutoGenerateColumns="False" SelectionChanged="DgProd_SelectionChanged" MouseDoubleClick="DgProd_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=NombreProducto}"/>
                                 <DataGridTextColumn Header="Categoria" Width="2*" Binding="{Binding Path=Categoria}"/>
@@ -136,7 +136,124 @@
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-                    
+                        <Label   Content="Servicios" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+                        
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <Label Content="Nombre" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorServNombre" Width="400" Margin="5,5,5,5"></TextBox>
+                            
+                            <Button x:Name="btBuscarServ"   Margin="5,5,5,5" Click="BtBuscarServ_Click">
+                                <Image Source="Imagenes/lupa.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,0,0,10">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btAgregarServ" Click="BtAgregarServ_Click">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarServ" Click="BtBorrarServ_Click">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarServ" Click="BtEditarServ_Click">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgServ" Margin="10,10,10,15" AutoGenerateColumns="False"  IsReadOnly="True" SelectionChanged="DgServicios_SelectionChanged" MouseDoubleClick="DgServ_MouseDoubleClick" SelectedIndex="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="3*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=CosteServicio}"/>
+                                <DataGridTextColumn Header="Tiempo" Width="*" Binding="{Binding Path=Tiempo}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem  x:Name="tabProv"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/proveedorIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Proveedores" FontSize="18"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel LastChildFill="True">
+                        <Label Content="Proveedores" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <Label Content="Email" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorProvEmail" Width="400"   Margin="5,5,5,5"></TextBox>
+                           
+                            <Button x:Name="btBuscarProv"   Margin="5,5,5,5" Click="BtBuscarProv_Click">
+                                <Image  Source="Imagenes/lupa.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,0,0,10">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarProv" Click="BtAgregarProv_Click">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btBorrarProv" Click="BtBorrarProv_Click">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarProv" Click="BtEditarProv_Click">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgProv" Margin="10,10,10,15" AutoGenerateColumns="False" IsReadOnly="True" SelectedIndex="0" SelectionChanged="DgProv_SelectionChanged" MouseDoubleClick="DgProv_MouseDoubleClick">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
+                                <DataGridTextColumn Header="Email" Width="2*"  Binding="{Binding Path=Email}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </DockPanel>
+                </TabItem>
+                <TabItem  x:Name="tabEmp"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/empIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Empleados" FontSize="18"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel LastChildFill="True">
+                        <Label Content="Empleados" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListEmp">
+                                <ComboBoxItem Content="Todos" x:Name="cbListEmpTodos" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Tipo"></ComboBoxItem>
+                                <ComboBoxItem Content="Titulacion"></ComboBoxItem>
+
+
+                            </ComboBox>
+                            <TextBox x:Name="tbBuscadorListEmp" Width="400"  Margin="5,5,5,5"></TextBox>
+                            <Button   Margin="5,5,5,5" x:Name="BtBucarListEmp">
+                                <Image x:Name="imgBuscarListEmp" Source="Imagenes/lupa.png"/>
+                            </Button>
+                        </StackPanel>
+                       
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
+                            <Label Content="Usuario empleado" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorEmp" Width="400"  Margin="5,5,5,5"></TextBox>
+                            <Button   Margin="5,5,5,5" x:Name="BtBuscarEmp">
+                                <Image x:Name="imgBuscarEmp" Source="Imagenes/lupa.png" Width="28"></Image>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarEmp" Click="BtAgregarEmp_Click">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarEmp">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarEmp" Click="BtEditarEmp_Click">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgEmpleado" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" SelectionChanged="DgEmpleado_SelectionChanged" MouseDoubleClick="DgEmpleado_MouseDoubleClick" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
+                                <DataGridTextColumn Header="Titulacion" Width="2*" Binding="{Binding Path=Titulacion}"/>
+                                <DataGridTextColumn Header="Tipo" Width="*" Binding="{Binding Path=Tipo}"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                 </TabItem>
             </TabControl>

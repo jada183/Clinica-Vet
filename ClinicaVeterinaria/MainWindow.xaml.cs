@@ -14,7 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClinicaVeterinaria.DAL;
 using ClinicaVeterinaria.MODEL;
-
+using ClinicaVeterinaria.Service;
+using ClinicaVeterinaria.Proveed;
+using ClinicaVeterinaria.Emple;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -23,17 +25,30 @@ namespace ClinicaVeterinaria
     public partial class MainWindow : Window
     {
         UnityOfWork uow = new UnityOfWork();
-        //variables usadas en la gestion de producto
-            
-            private List<Producto> productosDtGrid = new List<Producto>();
-            private Producto prodSelect = new Producto();
 
+        //variables usadas en la gestion de producto     
+        private List<Producto> productosDtGrid = new List<Producto>();
+        private Producto prodSelect = new Producto();
+
+        //variables usadas para la gestion de servicios
+        private List<Servicio> servicios = new List<Servicio>();
+        private Servicio serviSelect = new Servicio();
+
+        //variables usadas para la gestion de proveedor
+        private List<Proveedor> proveedores = new List<Proveedor>();
+        private Proveedor provSelect= new Proveedor();
+
+        //variable usadas para la gestion de empleado
+        private List<Empleado> empleados = new List<Empleado>();
+        private Empleado empSelect = new Empleado();
         public MainWindow()
         {
             InitializeComponent();
-            //carga inicial de producto
-                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
-
+            //carga de datos inicial    
+            CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+            CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+            CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
         }
         #region Producto
         //metodos
@@ -68,8 +83,7 @@ namespace ClinicaVeterinaria
             {
                 if (prodSelect.NombreProducto != null)
                 {
-                    FormProd fp = new FormProd(prodSelect, uow, this);
-                    fp.Show();
+                    CargarVentanaFormProd(prodSelect);
                 }
                 else
                 {
@@ -166,6 +180,7 @@ namespace ClinicaVeterinaria
             }
             tbBuscadorList.Text = "";
         }
+
         private void BtBuscarProd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -188,6 +203,258 @@ namespace ClinicaVeterinaria
         }
 
 
+        #endregion
+        #region Servicio
+        //metodos
+        public void CargardgServicio(List<Servicio> sv)
+        {
+            servicios = sv;
+            dgServ.ItemsSource = servicios;
+        }
+        public void CargarVentanaFormServ(Servicio s)
+        {
+            FormService fs = new Service.FormService(s,uow,this);
+            fs.Show();
+        }
+        //eventos
+        private void BtAgregarServ_Click(object sender, RoutedEventArgs e)
+        {
+            Servicio  serv= new Servicio();
+            CargarVentanaFormServ(serv);
+        }
+        private void DgServicios_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                serviSelect = (Servicio)(dgServ.SelectedItem);
+            }
+            catch { }
+        }
+        private void DgServ_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            serviSelect = (Servicio)(dgServ.SelectedItem);
+            CargarVentanaFormServ(serviSelect);
+        }
+
+        private void BtBuscarServ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text);
+                if (aux.ServicioId != 0)
+                {
+                    serviSelect = aux;
+                    CargarVentanaFormServ(serviSelect);
+
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ningun servicio con ese nombre");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun servicio con ese nombre");
+            }
+        }
+
+        private void BtEditarServ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (serviSelect.Nombre != null)
+                {
+                    CargarVentanaFormServ(serviSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un servicio");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un servicio");
+            }
+        }
+
+        private void BtBorrarServ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este servicio?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        
+                        uow.RepositorioServicio.eliminar(serviSelect);
+                        CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+                       
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un Servicio");
+              
+            }
+        }
+        #endregion
+        #region Proveedor
+        //metodos
+        public void CargarVentanaFormProv(Proveedor p)
+        {
+            FormProv fpv = new FormProv(p, uow, this);
+            fpv.Show();
+        }
+        //eventos
+        private void BtAgregarProv_Click(object sender, RoutedEventArgs e)
+        {
+            Proveedor proveedor = new Proveedor();
+            CargarVentanaFormProv(proveedor);
+        }
+        public void CargardgProveedor(List<Proveedor> lpv)
+        {
+           proveedores = lpv;
+           dgProv.ItemsSource = proveedores;
+        }
+        private void DgProv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                provSelect = (Proveedor)(dgProv.SelectedItem);
+            }
+            catch { }
+        }
+
+        private void DgProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            prodSelect = (Producto)(dgProd.SelectedItem);
+            CargarVentanaFormProv(provSelect);
+        }
+        private void BtEditarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (provSelect.Nombre != null)
+                {
+                    CargarVentanaFormProv(provSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un proveedor");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un proveedor primero");
+            }
+        }
+        private void BtBorrarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este proveedor?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioProveedor.eliminar(provSelect);
+                        CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un proveedor");
+            }
+        }
+        private void BtBuscarProv_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text);
+                if (aux.ProveedorId != 0)
+                {
+                    provSelect = aux;
+                    CargarVentanaFormProv(provSelect);
+
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ningun proveedor con ese email");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun proveedor con ese email");
+            }
+        }
+        #endregion
+        #region Empleado
+        //metodos
+        public void CargardgEmpleado(List<Empleado> lemp)
+        {
+            empleados = lemp;
+            dgEmpleado.ItemsSource = empleados;
+        }
+        public void CargarVentanaFormEmp(Empleado em)
+        {
+            FormEmp femp = new FormEmp(em, uow, this);
+            femp.Show();
+        }
+        //eventos
+        private void BtAgregarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            Empleado emp = new Empleado();
+            CargarVentanaFormEmp(emp);
+        }
+        private void DgEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            }
+            catch { }
+        }
+        private void DgEmpleado_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            CargarVentanaFormEmp(empSelect);
+        }
+
+        private void BtEditarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            empSelect = (Empleado)(dgEmpleado.SelectedItem);
+            CargarVentanaFormEmp(empSelect);
+        }
         #endregion
 
 

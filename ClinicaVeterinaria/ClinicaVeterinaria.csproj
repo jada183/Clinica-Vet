@@ -84,11 +84,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BuscadorProv.xaml">
+    <Compile Include="Emple\FormEmp.xaml.cs">
+      <DependentUpon>FormEmp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Proveed\FormProv.xaml.cs">
+      <DependentUpon>FormProv.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service\FormService.xaml.cs">
+      <DependentUpon>FormService.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Emple\FormEmp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FormProd.xaml">
+    <Page Include="Product\BuscadorProv.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Product\FormProd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -100,7 +113,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BuscadorProv.xaml.cs">
+    <Compile Include="Product\BuscadorProv.xaml.cs">
       <DependentUpon>BuscadorProv.xaml</DependentUpon>
     </Compile>
     <Compile Include="DAL\Context.cs" />
@@ -118,13 +131,21 @@
     <Compile Include="DAL\RepositorioVacuna.cs" />
     <Compile Include="DAL\RepositorioVenta.cs" />
     <Compile Include="DAL\UnityOfWork.cs" />
-    <Compile Include="FormProd.xaml.cs">
+    <Compile Include="Product\FormProd.xaml.cs">
       <DependentUpon>FormProd.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Proveed\FormProv.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Service\FormService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201805131542245_initial.cs" />
@@ -201,6 +222,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\editIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\proveedorIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\empIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('packages\Fody.3.0.3\build\Fody.targets')" />

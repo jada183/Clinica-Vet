@@ -57,13 +57,13 @@ namespace ClinicaVeterinaria
             }
         }
         //muestra todos los proveedores en datagrid de ventana
-        private void btMostrarTodos_Click(object sender, RoutedEventArgs e)
+        private void BtMostrarTodos_Click(object sender, RoutedEventArgs e)
         {
             listProv = uow.RepositorioProveedor.obtenerTodos();
             dgProveedor.ItemsSource = listProv;
         }
         //cambia el producto seleccionado 
-        private void dgProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DgProveedor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace ClinicaVeterinaria
             catch { }
         }
 
-        private void dgProveedor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DgProveedor_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace ClinicaVeterinaria
             catch { }
         }
 
-        private void btSeleccionar_Click(object sender, RoutedEventArgs e)
+        private void BtSeleccionar_Click(object sender, RoutedEventArgs e)
         {
             if (prov != null)
             {
