@@ -455,7 +455,96 @@ namespace ClinicaVeterinaria
             empSelect = (Empleado)(dgEmpleado.SelectedItem);
             CargarVentanaFormEmp(empSelect);
         }
+
+        private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (empSelect.EmpleadoId != 1) { 
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+
+
+                            uow.RepositorioEmpleado.eliminar(empSelect);
+                            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("seleccione un empleado");
+                }
+            }
+            else
+            {
+                MessageBox.Show(" no se puede borrar el empleado admin");
+            }
+        }
+        private void BtBucarListEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbBuscarListEmp.Text == "Todos")
+            {
+                CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+
+            }
+            else if (cbBuscarListEmp.Text == "Tipo")
+            {
+                try
+                {
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == tbBuscadorListEmp.Text));
+                }
+                catch { }
+            }
+            else if (cbBuscarListEmp.Text == "Titulacion")
+            {
+                try
+                {
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Titulacion == tbBuscadorListEmp.Text));
+                }
+                catch
+                {
+                }
+
+            }
+
+            tbBuscadorListEmp.Text = "";
+        }
+        private void BtBuscarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Empleado aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorEmp.Text);
+                if (aux.Usuario != null)
+                {
+                    CargarVentanaFormEmp(aux);
+                    tbBuscadorEmp.Text = "";                                                      
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun Empleado con ese nombre");
+            }
+        }
         #endregion
+
+
 
 
     }

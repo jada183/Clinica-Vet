@@ -96,7 +96,7 @@ namespace ClinicaVeterinaria.Emple
             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
         }
 
-        private void btGuardarEmp_Click(object sender, RoutedEventArgs e)
+        private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
             if (NuevoEmp)
             {
@@ -174,6 +174,48 @@ namespace ClinicaVeterinaria.Emple
                     MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
                     tbUsuarioEmp.Text = "";
                 }
+            }
+        }
+
+        private void BtEliminarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (em.EmpleadoId != 1)
+            {
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+
+
+                            uow.RepositorioEmpleado.eliminar(em);
+                            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Error no se ha podido borrar este producto");
+                }
+            }
+            else
+            {
+                MessageBox.Show("el empleado administrador no se puede borrarr");
             }
         }
     }

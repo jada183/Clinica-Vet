@@ -222,7 +222,7 @@
 
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorListEmp" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="BtBucarListEmp">
+                            <Button   Margin="5,5,5,5" x:Name="BtBucarListEmp" Click="BtBucarListEmp_Click">
                                 <Image x:Name="imgBuscarListEmp" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
@@ -230,7 +230,7 @@
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Usuario empleado" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorEmp" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="BtBuscarEmp">
+                            <Button   Margin="5,5,5,5" x:Name="BtBuscarEmp" Click="BtBuscarEmp_Click">
                                 <Image x:Name="imgBuscarEmp" Source="Imagenes/lupa.png" Width="28"></Image>
                             </Button>
                         </StackPanel>
@@ -238,7 +238,7 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarEmp" Click="BtAgregarEmp_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarEmp">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarEmp" Click="BtBorrarEmp_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarEmp" Click="BtEditarEmp_Click">
@@ -247,8 +247,9 @@
                         </StackPanel>
                         <DataGrid x:Name="dgEmpleado" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" SelectionChanged="DgEmpleado_SelectionChanged" MouseDoubleClick="DgEmpleado_MouseDoubleClick" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Nombre" Width="1*" Binding="{Binding Path=Nombre}"/>
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
+                                <DataGridTextColumn Header="Usuario" Width="2*" Binding="{Binding Path=Usuario}"/>
                                 <DataGridTextColumn Header="Titulacion" Width="2*" Binding="{Binding Path=Titulacion}"/>
                                 <DataGridTextColumn Header="Tipo" Width="*" Binding="{Binding Path=Tipo}"/>
 
