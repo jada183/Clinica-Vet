@@ -15,27 +15,26 @@ namespace ClinicaVeterinaria.Migrations
                         Fecha = c.DateTime(nullable: false),
                         Hora = c.String(nullable: false),
                         PacienteId = c.Int(),
-                        EmpleadoId = c.String(),
+                        EmpleadoId = c.Int(),
                         ServicioId = c.Int(),
-                        Causa = c.String(),
+                        Causa = c.String(maxLength: 80),
                         Atendida = c.Boolean(nullable: false),
-                        Sanitario_Usuario = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.CitaId)
                 .ForeignKey("dbo.Paciente", t => t.PacienteId)
-                .ForeignKey("dbo.Empleado", t => t.Sanitario_Usuario)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
                 .ForeignKey("dbo.Servicio", t => t.ServicioId)
                 .Index(t => t.PacienteId)
-                .Index(t => t.ServicioId)
-                .Index(t => t.Sanitario_Usuario);
+                .Index(t => t.EmpleadoId)
+                .Index(t => t.ServicioId);
             
             CreateTable(
                 "dbo.Paciente",
                 c => new
                     {
                         PacienteId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
-                        Especie = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 40),
+                        Especie = c.String(nullable: false, maxLength: 40),
                         Raza = c.String(),
                         Peso = c.Double(nullable: false),
                         Altura = c.Double(nullable: false),
@@ -56,33 +55,33 @@ namespace ClinicaVeterinaria.Migrations
                         HistorialClinicoId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
                         PacienteId = c.Int(),
-                        Enfermedad = c.String(nullable: false),
+                        Enfermedad = c.String(nullable: false, maxLength: 80),
                         Detalles = c.String(),
-                        EmpleadoId = c.String(),
-                        Empleado_Usuario = c.String(maxLength: 128),
+                        EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HistorialClinicoId)
-                .ForeignKey("dbo.Empleado", t => t.Empleado_Usuario)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
                 .ForeignKey("dbo.Paciente", t => t.PacienteId)
                 .Index(t => t.PacienteId)
-                .Index(t => t.Empleado_Usuario);
+                .Index(t => t.EmpleadoId);
             
             CreateTable(
                 "dbo.Empleado",
                 c => new
                     {
-                        Usuario = c.String(nullable: false, maxLength: 128),
+                        EmpleadoId = c.Int(nullable: false, identity: true),
+                        Usuario = c.String(nullable: false, maxLength: 20),
                         Tipo = c.String(nullable: false),
-                        Nombre = c.String(nullable: false),
-                        Apellidos = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 40),
+                        Apellidos = c.String(nullable: false, maxLength: 80),
                         Telefono = c.String(),
                         Movil = c.String(),
                         Titulacion = c.String(),
                         Direccion = c.String(),
-                        Email = c.String(nullable: false),
-                        Contraseña = c.String(nullable: false),
+                        Email = c.String(nullable: false, maxLength: 40),
+                        Contraseña = c.String(nullable: false, maxLength: 12),
                     })
-                .PrimaryKey(t => t.Usuario);
+                .PrimaryKey(t => t.EmpleadoId);
             
             CreateTable(
                 "dbo.Horario",
@@ -92,12 +91,11 @@ namespace ClinicaVeterinaria.Migrations
                         Dia = c.String(nullable: false),
                         HoraInic = c.String(nullable: false),
                         HoraFin = c.String(nullable: false),
-                        EmpleadoId = c.String(),
-                        Empleado_Usuario = c.String(maxLength: 128),
+                        EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HorarioId)
-                .ForeignKey("dbo.Empleado", t => t.Empleado_Usuario)
-                .Index(t => t.Empleado_Usuario);
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
+                .Index(t => t.EmpleadoId);
             
             CreateTable(
                 "dbo.Vacuna",
@@ -105,16 +103,15 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         VacunaId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
-                        Nombre = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 40),
                         PacienteId = c.Int(),
-                        EmpleadoId = c.String(),
-                        Empleado_Usuario = c.String(maxLength: 128),
+                        EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.VacunaId)
-                .ForeignKey("dbo.Empleado", t => t.Empleado_Usuario)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
                 .ForeignKey("dbo.Paciente", t => t.PacienteId)
                 .Index(t => t.PacienteId)
-                .Index(t => t.Empleado_Usuario);
+                .Index(t => t.EmpleadoId);
             
             CreateTable(
                 "dbo.Venta",
@@ -122,26 +119,25 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         VentaId = c.Int(nullable: false, identity: true),
                         FechaVenta = c.DateTime(nullable: false),
-                        EmpleadoId = c.String(),
+                        EmpleadoId = c.Int(),
                         ClienteId = c.Int(),
-                        EmpleadoVenta_Usuario = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.VentaId)
                 .ForeignKey("dbo.Cliente", t => t.ClienteId)
-                .ForeignKey("dbo.Empleado", t => t.EmpleadoVenta_Usuario)
-                .Index(t => t.ClienteId)
-                .Index(t => t.EmpleadoVenta_Usuario);
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
+                .Index(t => t.EmpleadoId)
+                .Index(t => t.ClienteId);
             
             CreateTable(
                 "dbo.Cliente",
                 c => new
                     {
                         ClienteId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 40),
                         Apellidos = c.String(nullable: false),
                         Telefono = c.String(),
                         Movil = c.String(),
-                        Direccion = c.String(),
+                        Direccion = c.String(maxLength: 120),
                         Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ClienteId);
@@ -167,9 +163,9 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         ProductoId = c.Int(nullable: false, identity: true),
                         Precio = c.Double(nullable: false),
-                        NombreProducto = c.String(nullable: false, maxLength: 25),
-                        NombreMarca = c.String(nullable: false, maxLength: 25),
-                        AnimalDirigido = c.String(),
+                        NombreProducto = c.String(nullable: false, maxLength: 40),
+                        NombreMarca = c.String(nullable: false, maxLength: 40),
+                        AnimalDirigido = c.String(maxLength: 40),
                         Peso = c.Double(nullable: false),
                         Tamaño = c.Double(nullable: false),
                         Imagen = c.String(),
@@ -186,11 +182,11 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         ProveedorId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
-                        Apellidos = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 20),
+                        Apellidos = c.String(nullable: false, maxLength: 40),
                         Telefono = c.String(),
                         Movil = c.String(),
-                        Direccion = c.String(),
+                        Direccion = c.String(maxLength: 120),
                         Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ProveedorId);
@@ -200,9 +196,9 @@ namespace ClinicaVeterinaria.Migrations
                 c => new
                     {
                         ServicioId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 40),
                         CosteServicio = c.Double(nullable: false),
-                        Descripcion = c.String(),
+                        Descripcion = c.String(maxLength: 250),
                         Tiempo = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ServicioId);
@@ -216,28 +212,28 @@ namespace ClinicaVeterinaria.Migrations
             DropForeignKey("dbo.LineaVenta", "VentaId", "dbo.Venta");
             DropForeignKey("dbo.Producto", "ProveedorId", "dbo.Proveedor");
             DropForeignKey("dbo.LineaVenta", "ProductoId", "dbo.Producto");
-            DropForeignKey("dbo.Venta", "EmpleadoVenta_Usuario", "dbo.Empleado");
+            DropForeignKey("dbo.Venta", "EmpleadoId", "dbo.Empleado");
             DropForeignKey("dbo.Paciente", "ClienteId", "dbo.Cliente");
             DropForeignKey("dbo.Venta", "ClienteId", "dbo.Cliente");
             DropForeignKey("dbo.Vacuna", "PacienteId", "dbo.Paciente");
-            DropForeignKey("dbo.Vacuna", "Empleado_Usuario", "dbo.Empleado");
-            DropForeignKey("dbo.Horario", "Empleado_Usuario", "dbo.Empleado");
-            DropForeignKey("dbo.HistorialClinico", "Empleado_Usuario", "dbo.Empleado");
-            DropForeignKey("dbo.Cita", "Sanitario_Usuario", "dbo.Empleado");
+            DropForeignKey("dbo.Vacuna", "EmpleadoId", "dbo.Empleado");
+            DropForeignKey("dbo.Horario", "EmpleadoId", "dbo.Empleado");
+            DropForeignKey("dbo.HistorialClinico", "EmpleadoId", "dbo.Empleado");
+            DropForeignKey("dbo.Cita", "EmpleadoId", "dbo.Empleado");
             DropForeignKey("dbo.Cita", "PacienteId", "dbo.Paciente");
             DropIndex("dbo.Producto", new[] { "ProveedorId" });
             DropIndex("dbo.LineaVenta", new[] { "VentaId" });
             DropIndex("dbo.LineaVenta", new[] { "ProductoId" });
-            DropIndex("dbo.Venta", new[] { "EmpleadoVenta_Usuario" });
             DropIndex("dbo.Venta", new[] { "ClienteId" });
-            DropIndex("dbo.Vacuna", new[] { "Empleado_Usuario" });
+            DropIndex("dbo.Venta", new[] { "EmpleadoId" });
+            DropIndex("dbo.Vacuna", new[] { "EmpleadoId" });
             DropIndex("dbo.Vacuna", new[] { "PacienteId" });
-            DropIndex("dbo.Horario", new[] { "Empleado_Usuario" });
-            DropIndex("dbo.HistorialClinico", new[] { "Empleado_Usuario" });
+            DropIndex("dbo.Horario", new[] { "EmpleadoId" });
+            DropIndex("dbo.HistorialClinico", new[] { "EmpleadoId" });
             DropIndex("dbo.HistorialClinico", new[] { "PacienteId" });
             DropIndex("dbo.Paciente", new[] { "ClienteId" });
-            DropIndex("dbo.Cita", new[] { "Sanitario_Usuario" });
             DropIndex("dbo.Cita", new[] { "ServicioId" });
+            DropIndex("dbo.Cita", new[] { "EmpleadoId" });
             DropIndex("dbo.Cita", new[] { "PacienteId" });
             DropTable("dbo.Servicio");
             DropTable("dbo.Proveedor");

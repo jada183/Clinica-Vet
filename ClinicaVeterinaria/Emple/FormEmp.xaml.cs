@@ -96,7 +96,7 @@ namespace ClinicaVeterinaria.Emple
             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
         }
 
-        private void btGuardarEmp_Click(object sender, RoutedEventArgs e)
+        private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
             if (NuevoEmp)
             {
@@ -110,12 +110,14 @@ namespace ClinicaVeterinaria.Emple
                         {
                             uow.RepositorioEmpleado.crear(em);
                             MessageBox.Show("se ha guardado correctamente el empleado");
+                            GuardarValoresEmpEntrada();
                             modificado = true;
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
                         }
                         catch
                         {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir");
+                            MessageBox.Show("Error falta algun campo obligatorio por cubrir o  algun dato tiene un formato incorrecto");
                         }
                        
                     }
@@ -123,8 +125,7 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        tbContraseñaEmp.Text = "";
-                        tbConfirmContraseñaEmp.Text = "";
+                        RecuperarValoresEmpEntrada();
 
                     }
                 }
@@ -139,7 +140,7 @@ namespace ClinicaVeterinaria.Emple
             else
             {
                 Empleado aux = new Empleado();
-                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario);//para comprobar que no existe ningun usuario con ese nombre
+                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId);//para comprobar que no existe ningun usuario con ese nombre
                 if (aux == null)
                 {
                     if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
@@ -148,8 +149,10 @@ namespace ClinicaVeterinaria.Emple
                         {
                             uow.RepositorioEmpleado.actualizar(em);
                             MessageBox.Show("se ha modificado correctamente el empleado");
+                            GuardarValoresEmpEntrada();
                             modificado = true;
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
                         }
                         catch
                         {
@@ -162,17 +165,57 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        tbContraseñaEmp.Text = "";
-                        tbConfirmContraseñaEmp.Text = "";
-
+                        RecuperarValoresEmpEntrada();
                     }
                 }
                 //cuando existe un empleado con ese nombre de usuario
                 else
                 {
-                    MessageBox.Show("existe un empleado con ese nombre de usuario");
+                    MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
                     tbUsuarioEmp.Text = "";
                 }
+            }
+        }
+
+        private void BtEliminarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (em.EmpleadoId != 1)
+            {
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+
+
+                            uow.RepositorioEmpleado.eliminar(em);
+                            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Error no se ha podido borrar este producto");
+                }
+            }
+            else
+            {
+                MessageBox.Show("el empleado administrador no se puede borrarr");
             }
         }
     }
