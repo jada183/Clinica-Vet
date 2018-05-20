@@ -21,12 +21,13 @@ namespace ClinicaVeterinaria.MODEL
         public int? PacienteId{ get; set; }
 
         [Required(ErrorMessage = "No te olvides de la enfermedad")]
+        [StringLength(80, MinimumLength = 4)]
         public string Enfermedad { get; set; }
 
         public string Detalles { get; set; }
 
         public virtual Empleado Empleado { get; set; }
-        public string EmpleadoId { get; set; }
+        public int? EmpleadoId { get; set; }
 
 
     }

@@ -23,11 +23,12 @@ namespace ClinicaVeterinaria.MODEL
         public int? PacienteId { get; set;}
         
         public virtual Empleado Sanitario { get; set; }  
-        public string EmpleadoId { get; set; }
+        public int? EmpleadoId { get; set; }
 
         public virtual Servicio Servicio { get; set; }
         public int? ServicioId { get; set; }
 
+        [StringLength(80)]
         public string Causa { get; set; }
         public bool Atendida { get; set; }
     }

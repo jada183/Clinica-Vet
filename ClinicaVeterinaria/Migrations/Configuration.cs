@@ -17,10 +17,10 @@ namespace ClinicaVeterinaria.Migrations
             //  This method will be called after migrating to the latest version.
             context.Empleados.AddOrUpdate(
 
-                 new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario", Apellidos = "garcia garcia", Email = "correEjemp@gmail.es" }
+                 new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario", Apellidos = "garcia garcia", Email = "correEjemp@gmail.es",EmpleadoId=1}
                  );
             context.Horarios.AddOrUpdate(
-             new Horario { HorarioId = 1, HoraInic = "8:30", HoraFin = "3:00", Dia = "Lunes", EmpleadoId = "Admin" }
+             new Horario { HorarioId = 1, HoraInic = "8:30", HoraFin = "3:00", Dia = "Lunes", EmpleadoId = 1 }
              );
             context.Proveedores.AddOrUpdate(
                new Proveedor { Nombre = "proveedor prueba", Apellidos = "apellidos", Email = "proveedor@gmail.com", ProveedorId = 1 }
@@ -39,16 +39,16 @@ namespace ClinicaVeterinaria.Migrations
                new Paciente { PacienteId = 1, Nombre = "mascota1", Especie = "Perro", Raza = "Malamute", Peso = 15, Altura = 90, FechaNacimiento = Convert.ToDateTime("20/10/2015"), Sexo = "Macho", Ingresado = true, ClienteId = 1 }
                );
             context.Vacunas.AddOrUpdate(
-                new Vacuna { VacunaId = 1, Nombre = "vacuna prueba", PacienteId = 1, EmpleadoId = "Admin", Fecha = Convert.ToDateTime("20/10/2015") }
+                new Vacuna { VacunaId = 1, Nombre = "vacuna prueba", PacienteId = 1, EmpleadoId = 1, Fecha = Convert.ToDateTime("20/10/2015") }
                 );
              context.HistorialesClinicos.AddOrUpdate(
-                 new HistorialClinico { HistorialClinicoId = 1, Enfermedad = "enfermedad prueba", PacienteId = 1, EmpleadoId = "Admin", Fecha = Convert.ToDateTime("20/10/2015"),Detalles="detalles por defecto" }
+                 new HistorialClinico { HistorialClinicoId = 1, Enfermedad = "enfermedad prueba", PacienteId = 1, EmpleadoId = 1, Fecha = Convert.ToDateTime("20/10/2015"),Detalles="detalles por defecto" }
                  );
             context.Citas.AddOrUpdate(
-                 new Cita { CitaId = 1, Hora = "10:00", PacienteId = 1, EmpleadoId = "Admin", Fecha = Convert.ToDateTime("25/06/2018"), ServicioId = 1, Causa = "causa por defecto", Atendida = false }
+                 new Cita { CitaId = 1, Hora = "10:00", PacienteId = 1, EmpleadoId = 1, Fecha = Convert.ToDateTime("25/06/2018"), ServicioId = 1, Causa = "causa por defecto", Atendida = false }
                  );
             context.Ventas.AddOrUpdate(
-                new Venta { VentaId = 1,EmpleadoId = "Admin", FechaVenta = Convert.ToDateTime("25/06/2018"),ClienteId=1 }
+                new Venta { VentaId = 1,EmpleadoId = 1, FechaVenta = Convert.ToDateTime("25/06/2018"),ClienteId=1 }
                 );
             context.LineasVenta.AddOrUpdate(
                new LineaVenta {LineaVentaId=1, VentaId = 1,Cantidad=1,ProductoId=1,}

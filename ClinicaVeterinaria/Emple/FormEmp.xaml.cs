@@ -110,12 +110,14 @@ namespace ClinicaVeterinaria.Emple
                         {
                             uow.RepositorioEmpleado.crear(em);
                             MessageBox.Show("se ha guardado correctamente el empleado");
+                            GuardarValoresEmpEntrada();
                             modificado = true;
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
                         }
                         catch
                         {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir");
+                            MessageBox.Show("Error falta algun campo obligatorio por cubrir o  algun dato tiene un formato incorrecto");
                         }
                        
                     }
@@ -123,8 +125,7 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        tbContraseñaEmp.Text = "";
-                        tbConfirmContraseñaEmp.Text = "";
+                        RecuperarValoresEmpEntrada();
 
                     }
                 }
@@ -139,7 +140,7 @@ namespace ClinicaVeterinaria.Emple
             else
             {
                 Empleado aux = new Empleado();
-                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario);//para comprobar que no existe ningun usuario con ese nombre
+                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId);//para comprobar que no existe ningun usuario con ese nombre
                 if (aux == null)
                 {
                     if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
@@ -148,8 +149,10 @@ namespace ClinicaVeterinaria.Emple
                         {
                             uow.RepositorioEmpleado.actualizar(em);
                             MessageBox.Show("se ha modificado correctamente el empleado");
+                            GuardarValoresEmpEntrada();
                             modificado = true;
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            this.Close();
                         }
                         catch
                         {
@@ -162,15 +165,13 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        tbContraseñaEmp.Text = "";
-                        tbConfirmContraseñaEmp.Text = "";
-
+                        RecuperarValoresEmpEntrada();
                     }
                 }
                 //cuando existe un empleado con ese nombre de usuario
                 else
                 {
-                    MessageBox.Show("existe un empleado con ese nombre de usuario");
+                    MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
                     tbUsuarioEmp.Text = "";
                 }
             }

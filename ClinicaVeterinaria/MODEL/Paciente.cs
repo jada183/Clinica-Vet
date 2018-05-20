@@ -21,9 +21,11 @@ namespace ClinicaVeterinaria.MODEL
 
         public int PacienteId { get; set; }
         [Required(ErrorMessage = "No te olvides del nombre")]
+        [StringLength(40, MinimumLength = 2)]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "No te olvides de la especie")]
+        [StringLength(40, MinimumLength = 2)]
         public string Especie { get; set; }
 
         public string Raza { get; set; }
