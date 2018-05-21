@@ -149,6 +149,7 @@ namespace ClinicaVeterinaria.Emple
                 else
                 {
                     MessageBox.Show("existe un empleado con ese nombre de usuario");
+                    RecuperarValoresEmpEntrada();
                     tbUsuarioEmp.Text = "";
                 }
             }
@@ -188,6 +189,7 @@ namespace ClinicaVeterinaria.Emple
                 else
                 {
                     MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
+                    RecuperarValoresEmpEntrada();
                     tbUsuarioEmp.Text = "";
                 }
             }
@@ -226,7 +228,7 @@ namespace ClinicaVeterinaria.Emple
                 }
                 catch
                 {
-                    MessageBox.Show("Error no se ha podido borrar este producto");
+                    MessageBox.Show("Error no se ha podido borrar este empleado");
                 }
             }
             else
@@ -312,6 +314,7 @@ namespace ClinicaVeterinaria.Emple
                 string horaInGuardar = NuevoHorario.HoraInic;
                 string horaFnGuardar = NuevoHorario.HoraFin;
                 string diaGuardar = NuevoHorario.Dia;
+                horarioGuardar = new Horario();
                 //para evitar problemas con el binding del horarionuevo con el formulario
                 horarioGuardar.Dia = diaGuardar;
                 horarioGuardar.HoraFin = horaFnGuardar;

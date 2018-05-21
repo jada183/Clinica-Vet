@@ -637,6 +637,47 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("seleccione un cliente");
             }
         }
+        private void BtBorrarCli_Click(object sender, RoutedEventArgs e)
+        {
+            if (cliSelect.ClienteId != 1)
+            {
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas eliminar este cliente?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+
+
+                            uow.RepositorioCliente.eliminar(cliSelect);
+                            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("seleccione un cliente");
+                }
+            }
+            else
+            {
+                MessageBox.Show(" no se puede borrar el cliente por defecto");
+            }
+        }
 
 
         #endregion

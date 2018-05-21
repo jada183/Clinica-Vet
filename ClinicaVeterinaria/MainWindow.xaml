@@ -277,7 +277,7 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarCli" Click="BtAgregarCli_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarCli">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarCli" Click="BtBorrarCli_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarCli" Click="BtEditarCli_Click">
