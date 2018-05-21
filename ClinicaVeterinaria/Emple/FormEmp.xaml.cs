@@ -39,6 +39,10 @@ namespace ClinicaVeterinaria.Emple
         string UsuarioOriginal = "";
         string contraseñaOriginal = "";
 
+        //variables para horario
+        private Horario NuevoHorario = new Horario();
+        private List<Horario> Horarios = new List<Horario>();
+        private Horario HorSelect = new Horario();
         public FormEmp(Empleado emp, UnityOfWork uw, MainWindow mw)
         {
             InitializeComponent();
@@ -59,7 +63,18 @@ namespace ClinicaVeterinaria.Emple
 
 
             }
+
+            //para los horarios
+            try
+            {
+                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+            }
+            catch { }
+            CargarHorarios();
+            
         }
+        #region perfil
+     
         public void GuardarValoresEmpEntrada()
         {
             NombreOriginal = em.Nombre;
@@ -218,5 +233,162 @@ namespace ClinicaVeterinaria.Emple
                 MessageBox.Show("el empleado administrador no se puede borrarr");
             }
         }
+        #endregion
+        #region horarios
+        //metodos
+        //hace visible el grid con el formulario para crear un nuevo horario
+        public void CargaNuevoHorario()
+        {
+
+            gridNuevoHorario.Visibility = Visibility.Visible;
+            NuevoHorario = new Horario();
+            gridNuevoHorario.DataContext = NuevoHorario;
+
+        }
+        public void ActualizarComboBoxHorario()
+        {
+            //para poner los combo de los horarios nuevos en la posicion inicial
+            cbDiaHorNuevo.SelectedIndex = 0;
+            cbHoraFNuevoHor.SelectedIndex = 0;
+            cbHoraINuevoHor.SelectedIndex = 0;
+        }
+        public void CargarHorarios()
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                for (int j = 0; j < 60; j = j + 30)
+                {
+                    if (j == 0)
+                    {
+                        cbHoraINuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
+                    }
+                    else
+                    {
+                        cbHoraINuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
+                    }
+
+                }
+            }
+            for (int i = 0; i < 24; i++)
+            {
+                for (int j = 0; j < 60; j = j + 30)
+                {
+                    if (j == 0)
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
+                    }
+                    else
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
+                    }
+
+                }
+            }
+        }
+        public void CargardgHorarios(List<Horario> h)
+        {
+            Horarios = h;
+            dgHorario.ItemsSource = Horarios;
+        }
+        public void LimpiarGridNuevoHorario()
+        {
+            gridNuevoHorario.Visibility = Visibility.Hidden;
+            ActualizarComboBoxHorario();
+
+
+        }
+        //eventos
+        private void BtNuevoHorario_Click(object sender, RoutedEventArgs e)
+        {
+            CargaNuevoHorario();
+            ActualizarComboBoxHorario();
+        }
+
+        private void BtGuardarHor_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NuevoHorario.Empleado = em;
+                NuevoHorario.EmpleadoId = em.EmpleadoId;
+                uow.RepositorioHorario.crear(NuevoHorario);
+                MessageBox.Show("se ha guardado correctamente el horario");
+                NuevoHorario = new Horario();
+                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                LimpiarGridNuevoHorario();
+            }
+            catch
+            {
+
+                MessageBox.Show("no se ha podido guardar un nuevo horario por falta de algun campo algun dato mal introducido");
+            }
+
+        }
+        private void BtCancelarNuevoHor_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarGridNuevoHorario();
+        }
+        private void DgHorario_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                HorSelect = (Horario)(dgHorario.SelectedItem);
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtEliminarHorario_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar este horario?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        uow.RepositorioHorario.eliminar(HorSelect);
+                        CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                        cbBuscarListHorarios.SelectedIndex = 0;
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un horario");
+            }
+        }
+        private void BtBuscarListHorarios_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbBuscarListHorarios.Text == "Todos")
+            {
+                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+
+            }
+            else if (cbBuscarListHorarios.Text == "Lunes" || (cbBuscarListHorarios.Text == "Martes") || (cbBuscarListHorarios.Text == "Miercoles") || (cbBuscarListHorarios.Text == "Jueves") || (cbBuscarListHorarios.Text == "Viernes")
+                 || (cbBuscarListHorarios.Text == "Sabado"))
+            {
+                try
+                {
+                    CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.Dia == cbBuscarListHorarios.Text && c.EmpleadoId == em.EmpleadoId));
+                }
+                catch { }
+            }
+        }
+
+        #endregion
+
+
     }
 }
