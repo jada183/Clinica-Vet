@@ -104,8 +104,12 @@ namespace ClinicaVeterinaria
 
         private void DgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            prodSelect = (Producto)(dgProd.SelectedItem);
-            CargarVentanaFormProd(prodSelect);
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+                CargarVentanaFormProd(prodSelect);
+            }
+            catch { }
         }
 
         private void BtBorrarProd_Click(object sender, RoutedEventArgs e)
@@ -238,8 +242,12 @@ namespace ClinicaVeterinaria
         }
         private void DgServ_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            serviSelect = (Servicio)(dgServ.SelectedItem);
-            CargarVentanaFormServ(serviSelect);
+            try
+            {
+                serviSelect = (Servicio)(dgServ.SelectedItem);
+                CargarVentanaFormServ(serviSelect);
+            }
+            catch { }
         }
 
         private void BtBuscarServ_Click(object sender, RoutedEventArgs e)
@@ -347,8 +355,12 @@ namespace ClinicaVeterinaria
 
         private void DgProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            prodSelect = (Producto)(dgProd.SelectedItem);
-            CargarVentanaFormProv(provSelect);
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+                CargarVentanaFormProv(provSelect);
+            }
+            catch { }
         }
         private void BtEditarProv_Click(object sender, RoutedEventArgs e)
         {
@@ -452,14 +464,32 @@ namespace ClinicaVeterinaria
         }
         private void DgEmpleado_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            empSelect = (Empleado)(dgEmpleado.SelectedItem);
-            CargarVentanaFormEmp(empSelect);
+            try
+            {
+                empSelect = (Empleado)(dgEmpleado.SelectedItem);
+                CargarVentanaFormEmp(empSelect);
+            }
+            catch { }
         }
 
         private void BtEditarEmp_Click(object sender, RoutedEventArgs e)
         {
-            empSelect = (Empleado)(dgEmpleado.SelectedItem);
-            CargarVentanaFormEmp(empSelect);
+            try
+            {
+                if (empSelect.Nombre != null)
+                {
+                    empSelect = (Empleado)(dgEmpleado.SelectedItem);
+                    CargarVentanaFormEmp(empSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un empleado");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un empleado");
+            }
         }
 
         private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
@@ -569,9 +599,47 @@ namespace ClinicaVeterinaria
             CargarVentanaFormCli(cli);
         }
 
+        private void DgCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                cliSelect=(Cliente)(dgCliente.SelectedItem);
+                                        
+            }
+            catch
+            {
+               
+            }
+        }
+        private void DgCliente_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                cliSelect = (Cliente)(dgCliente.SelectedItem);
+                CargarVentanaFormCli(cliSelect);
+            }
+            catch { }
+        }
+        private void BtEditarCli_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cliSelect.Nombre != null)
+                {
+                    CargarVentanaFormCli(cliSelect);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un cliente");
+                }
+            } catch
+            {
+                MessageBox.Show("seleccione un cliente");
+            }
+        }
+
+
         #endregion
-
-
 
 
     }

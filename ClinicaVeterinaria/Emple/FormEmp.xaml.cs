@@ -43,6 +43,7 @@ namespace ClinicaVeterinaria.Emple
         private Horario NuevoHorario = new Horario();
         private List<Horario> Horarios = new List<Horario>();
         private Horario HorSelect = new Horario();
+        private Horario horarioGuardar = new Horario();
         public FormEmp(Empleado emp, UnityOfWork uw, MainWindow mw)
         {
             InitializeComponent();
@@ -308,9 +309,17 @@ namespace ClinicaVeterinaria.Emple
         {
             try
             {
-                NuevoHorario.Empleado = em;
-                NuevoHorario.EmpleadoId = em.EmpleadoId;
-                uow.RepositorioHorario.crear(NuevoHorario);
+                string horaInGuardar = NuevoHorario.HoraInic;
+                string horaFnGuardar = NuevoHorario.HoraFin;
+                string diaGuardar = NuevoHorario.Dia;
+                //para evitar problemas con el binding del horarionuevo con el formulario
+                horarioGuardar.Dia = diaGuardar;
+                horarioGuardar.HoraFin = horaFnGuardar;
+                horarioGuardar.HoraInic = horaInGuardar;
+                horarioGuardar.EmpleadoId = em.EmpleadoId;
+                horarioGuardar.Empleado = em;
+                
+                uow.RepositorioHorario.crear(horarioGuardar);
                 MessageBox.Show("se ha guardado correctamente el horario");
                 NuevoHorario = new Horario();
                 CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));

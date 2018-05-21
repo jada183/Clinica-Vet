@@ -280,11 +280,11 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarCli">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarCli">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarCli" Click="BtEditarCli_Click">
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgCliente" Margin="10,10,10,15" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                        <DataGrid x:Name="dgCliente" Margin="10,10,10,15" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgCliente_SelectionChanged" MouseDoubleClick="DgCliente_MouseDoubleClick">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
