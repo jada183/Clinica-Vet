@@ -58,8 +58,8 @@
                     <Label Content="Email" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
                     <TextBox Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Email, Mode=TwoWay}" Grid.ColumnSpan="3" x:Name="tbEmailCli"/>
 
-                    <Button x:Name="btGuardarCli" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="btGuardarCli_Click"/>
-                    <Button x:Name="btEliminarCli" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="btEliminarCli_Click"/>
+                    <Button x:Name="btGuardarCli" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="BtGuardarCli_Click"/>
+                    <Button x:Name="btEliminarCli" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="10,10,10,10" Click="BtEliminarCli_Click"/>
 
                 </Grid>
             </TabItem>

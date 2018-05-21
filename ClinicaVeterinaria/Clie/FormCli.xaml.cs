@@ -55,7 +55,7 @@ namespace ClinicaVeterinaria.Clie
             }
         }
 
-        private void btGuardarCli_Click(object sender, RoutedEventArgs e)
+        private void BtGuardarCli_Click(object sender, RoutedEventArgs e)
         {
             if (NuevoCli)
             {
@@ -155,7 +155,7 @@ namespace ClinicaVeterinaria.Clie
             emailOriginalCli = cli.Email;
         }
 
-        private void btEliminarCli_Click(object sender, RoutedEventArgs e)
+        private void BtEliminarCli_Click(object sender, RoutedEventArgs e)
         {
             if (cli.ClienteId != 1)
             {
