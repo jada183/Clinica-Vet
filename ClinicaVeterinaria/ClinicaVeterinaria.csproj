@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clie\FormCli.xaml.cs">
+      <DependentUpon>FormCli.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
     <Compile Include="Service\FormService.xaml.cs">
       <DependentUpon>FormService.xaml</DependentUpon>
     </Compile>
+    <Page Include="Clie\FormCli.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Emple\FormEmp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -234,6 +241,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\HorarioIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\clientIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\petIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('packages\Fody.3.0.3\build\Fody.targets')" />

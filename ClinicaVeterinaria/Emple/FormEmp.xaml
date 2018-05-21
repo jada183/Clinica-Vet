@@ -22,7 +22,7 @@
                         <Label Content="Perfil"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid x:Name="gridEmpleadoSelect"   DataContext="{Binding empSelect}">
+                <Grid x:Name="gridEmpleadoSelect" Margin="10,10,10,10">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

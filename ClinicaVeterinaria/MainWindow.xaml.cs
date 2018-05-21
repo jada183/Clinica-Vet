@@ -17,6 +17,7 @@ using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.Service;
 using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
+using ClinicaVeterinaria.Clie;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -41,6 +42,10 @@ namespace ClinicaVeterinaria
         //variable usadas para la gestion de empleado
         private List<Empleado> empleados = new List<Empleado>();
         private Empleado empSelect = new Empleado();
+
+        //variables usadas en clientes
+        private List<Cliente> Clientes = new List<Cliente>();
+        private Cliente cliSelect = new Cliente();
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +54,7 @@ namespace ClinicaVeterinaria
             CargardgServicio(uow.RepositorioServicio.obtenerTodos());
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
         }
         #region Producto
         //metodos
@@ -542,6 +548,27 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("no se ha encontrado ningun Empleado con ese nombre");
             }
         }
+        #endregion
+        #region Cliente
+        //metodos
+        public void CargardgCliente(List<Cliente> c)
+        {
+            Clientes = c;
+            dgCliente.ItemsSource = Clientes;
+            dgCliente.SelectedIndex = 0;
+        }
+        public void CargarVentanaFormCli(Cliente cl)
+        {
+            FormCli fcli = new FormCli(cl, uow, this);
+            fcli.Show();
+        }
+        //eventos
+        private void BtAgregarCli_Click(object sender, RoutedEventArgs e)
+        {
+            Cliente cli = new Cliente();
+            CargarVentanaFormCli(cli);
+        }
+
         #endregion
 
 

@@ -245,7 +245,7 @@
                                 <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgEmpleado" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" SelectionChanged="DgEmpleado_SelectionChanged" MouseDoubleClick="DgEmpleado_MouseDoubleClick" IsReadOnly="True">
+                        <DataGrid x:Name="dgEmpleado" Margin="10,1,10,15" AutoGenerateColumns="False" SelectedIndex="0" SelectionChanged="DgEmpleado_SelectionChanged" MouseDoubleClick="DgEmpleado_MouseDoubleClick" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Nombre" Width="1*" Binding="{Binding Path=Nombre}"/>
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
@@ -255,6 +255,45 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem  x:Name="tabClient"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/clientIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Cliente" FontSize="18"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel LastChildFill="True">
+                        <Label Content="Clientes" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
+                            <Label Content="Email" Margin="5,5,5,5"></Label>
+                            <TextBox x:Name="tbBuscadorCli" Width="400"  Margin="5,5,5,5"></TextBox>
+                            <Button   Margin="5,5,5,5" x:Name="BtBuscarCli">
+                                <Image x:Name="imgBuscarCli" Source="Imagenes/lupa.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarCli" Click="BtAgregarCli_Click">
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarCli">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarCli">
+                                <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgCliente" Margin="10,10,10,15" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
+                                <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
+                                <DataGridTextColumn Header="Titulacion" Width="2*" Binding="{Binding Path=Telefono}"/>
+                                <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Path=Email}"/>
+                                <DataGridTextColumn Header="Numero de mascotas" Width="*" Binding="{Binding Path=Mascotas.Count}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
                     </DockPanel>
                 </TabItem>
             </TabControl>
