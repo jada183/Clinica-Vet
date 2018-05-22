@@ -98,15 +98,7 @@ namespace ClinicaVeterinaria.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-            modelBuilder.Entity<Venta>()
-          .Property(b => b.EmpleadoId)
-          .IsOptional();
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Horario>()
-          .Property(b => b.EmpleadoId)
-          .IsOptional();
-            base.OnModelCreating(modelBuilder);
+           
         }
 
        

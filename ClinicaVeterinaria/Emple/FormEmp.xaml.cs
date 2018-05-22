@@ -212,7 +212,7 @@ namespace ClinicaVeterinaria.Emple
                     {
                         case MessageBoxResult.Yes:
 
-
+                            
                             uow.RepositorioEmpleado.eliminar(em);
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
                             this.Close();
