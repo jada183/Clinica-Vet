@@ -82,6 +82,7 @@
 
                 </Grid>
             </TabItem>
+            
             <TabItem  x:Name="tabHorario"  FontSize="18">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -171,6 +172,7 @@
                 </DockPanel>
 
             </TabItem>
+          
         </TabControl>
     </Grid>
 </Window>

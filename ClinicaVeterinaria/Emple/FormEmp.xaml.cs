@@ -64,15 +64,15 @@ namespace ClinicaVeterinaria.Emple
 
 
             }
-
+            //@@@@@@@ una causa por la que falla el borrado
             //para los horarios
-            try
-            {
-                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
-            }
-            catch { }
+            //try
+            //{
+            //    CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+            //}
+            //catch { }
             CargarHorarios();
-            
+
         }
         #region perfil
      
@@ -103,15 +103,7 @@ namespace ClinicaVeterinaria.Emple
             em.Contraseña = contraseñaOriginal;
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (modificado == false)
-            {
-                RecuperarValoresEmpEntrada();
-            }
-            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-          
-        }
+       
 
         private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
@@ -213,7 +205,7 @@ namespace ClinicaVeterinaria.Emple
                     {
                         case MessageBoxResult.Yes:
 
-                            
+                            dgHorario.ItemsSource = "";
                             uow.RepositorioEmpleado.eliminar(em);
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
                             this.Close();
@@ -310,30 +302,34 @@ namespace ClinicaVeterinaria.Emple
 
         private void BtGuardarHor_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                string horaInGuardar = NuevoHorario.HoraInic;
-                string horaFnGuardar = NuevoHorario.HoraFin;
-                string diaGuardar = NuevoHorario.Dia;
-                horarioGuardar = new Horario();
-                //para evitar problemas con el binding del horarionuevo con el formulario
-                horarioGuardar.Dia = diaGuardar;
-                horarioGuardar.HoraFin = horaFnGuardar;
-                horarioGuardar.HoraInic = horaInGuardar;
-                horarioGuardar.EmpleadoId = em.EmpleadoId;
-                horarioGuardar.Empleado = em;
-                
-                uow.RepositorioHorario.crear(horarioGuardar);
-                MessageBox.Show("se ha guardado correctamente el horario");
-                NuevoHorario = new Horario();
-                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
-                LimpiarGridNuevoHorario();
-            }
-            catch
-            {
 
-                MessageBox.Show("no se ha podido guardar un nuevo horario por falta de algun campo algun dato mal introducido");
-            }
+            //@@@ hace que falle el borrado
+
+            //try
+            //{
+            //    string horaInGuardar = NuevoHorario.HoraInic;
+            //    string horaFnGuardar = NuevoHorario.HoraFin;
+            //    string diaGuardar = NuevoHorario.Dia;
+            //    horarioGuardar = new Horario();
+            //    //para evitar problemas con el binding del horarionuevo con el formulario
+            //    horarioGuardar.Dia = diaGuardar;
+            //    horarioGuardar.HoraFin = horaFnGuardar;
+            //    horarioGuardar.HoraInic = horaInGuardar;
+
+            //    horarioGuardar.EmpleadoId = em.EmpleadoId;
+            //    horarioGuardar.Empleado = em;
+            //    uow.RepositorioHorario.crear(horarioGuardar);
+            //    MessageBox.Show("se ha guardado correctamente el horario");
+            //    NuevoHorario = new Horario();
+            //    horarioGuardar = new Horario();
+            //    //    //CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+            //    //    LimpiarGridNuevoHorario();
+            //    }
+            //        catch
+            //{
+
+            //    MessageBox.Show("no se ha podido guardar un nuevo horario por falta de algun campo algun dato mal introducido");
+            //}
 
         }
         private void BtCancelarNuevoHor_Click(object sender, RoutedEventArgs e)
@@ -342,14 +338,14 @@ namespace ClinicaVeterinaria.Emple
         }
         private void DgHorario_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                HorSelect = (Horario)(dgHorario.SelectedItem);
-            }
-            catch
-            {
+            //try
+            //{
+            //    HorSelect = (Horario)(dgHorario.SelectedItem);
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
         private void BtEliminarHorario_Click(object sender, RoutedEventArgs e)
@@ -384,24 +380,32 @@ namespace ClinicaVeterinaria.Emple
         }
         private void BtBuscarListHorarios_Click(object sender, RoutedEventArgs e)
         {
-            if (cbBuscarListHorarios.Text == "Todos")
-            {
-                CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+            //if (cbBuscarListHorarios.Text == "Todos")
+            //{
+            //    CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
 
-            }
-            else if (cbBuscarListHorarios.Text == "Lunes" || (cbBuscarListHorarios.Text == "Martes") || (cbBuscarListHorarios.Text == "Miercoles") || (cbBuscarListHorarios.Text == "Jueves") || (cbBuscarListHorarios.Text == "Viernes")
-                 || (cbBuscarListHorarios.Text == "Sabado"))
-            {
-                try
-                {
-                    CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.Dia == cbBuscarListHorarios.Text && c.EmpleadoId == em.EmpleadoId));
-                }
-                catch { }
-            }
+            //}
+            //else if (cbBuscarListHorarios.Text == "Lunes" || (cbBuscarListHorarios.Text == "Martes") || (cbBuscarListHorarios.Text == "Miercoles") || (cbBuscarListHorarios.Text == "Jueves") || (cbBuscarListHorarios.Text == "Viernes")
+            //     || (cbBuscarListHorarios.Text == "Sabado"))
+            //{
+            //    try
+            //    {
+            //        CargardgHorarios(uow.RepositorioHorario.obtenerVarios(c => c.Dia == cbBuscarListHorarios.Text && c.EmpleadoId == em.EmpleadoId));
+            //    }
+            //    catch { }
+            //}
         }
 
         #endregion
 
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (modificado == false)
+            {
+                RecuperarValoresEmpEntrada();
+            }
+            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+           
+        }
     }
 }
