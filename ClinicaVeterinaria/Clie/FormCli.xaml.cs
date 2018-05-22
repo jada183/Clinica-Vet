@@ -24,7 +24,7 @@ namespace ClinicaVeterinaria.Clie
 
         Cliente cli = new Cliente();//empleado local
         bool NuevoCli = false;//cambia segun venga de nuevo empleado o empleado seleccionado
-        MainWindow main = new MainWindow();//la mainwindows local
+        MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
         //variables que recuperar cuando  la modificacion no se realiza correctamente
         string nombreOriginalCli = "";

@@ -30,7 +30,7 @@ namespace ClinicaVeterinaria
 
         Producto pr= new Producto();//producto local
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
-        MainWindow main = new MainWindow();//la mainwindows local
+        MainWindow main;//la mainwindows local
         Proveedor prov = new Proveedor();//proveedor del producto que lo cargaremos desde otra ventana
         bool modificado = false;//comprueba que el producto fue modificado correctamente para no reinicializar los valores
         //variables del producto cuando inicia

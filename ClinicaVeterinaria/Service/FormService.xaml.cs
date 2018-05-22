@@ -25,7 +25,7 @@ namespace ClinicaVeterinaria.Service
         Servicio ser = new Servicio();//Servicio local
         bool NuevoServ = false;//cambia segun venga de nuevo producto o producto seleccionado
         bool modificado = false;//comprueba que el servicio ha sido modificado correctamente para que al cerrrar no restaure los valores por defecto
-        MainWindow main = new MainWindow();
+        MainWindow main;
         //variables para guardar los datos que entran al abrir la ventana
         string serNombreOrigen = "";
         double serCosteOrigen;
@@ -39,6 +39,7 @@ namespace ClinicaVeterinaria.Service
             ser = serv;
             GuardarrValoresServEntrada();
             main = mw;
+            
             uow = uw;
             gridServicioSelect.DataContext = ser;
             //para identificar si es para crear un nuevo producto o para modificar uno existente
@@ -177,6 +178,7 @@ namespace ClinicaVeterinaria.Service
                 RecuperarValoresServEntrada();
             }
             main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+           
         }
     }
 }

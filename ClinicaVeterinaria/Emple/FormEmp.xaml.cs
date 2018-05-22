@@ -25,7 +25,7 @@ namespace ClinicaVeterinaria.Emple
 
         Empleado em = new Empleado();//empleado local
         bool NuevoEmp = false;//cambia segun venga de nuevo empleado o empleado seleccionado
-        MainWindow main = new MainWindow();//la mainwindows local
+        MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
         //variables que recuperar cuando  la modificacion no se realiza correctamente
         string NombreOriginal = "";
@@ -110,6 +110,7 @@ namespace ClinicaVeterinaria.Emple
                 RecuperarValoresEmpEntrada();
             }
             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+          
         }
 
         private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)

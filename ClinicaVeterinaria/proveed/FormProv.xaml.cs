@@ -23,7 +23,7 @@ namespace ClinicaVeterinaria.Proveed
         UnityOfWork uow;
         Proveedor pv = new Proveedor();//proveedor local
         bool NuevoProv = false;//cambia segun venga de nuevo proveedor o proveedor seleccionado
-        MainWindow main = new MainWindow();//la mainwindows local
+        MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el proveedor fue modificado correctamente para no reinicializar los valores
         //variables del proveedor al entrar en la ventana
         string nombreOriginal = "";
