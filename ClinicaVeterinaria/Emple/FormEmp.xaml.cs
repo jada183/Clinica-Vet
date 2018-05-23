@@ -57,6 +57,7 @@ namespace ClinicaVeterinaria.Emple
             if (em.Usuario == null)
             {
                 btEliminarEmp.Visibility = Visibility.Hidden;
+                tabHorario.Visibility = Visibility.Hidden;
                 NuevoEmp = true;
             }
             else
