@@ -269,8 +269,8 @@
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Email" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorCli" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="BtBuscarCli">
-                                <Image x:Name="imgBuscarCli" Source="Imagenes/lupa.png"></Image>
+                            <Button   Margin="5,5,5,5" x:Name="BtBuscarCli" Click="BtBuscarCli_Click">
+                                <Image x:Name="imgBuscarCli" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">

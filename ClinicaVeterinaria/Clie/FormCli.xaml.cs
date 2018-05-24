@@ -46,6 +46,7 @@ namespace ClinicaVeterinaria.Clie
             {
                 btEliminarCli.Visibility = Visibility.Hidden;
                 NuevoCli = true;
+                tabMascotas.Visibility = Visibility.Hidden;
             }
             else
             {

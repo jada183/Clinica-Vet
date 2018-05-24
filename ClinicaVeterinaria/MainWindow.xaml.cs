@@ -679,6 +679,23 @@ namespace ClinicaVeterinaria
             }
         }
 
+        private void BtBuscarCli_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text);
+                if (aux.Email != null)
+                {
+                    CargarVentanaFormCli(cliSelect);
+                    tbBuscadorCli.Text = "";
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun Cliente con ese email");
+            }
+        }
 
         #endregion
 

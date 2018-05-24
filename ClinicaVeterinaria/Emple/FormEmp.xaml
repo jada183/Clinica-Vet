@@ -157,7 +157,7 @@
                             <Image x:Name="imgNuevoHor" Source="../Imagenes/add.png" Width="28"></Image>
                         </Button>
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarHorario" Click="BtEliminarHorario_Click">
-                            <Image x:Name="imgBorrarHor" Source="../Imagenes/delete.png" Width="28"></Image>
+                            <Image x:Name="imgBorrarHor" Source="../Imagenes/delete.png"></Image>
                         </Button>
                     </StackPanel>
 

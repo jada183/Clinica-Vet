@@ -136,7 +136,7 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        RecuperarValoresEmpEntrada();
+                        tbConfirmContraseñaEmp.Text = "";
 
                     }
                 }
@@ -177,7 +177,7 @@ namespace ClinicaVeterinaria.Emple
                     else
                     {
                         MessageBox.Show("las contraseñas no coinciden");
-                        RecuperarValoresEmpEntrada();
+                        tbConfirmContraseñaEmp.Text = "";
                     }
                 }
                 //cuando existe un empleado con ese nombre de usuario
