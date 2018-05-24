@@ -87,6 +87,9 @@
     <Compile Include="Clie\FormCli.xaml.cs">
       <DependentUpon>FormCli.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clie\FormMas.xaml.cs">
+      <DependentUpon>FormMas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <DependentUpon>FormService.xaml</DependentUpon>
     </Compile>
     <Page Include="Clie\FormCli.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clie\FormMas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
