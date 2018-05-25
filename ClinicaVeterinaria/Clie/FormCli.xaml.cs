@@ -59,7 +59,7 @@ namespace ClinicaVeterinaria.Clie
 
             }
             //para mascotas
-            //CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
+            CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
         }
         #region Cliente
        
