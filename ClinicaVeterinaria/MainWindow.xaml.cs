@@ -17,6 +17,7 @@ using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.Service;
 using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
+using ClinicaVeterinaria.Clie;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -41,6 +42,10 @@ namespace ClinicaVeterinaria
         //variable usadas para la gestion de empleado
         private List<Empleado> empleados = new List<Empleado>();
         private Empleado empSelect = new Empleado();
+
+        //variables usadas en clientes
+        private List<Cliente> Clientes = new List<Cliente>();
+        private Cliente cliSelect = new Cliente();
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +54,7 @@ namespace ClinicaVeterinaria
             CargardgServicio(uow.RepositorioServicio.obtenerTodos());
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
         }
         #region Producto
         //metodos
@@ -98,8 +104,12 @@ namespace ClinicaVeterinaria
 
         private void DgProd_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            prodSelect = (Producto)(dgProd.SelectedItem);
-            CargarVentanaFormProd(prodSelect);
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+                CargarVentanaFormProd(prodSelect);
+            }
+            catch { }
         }
 
         private void BtBorrarProd_Click(object sender, RoutedEventArgs e)
@@ -232,8 +242,12 @@ namespace ClinicaVeterinaria
         }
         private void DgServ_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            serviSelect = (Servicio)(dgServ.SelectedItem);
-            CargarVentanaFormServ(serviSelect);
+            try
+            {
+                serviSelect = (Servicio)(dgServ.SelectedItem);
+                CargarVentanaFormServ(serviSelect);
+            }
+            catch { }
         }
 
         private void BtBuscarServ_Click(object sender, RoutedEventArgs e)
@@ -341,8 +355,12 @@ namespace ClinicaVeterinaria
 
         private void DgProv_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            prodSelect = (Producto)(dgProd.SelectedItem);
-            CargarVentanaFormProv(provSelect);
+            try
+            {
+                prodSelect = (Producto)(dgProd.SelectedItem);
+                CargarVentanaFormProv(provSelect);
+            }
+            catch { }
         }
         private void BtEditarProv_Click(object sender, RoutedEventArgs e)
         {
@@ -446,14 +464,32 @@ namespace ClinicaVeterinaria
         }
         private void DgEmpleado_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            empSelect = (Empleado)(dgEmpleado.SelectedItem);
-            CargarVentanaFormEmp(empSelect);
+            try
+            {
+                empSelect = (Empleado)(dgEmpleado.SelectedItem);
+                CargarVentanaFormEmp(empSelect);
+            }
+            catch { }
         }
 
         private void BtEditarEmp_Click(object sender, RoutedEventArgs e)
         {
-            empSelect = (Empleado)(dgEmpleado.SelectedItem);
-            CargarVentanaFormEmp(empSelect);
+            try
+            {
+                if (empSelect.Nombre != null)
+                {
+                    empSelect = (Empleado)(dgEmpleado.SelectedItem);
+                    CargarVentanaFormEmp(empSelect);
+                }
+                else
+                {
+                    MessageBox.Show("seleccione un empleado");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un empleado");
+            }
         }
 
         private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
@@ -543,8 +579,125 @@ namespace ClinicaVeterinaria
             }
         }
         #endregion
+        #region Cliente
+        //metodos
+        public void CargardgCliente(List<Cliente> c)
+        {
+            Clientes = c;
+            dgCliente.ItemsSource = Clientes;
+            dgCliente.SelectedIndex = 0;
+        }
+        public void CargarVentanaFormCli(Cliente cl)
+        {
+            FormCli fcli = new FormCli(cl, uow, this);
+            fcli.Show();
+        }
+        //eventos
+        private void BtAgregarCli_Click(object sender, RoutedEventArgs e)
+        {
+            Cliente cli = new Cliente();
+            CargarVentanaFormCli(cli);
+        }
+
+        private void DgCliente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                cliSelect=(Cliente)(dgCliente.SelectedItem);
+                                        
+            }
+            catch
+            {
+               
+            }
+        }
+        private void DgCliente_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                cliSelect = (Cliente)(dgCliente.SelectedItem);
+                CargarVentanaFormCli(cliSelect);
+            }
+            catch { }
+        }
+        private void BtEditarCli_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cliSelect.Nombre != null)
+                {
+                    CargarVentanaFormCli(cliSelect);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un cliente");
+                }
+            } catch
+            {
+                MessageBox.Show("seleccione un cliente");
+            }
+        }
+        private void BtBorrarCli_Click(object sender, RoutedEventArgs e)
+        {
+            if (cliSelect.ClienteId != 1)
+            {
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas eliminar este cliente?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
 
 
+                            uow.RepositorioCliente.eliminar(cliSelect);
+                            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("seleccione un cliente");
+                }
+            }
+            else
+            {
+                MessageBox.Show(" no se puede borrar el cliente por defecto");
+            }
+        }
+
+        private void BtBuscarCli_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text);
+                if (aux.Email != null)
+                {
+                    CargarVentanaFormCli(cliSelect);
+                    tbBuscadorCli.Text = "";
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ningun Cliente con ese email");
+            }
+        }
+
+        #endregion
 
 
     }

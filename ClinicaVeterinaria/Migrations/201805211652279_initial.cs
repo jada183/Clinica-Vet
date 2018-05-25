@@ -91,10 +91,10 @@ namespace ClinicaVeterinaria.Migrations
                         Dia = c.String(nullable: false),
                         HoraInic = c.String(nullable: false),
                         HoraFin = c.String(nullable: false),
-                        EmpleadoId = c.Int(),
+                        EmpleadoId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.HorarioId)
-                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId, cascadeDelete: true)
                 .Index(t => t.EmpleadoId);
             
             CreateTable(

@@ -84,12 +84,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clie\FormCli.xaml.cs">
+      <DependentUpon>FormCli.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Clie\FormMas.xaml.cs">
+      <DependentUpon>FormMas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805201624581_initial.cs" />
-    <Compile Include="Migrations\201805201624581_initial.Designer.cs">
-      <DependentUpon>201805201624581_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201805221743250_initial.cs" />
+    <Compile Include="Migrations\201805221743250_initial.Designer.cs">
+      <DependentUpon>201805221743250_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Proveed\FormProv.xaml.cs">
       <DependentUpon>FormProv.xaml</DependentUpon>
@@ -97,6 +103,14 @@
     <Compile Include="Service\FormService.xaml.cs">
       <DependentUpon>FormService.xaml</DependentUpon>
     </Compile>
+    <Page Include="Clie\FormCli.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clie\FormMas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Emple\FormEmp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,8 +193,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201805201624581_initial.resx">
-      <DependentUpon>201805201624581_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805221743250_initial.resx">
+      <DependentUpon>201805221743250_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -228,6 +242,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\empIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\HorarioIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\clientIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\petIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\vacunaIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\historialesMIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('packages\Fody.3.0.3\build\Fody.targets')" />
