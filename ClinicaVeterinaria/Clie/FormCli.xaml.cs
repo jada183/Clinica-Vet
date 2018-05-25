@@ -59,7 +59,7 @@ namespace ClinicaVeterinaria.Clie
 
             }
             //para mascotas
-            CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
+            //CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
         }
         #region Cliente
        
@@ -74,7 +74,8 @@ namespace ClinicaVeterinaria.Clie
                    
                         try
                         {
-                            uow.RepositorioCliente.crear(cli);
+                            UnityOfWork uowaux = new UnityOfWork();
+                            uowaux.RepositorioCliente.crear(cli);
                             MessageBox.Show("se ha guardado correctamente el Cliente");                           
                             modificado = true;
                             main.CargardgCliente(uow.RepositorioCliente.obtenerTodos());
@@ -232,7 +233,7 @@ namespace ClinicaVeterinaria.Clie
             }
         }
 
-        #endregion
+        
 
         private void dgMascota_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -275,5 +276,6 @@ namespace ClinicaVeterinaria.Clie
 
             }
         }
+        #endregion
     }
 }

@@ -67,8 +67,8 @@ namespace ClinicaVeterinaria.Service
                 {
                     try
                     {
-
-                        uow.RepositorioServicio.crear(ser);
+                        UnityOfWork uowaux = new UnityOfWork();
+                        uowaux.RepositorioServicio.crear(ser);
                         MessageBox.Show("se ha guardado correctamente el Servicio");
                         modificado = true;
                         main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());

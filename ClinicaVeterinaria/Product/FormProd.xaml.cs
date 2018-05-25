@@ -81,8 +81,8 @@ namespace ClinicaVeterinaria
                 {
                     try
                     {
-
-                        uow.RepositorioProducto.crear(pr);
+                        UnityOfWork uowaux = new UnityOfWork();
+                        uowaux.RepositorioProducto.crear(pr);
                         MessageBox.Show("se ha guardado correctamente el producto");
                         modificado = true;
                         main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());

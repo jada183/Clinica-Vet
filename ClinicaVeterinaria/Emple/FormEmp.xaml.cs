@@ -2,6 +2,7 @@
 using ClinicaVeterinaria.MODEL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,16 +120,20 @@ namespace ClinicaVeterinaria.Emple
                     {
                         try
                         {
-                            uow.RepositorioEmpleado.crear(em);
+                            UnityOfWork uowaux = new UnityOfWork();
+                            uowaux.RepositorioEmpleado.crear(em);
                             MessageBox.Show("se ha guardado correctamente el empleado");
                             GuardarValoresEmpEntrada();
                             modificado = true;
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
                             this.Close();
                         }
-                        catch
+                        catch 
                         {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir o  algun dato tiene un formato incorrecto");
+
+                            MessageBox.Show("no se puede guardar en empleado por algun dato mal introducido");
+                           
+
                         }
                        
                     }
@@ -168,8 +173,7 @@ namespace ClinicaVeterinaria.Emple
                         }
                         catch
                         {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir");
-                            RecuperarValoresEmpEntrada();
+                            MessageBox.Show("no se ha podido modificar el empleado");
                         }
                        
                     }
@@ -206,7 +210,7 @@ namespace ClinicaVeterinaria.Emple
                     switch (result)
                     {
                         case MessageBoxResult.Yes:
-
+                           
                             dgHorario.ItemsSource = "";
                             uow.RepositorioEmpleado.eliminar(em);
                             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
@@ -411,7 +415,7 @@ namespace ClinicaVeterinaria.Emple
                 RecuperarValoresEmpEntrada();
             }
             main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-          
+            this.Close();
         }
     }
 }
