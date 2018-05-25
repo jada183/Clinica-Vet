@@ -59,7 +59,7 @@ namespace ClinicaVeterinaria.Clie
 
             }
             //para mascotas
-            cargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
+            CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
         }
         #region Cliente
        
@@ -206,7 +206,7 @@ namespace ClinicaVeterinaria.Clie
         }
         #endregion
         #region mascota
-        public void cargarDgMascotas(List<Paciente> pac) {
+        public void CargarDgMascotas(List<Paciente> pac) {
             try
             {
                 mascotas = pac;
@@ -216,7 +216,7 @@ namespace ClinicaVeterinaria.Clie
         }
         public void CargarVentanaFormMas(Paciente p)
         {
-            FormMas fm = new FormMas(cli.ClienteId,p);
+            FormMas fm = new FormMas(p,this,uow2);
             fm.Show();
         }
         //eventos
@@ -252,6 +252,7 @@ namespace ClinicaVeterinaria.Clie
             try
             {
                 Paciente p = new Paciente();
+                p.ClienteId = cli.ClienteId;          
                 CargarVentanaFormMas(p);
 
             }
