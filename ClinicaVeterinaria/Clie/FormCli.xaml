@@ -80,13 +80,13 @@
                         </Button>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                        <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtNuevaMascota" >
+                        <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtNuevaMascota" Click="BtNuevaMascota_Click" >
                             <Image x:Name="imgNuevoPac" Source="../Imagenes/add.png"></Image>
                         </Button>
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarMascota">
                             <Image x:Name="imgBorrarHor" Source="../Imagenes/delete.png"></Image>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarMas">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarMas" Click="BtEditarMas_Click">
                             <Image Source="../Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                         </Button>
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirVacunas">
@@ -102,7 +102,7 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                             <DataGridTextColumn Header="Especie" Width="2*"  Binding="{Binding Path=Especie}"/>

@@ -21,7 +21,6 @@ namespace ClinicaVeterinaria.Clie
     public partial class FormCli : Window
     {
         UnityOfWork uow;
-
         Cliente cli = new Cliente();//empleado local
         bool NuevoCli = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
@@ -33,6 +32,11 @@ namespace ClinicaVeterinaria.Clie
         string telefonoOriginalCli = "";
         string movilOriginalCli = "";
         string emailOriginalCli = "";
+
+        //Para las mascotas
+        List<Paciente> mascotas = new List<Paciente>();
+        Paciente masSelect = new Paciente();
+        UnityOfWork uow2 = new UnityOfWork();
 
         public FormCli(Cliente cl, UnityOfWork uw, MainWindow mw)
         {
@@ -54,8 +58,11 @@ namespace ClinicaVeterinaria.Clie
 
 
             }
+            //para mascotas
+            cargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
         }
-
+        #region Cliente
+       
         private void BtGuardarCli_Click(object sender, RoutedEventArgs e)
         {
             if (NuevoCli)
@@ -195,6 +202,76 @@ namespace ClinicaVeterinaria.Clie
             else
             {
                 MessageBox.Show("el cliente por defecto no se puede borrarr");
+            }
+        }
+        #endregion
+        #region mascota
+        public void cargarDgMascotas(List<Paciente> pac) {
+            try
+            {
+                mascotas = pac;
+                dgMascota.ItemsSource = pac;
+            }
+            catch { }
+        }
+        public void CargarVentanaFormMas(Paciente p)
+        {
+            FormMas fm = new FormMas(cli.ClienteId,p);
+            fm.Show();
+        }
+        //eventos
+        private void dgMascota_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                masSelect = (Paciente)(dgMascota.SelectedItem);
+            }
+            catch
+            {
+
+            }
+        }
+
+        #endregion
+
+        private void dgMascota_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                masSelect = (Paciente)(dgMascota.SelectedItem);
+                CargarVentanaFormMas(masSelect);
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtNuevaMascota_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Paciente p = new Paciente();
+                CargarVentanaFormMas(p);
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtEditarMas_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+                CargarVentanaFormMas(masSelect);
+
+            }
+            catch
+            {
+
             }
         }
     }

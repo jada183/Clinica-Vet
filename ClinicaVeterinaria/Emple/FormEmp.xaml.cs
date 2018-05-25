@@ -285,8 +285,12 @@ namespace ClinicaVeterinaria.Emple
         }
         public void CargardgHorarios(List<Horario> h)
         {
-            Horarios = h;
-            dgHorario.ItemsSource = Horarios;
+            try
+            {
+                Horarios = h;
+                dgHorario.ItemsSource = Horarios;
+            }
+            catch { }
         }
         public void LimpiarGridNuevoHorario()
         {

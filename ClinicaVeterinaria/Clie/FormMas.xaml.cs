@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using ClinicaVeterinaria.MODEL;
+using ClinicaVeterinaria.DAL;
 namespace ClinicaVeterinaria.Clie
 {
     /// <summary>
@@ -19,7 +20,7 @@ namespace ClinicaVeterinaria.Clie
     /// </summary>
     public partial class FormMas : Window
     {
-        public FormMas()
+        public FormMas(int cliId, Paciente p)
         {
             InitializeComponent();
         }
