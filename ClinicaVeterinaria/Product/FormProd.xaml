@@ -59,12 +59,12 @@
             <Label Content="Peso" Grid.Column="3" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
             <TextBox x:Name="tbPesokProd" Grid.Column="4" Grid.Row="5" Margin="10,10,10,10" Text="{Binding Path=Peso, Mode=TwoWay}"></TextBox>
             <Label Content="kg" Grid.Column="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Label Content="Precio" Grid.Column="3" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbPrecioProd" Grid.Column="4" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Precio, Mode=TwoWay}"></TextBox>
-            <Label Content="€" Grid.Column="5" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Stock" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
             <TextBox x:Name="tbStockProd" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Stock, Mode=TwoWay}"></TextBox>
             <Label Content="Ud" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Label Content="Precio" Grid.Column="3" Grid.Row="6" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="tbPrecioProd" Grid.Column="4" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Precio, Mode=TwoWay}"></TextBox>
+            <Label Content="€" Grid.Column="5" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Categoria" Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
             <ComboBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" x:Name="cbCatProd" Text="{Binding Path=Categoria, Mode=TwoWay}">
 
