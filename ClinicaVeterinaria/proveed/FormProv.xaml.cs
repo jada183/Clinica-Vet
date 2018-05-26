@@ -65,8 +65,8 @@ namespace ClinicaVeterinaria.Proveed
                 {
                     try
                     {
-                        
-                        uow.RepositorioProveedor.crear(pv);
+                        UnityOfWork uowaux = new UnityOfWork();
+                        uowaux.RepositorioProveedor.crear(pv);
                         MessageBox.Show("se ha guardado correctamente el Proveedor");
                         modificado = true;
                         main.CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
@@ -76,13 +76,13 @@ namespace ClinicaVeterinaria.Proveed
                     catch
                     {
                         MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
-                        RecuperarValoresProvEntrada();
+                        
                     }
                 }
                 else
                 {
                     MessageBox.Show("existe un proveedor con el mismo email");
-                    RecuperarValoresProvEntrada();
+                    tbEmailProv.Text = "";
                 }
             }
             //modificar

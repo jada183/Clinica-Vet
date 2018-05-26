@@ -25,7 +25,7 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class MainWindow : Window
     {
-        UnityOfWork uow = new UnityOfWork();
+        public static UnityOfWork uow = new UnityOfWork();
 
         //variables usadas en la gestion de producto     
         private List<Producto> productosDtGrid = new List<Producto>();
@@ -65,7 +65,7 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormProd(Producto p)
         {
-            FormProd fp = new FormProd(p, uow, this);
+            FormProd fp = new FormProd(p,this);
             fp.Show();
         }
         //eventos

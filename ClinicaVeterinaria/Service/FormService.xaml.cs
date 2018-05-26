@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,30 @@ namespace ClinicaVeterinaria.Service
         double serCosteOrigen;
         int serDuracionOrigen;
         string serDescripcionOrigen="";
+        //validador
+        private Boolean validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
 
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public FormService(Servicio serv, UnityOfWork uw, MainWindow mw)
         {
@@ -40,7 +64,7 @@ namespace ClinicaVeterinaria.Service
             GuardarrValoresServEntrada();
             main = mw;
             
-            uow = uw;
+            
             gridServicioSelect.DataContext = ser;
             //para identificar si es para crear un nuevo producto o para modificar uno existente
             if (ser.ServicioId == 0)
@@ -59,64 +83,71 @@ namespace ClinicaVeterinaria.Service
 
         private void BtGuardarServ_Click(object sender, RoutedEventArgs e)
         {
-            if (NuevoServ)
+            if (validado(ser))
             {
-                Servicio servAux = new Servicio();
-                servAux = uow.RepositorioServicio.obtenerUno(c => c.Nombre==ser.Nombre);
-                if (servAux== null)
+                if (NuevoServ)
                 {
-                    try
-                    {
-                        UnityOfWork uowaux = new UnityOfWork();
-                        uowaux.RepositorioServicio.crear(ser);
-                        MessageBox.Show("se ha guardado correctamente el Servicio");
-                        modificado = true;
-                        main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+                    Servicio servAux = new Servicio();
+                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre);
 
-                        this.Close();
-                    }
-                    catch
+                    if (servAux == null)
                     {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        try
+                        {
+                            //UnityOfWork uowaux = new UnityOfWork();
+                            MainWindow.uow.RepositorioServicio.crear(ser);
+                            MessageBox.Show("se ha guardado correctamente el Servicio");
+                            modificado = true;
+                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
+
+                            this.Close();
+                        }
+                        catch (Exception erro)
+                        {
+                            MessageBox.Show(erro.Message);
+                            RecuperarValoresServEntrada();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("existe un servicio con el mismo nombre");
                         RecuperarValoresServEntrada();
                     }
                 }
+
+
+                //modificar
                 else
                 {
-                    MessageBox.Show("existe un servicio con el mismo nombre");
-                    RecuperarValoresServEntrada();
-                }
-            }
-            //modificar
-            else
-            {
-                Servicio servAux = new Servicio();
-                servAux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre  && c.ServicioId != ser.ServicioId);
-                if (servAux == null)
-                {
-                    try
+                    Servicio servAux = new Servicio();
+                    servAux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.ServicioId != ser.ServicioId);
+                    if (servAux == null)
                     {
+                        try
+                        {
 
-                        uow.RepositorioServicio.actualizar(ser);
-                        MessageBox.Show("se ha modificado correctamente el servicio");
-                        modificado = true;
-                        main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+                            uow.RepositorioServicio.actualizar(ser);
+                            MessageBox.Show("se ha modificado correctamente el servicio");
+                            modificado = true;
+                            main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
 
-                        this.Close();
+                            this.Close();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                            RecuperarValoresServEntrada();
+                        }
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        MessageBox.Show("existe un servicio con el mismo nombre y marca ya registrado");
                         RecuperarValoresServEntrada();
+
                     }
                 }
-                else
-                {
-                    MessageBox.Show("existe un servicio con el mismo nombre y marca ya registrado");
-                    RecuperarValoresServEntrada();
-
-                }
             }
+            else { }
         }
 
         public void GuardarrValoresServEntrada()
@@ -177,7 +208,7 @@ namespace ClinicaVeterinaria.Service
             {
                 RecuperarValoresServEntrada();
             }
-            main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
            
         }
     }

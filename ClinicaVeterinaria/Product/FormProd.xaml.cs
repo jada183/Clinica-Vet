@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class FormProd : Window
     {
-        UnityOfWork uow;
+       
 
         Producto pr= new Producto();//producto local
         bool NuevoProd = false;//cambia segun venga de nuevo producto o producto seleccionado
@@ -45,15 +46,13 @@ namespace ClinicaVeterinaria
         string prcategoriaOrigen="";
        
 
-        public FormProd(Producto prod, UnityOfWork uw, MainWindow mw)
+        public FormProd(Producto prod,MainWindow mw)
         {
 
             InitializeComponent();
             pr = prod;//el producto que paso por parametro lo asigno a una variable local
             GuardarrValoresProdEntrada();
-            main = mw;//asigno a una variable local la main window que paso por parametro
-            uow = uw;//la unity que deben tener en comun ambas ventanas
-            
+            main = mw;//asigno a una variable local la main window que paso por parametro   
             gridProductoSelect.DataContext = pr;
            
             //para identificar si es para crear un nuevo producto o para modificar uno existente
@@ -70,67 +69,93 @@ namespace ClinicaVeterinaria
             }
 
         }
+        //validador
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         private void BtGuardarProd_Click(object sender, RoutedEventArgs e)
         {
-            //guardar
-            if (NuevoProd) {
-                Producto prodAux = new Producto();
-                prodAux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca);
-                if (prodAux == null)
-                {
-                    try
+            if (Validado(pr)) { 
+                if (NuevoProd) {
+                    Producto prodAux = new Producto();
+                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca);
+                    if (prodAux == null)
                     {
-                        UnityOfWork uowaux = new UnityOfWork();
-                        uowaux.RepositorioProducto.crear(pr);
-                        MessageBox.Show("se ha guardado correctamente el producto");
-                        modificado = true;
-                        main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                        try
+                        {
+                            //UnityOfWork uowaux = new UnityOfWork();
+                            MainWindow.uow.RepositorioProducto.crear(pr);
+                            MessageBox.Show("se ha guardado correctamente el producto");
+                            modificado = true;
+                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
 
-                        this.Close();
+                            this.Close();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                            RecuperarValoresProdEntrada();
+                        }
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
                         RecuperarValoresProdEntrada();
                     }
                 }
+                //modificar
                 else
                 {
-                    MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    RecuperarValoresProdEntrada();
-                }
-            }
-            //modificar
-            else
-            {
-                Producto prodAux = new Producto();
-                prodAux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca && c.ProductoId!=pr.ProductoId);
-                if (prodAux == null)
-                {
-                    try
+                    Producto prodAux = new Producto();
+                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca && c.ProductoId!=pr.ProductoId);
+                    if (prodAux == null)
                     {
+                        try
+                        {
 
-                        uow.RepositorioProducto.actualizar(pr);
-                        MessageBox.Show("se ha modificado correctamente el producto");
-                        modificado = true;
-                        main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                            MainWindow.uow.RepositorioProducto.actualizar(pr);
+                            MessageBox.Show("se ha modificado correctamente el producto");
+                            modificado = true;
+                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
 
-                        this.Close();
+                            this.Close();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                            RecuperarValoresProdEntrada();
+                        }
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
                         RecuperarValoresProdEntrada();
+
                     }
                 }
-                else
-                {
-                    MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    RecuperarValoresProdEntrada();
-
-                }
             }
+            else { }
         }
 
         private void BtImgProd_Click(object sender, RoutedEventArgs e)
@@ -195,8 +220,8 @@ namespace ClinicaVeterinaria
                     case MessageBoxResult.Yes:
 
 
-                        uow.RepositorioProducto.eliminar(pr);
-                        main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                        MainWindow.uow.RepositorioProducto.eliminar(pr);
+                        main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
                         this.Close();
                         break;
                     case MessageBoxResult.No:
@@ -220,13 +245,13 @@ namespace ClinicaVeterinaria
             {
                 RecuperarValoresProdEntrada();
             }
-            main.CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
         }
 
 
         private void BtBuscarProv_Click(object sender, RoutedEventArgs e)
         {
-            BuscadorProv bp = new BuscadorProv(pr,uow);
+            BuscadorProv bp = new BuscadorProv(pr);
             bp.Show();
         }
         public void GuardarrValoresProdEntrada()
