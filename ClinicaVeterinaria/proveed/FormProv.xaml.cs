@@ -82,6 +82,7 @@ namespace ClinicaVeterinaria.Proveed
 
         private void BtGuardarProv_Click(object sender, RoutedEventArgs e)
         {
+           
             //nuevo producto
             if (Validado(pv)) { 
                 if (NuevoProv)

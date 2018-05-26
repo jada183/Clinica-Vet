@@ -41,7 +41,7 @@ namespace ClinicaVeterinaria
 
         //variable usadas para la gestion de empleado
         private List<Empleado> empleados = new List<Empleado>();
-        private Empleado empSelect = new Empleado();
+        public static Empleado empSelect = new Empleado();
 
         //variables usadas en clientes
         private List<Cliente> Clientes = new List<Cliente>();
@@ -445,7 +445,8 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormEmp(Empleado em)
         {
-            FormEmp femp = new FormEmp(em, uow, this);
+
+            FormEmp femp = new FormEmp(em,this);
             femp.Show();
         }
         //eventos
@@ -453,6 +454,7 @@ namespace ClinicaVeterinaria
         {
             Empleado emp = new Empleado();
             CargarVentanaFormEmp(emp);
+            
         }
         private void DgEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -522,9 +524,9 @@ namespace ClinicaVeterinaria
                             break;
                     }
                 }
-                catch
+                catch(Exception erro)
                 {
-                    MessageBox.Show("seleccione un empleado");
+                    MessageBox.Show(erro.Message);
                 }
             }
             else
