@@ -339,7 +339,7 @@ namespace ClinicaVeterinaria.Emple
         private void BtGuardarHor_Click(object sender, RoutedEventArgs e)
         {
 
-            //@@@ hace que falle el borrado
+           
 
             try
             {

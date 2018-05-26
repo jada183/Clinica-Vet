@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace ClinicaVeterinaria.Clie
     /// </summary>
     public partial class FormCli : Window
     {
-        UnityOfWork uow;
+        
         Cliente cli = new Cliente();//empleado local
         bool NuevoCli = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
@@ -38,12 +39,12 @@ namespace ClinicaVeterinaria.Clie
         Paciente masSelect = new Paciente();
         UnityOfWork uow2 = new UnityOfWork();
 
-        public FormCli(Cliente cl, UnityOfWork uw, MainWindow mw)
+        public FormCli(Cliente cl, MainWindow mw)
         {
             InitializeComponent();
             cli = cl;
             main = mw;
-            uow = uw;
+            
             GuardarValoresCliEntrada();
             gridClienteSelect.DataContext = cli;
             if (cli.Nombre == null)
@@ -61,78 +62,104 @@ namespace ClinicaVeterinaria.Clie
             //para mascotas
             CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
         }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         #region Cliente
-       
+
         private void BtGuardarCli_Click(object sender, RoutedEventArgs e)
         {
-            if (NuevoCli)
-            {
-                Cliente aux = new Cliente();
-                aux = uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email);//para comprobar que no existe ningun cliente con ese correo
-                if (aux == null)
+            if (Validado(cli)) { 
+                if (NuevoCli)
                 {
+                    Cliente aux = new Cliente();
+                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email);//para comprobar que no existe ningun cliente con ese correo
+                    if (aux == null)
+                    {
                    
-                        try
-                        {
-                            UnityOfWork uowaux = new UnityOfWork();
-                            uowaux.RepositorioCliente.crear(cli);
-                            MessageBox.Show("se ha guardado correctamente el Cliente");                           
-                            modificado = true;
-                            main.CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-                            GuardarValoresCliEntrada();
-                            this.Close();
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir o  algun dato tiene un formato incorrecto");
-                            RecuperarValoresCliEntrada();
-                        }
+                            try
+                            {
+
+                                MainWindow.uow.RepositorioCliente.crear(cli);
+                                MessageBox.Show("se ha guardado correctamente el Cliente");                           
+                                modificado = true;
+                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
+                                GuardarValoresCliEntrada();
+                                this.Close();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error falta algun campo obligatorio por cubrir o  algun dato tiene un formato incorrecto");
+                                RecuperarValoresCliEntrada();
+                            }
 
                     
                  
                     
+                    }
+                    //cuando existe un  cliente con ese correo
+                    else
+                    {
+                        MessageBox.Show("existe un cliente con ese nombre de email");
+                        RecuperarValoresCliEntrada();
+                        tbEmailCli.Text = "";
+                    }
                 }
-                //cuando existe un  cliente con ese correo
+                //cuando se modifica un empleado
                 else
                 {
-                    MessageBox.Show("existe un cliente con ese nombre de email");
-                    RecuperarValoresCliEntrada();
-                    tbEmailCli.Text = "";
-                }
-            }
-            //cuando se modifica un empleado
-            else
-            {
-                Cliente aux = new Cliente();
-                aux = uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.ClienteId != cli.ClienteId);//para comprobar que no existe ningun cliente con ese correo
-                if (aux == null)
-                {
+                    Cliente aux = new Cliente();
+                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.ClienteId != cli.ClienteId);//para comprobar que no existe ningun cliente con ese correo
+                    if (aux == null)
+                    {
                    
-                        try
-                        {
-                            uow.RepositorioCliente.actualizar(cli);
-                            MessageBox.Show("se ha modificado correctamente el cliente");                           
-                            modificado = true;
-                            main.CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-                            this.Close();
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Error falta algun campo obligatorio por cubrir");
-                            RecuperarValoresCliEntrada();
-                        }
+                            try
+                            {
+                                MainWindow.uow.RepositorioCliente.actualizar(cli);
+                                MessageBox.Show("se ha modificado correctamente el cliente");                           
+                                modificado = true;
+                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
+                                this.Close();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error falta algun campo obligatorio por cubrir");
+                                RecuperarValoresCliEntrada();
+                            }
 
                    
                     
-                }
-                //cuando existe un empleado con ese nombre de usuario
-                else
-                {
-                    MessageBox.Show("existe un cliente con ese email");
-                    RecuperarValoresCliEntrada();
-                    tbEmailCli.Text = "";
+                    }
+                    //cuando existe un empleado con ese nombre de usuario
+                    else
+                    {
+                        MessageBox.Show("existe un cliente con ese email");
+                        RecuperarValoresCliEntrada();
+                        tbEmailCli.Text = "";
+                    }
                 }
             }
+            else { }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -141,7 +168,7 @@ namespace ClinicaVeterinaria.Clie
             {
                 RecuperarValoresCliEntrada();
             }
-            main.CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
         }
 
         private void RecuperarValoresCliEntrada()
@@ -182,8 +209,8 @@ namespace ClinicaVeterinaria.Clie
                         case MessageBoxResult.Yes:
 
 
-                            uow.RepositorioCliente.eliminar(cli);
-                            main.CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+                            MainWindow.uow.RepositorioCliente.eliminar(cli);
+                            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
                             this.Close();
                             break;
                         case MessageBoxResult.No:
@@ -276,6 +303,37 @@ namespace ClinicaVeterinaria.Clie
 
             }
         }
+        private void BtEliminarMascota_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta mascota?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        uow2.RepositorioPaciente.eliminar(masSelect);
+                        CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId));                 
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un horario");
+            }
+        }
         #endregion
+
+
     }
 }

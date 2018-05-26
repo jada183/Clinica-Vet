@@ -83,7 +83,7 @@
                         <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtNuevaMascota" Click="BtNuevaMascota_Click" >
                             <Image x:Name="imgNuevoPac" Source="../Imagenes/add.png"></Image>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarMascota">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarMascota" Click="BtEliminarMascota_Click">
                             <Image x:Name="imgBorrarHor" Source="../Imagenes/delete.png"></Image>
                         </Button>
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarMas" Click="BtEditarMas_Click">
@@ -106,7 +106,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                             <DataGridTextColumn Header="Especie" Width="2*"  Binding="{Binding Path=Especie}"/>
-                            <DataGridTextColumn Header="Fecha Nacimiento" Width="2*" Binding="{Binding Path=Edad}"/>
+                            <DataGridTextColumn Header="Fecha Nacimiento" Width="2*" Binding="{Binding Path=FechaNacimiento}"/>
                             <DataGridTextColumn Header="Sexo" Width="2*" Binding="{Binding Path=Sexo}"/>
                             <DataGridTextColumn Header="Raza" Width="*" Binding="{Binding Path=Raza}"/>
                             <DataGridTextColumn Header="Peso" Width="*" Binding="{Binding Path=Peso}"/>

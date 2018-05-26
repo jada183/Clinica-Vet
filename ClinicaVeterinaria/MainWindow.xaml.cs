@@ -55,6 +55,7 @@ namespace ClinicaVeterinaria
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+           
         }
         #region Producto
         //metodos
@@ -524,9 +525,9 @@ namespace ClinicaVeterinaria
                             break;
                     }
                 }
-                catch(Exception erro)
+                catch
                 {
-                    MessageBox.Show(erro.Message);
+                    MessageBox.Show("seleccione un empleado");
                 }
             }
             else
@@ -591,7 +592,7 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormCli(Cliente cl)
         {
-            FormCli fcli = new FormCli(cl, uow, this);
+            FormCli fcli = new FormCli(cl,this);
             fcli.Show();
         }
         //eventos
@@ -670,9 +671,9 @@ namespace ClinicaVeterinaria
                             break;
                     }
                 }
-                catch
+                catch(Exception erro)
                 {
-                    MessageBox.Show("seleccione un cliente");
+                    MessageBox.Show(erro.Message);
                 }
             }
             else
@@ -700,7 +701,7 @@ namespace ClinicaVeterinaria
         }
 
         #endregion
-
+       
 
     }
 }

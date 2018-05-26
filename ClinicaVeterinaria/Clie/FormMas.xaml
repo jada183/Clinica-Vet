@@ -38,7 +38,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Mascota" FontSize="32" HorizontalAlignment="Center" Margin="62,38,63,37" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120"  MinWidth="120" MinHeight="115" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120"  MinWidth="120" MinHeight="115" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btImgProd_Click">
 
                 <Image x:Name="imgProd" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" Stretch="Fill" Margin="5,5,5,5" />
 
@@ -64,7 +64,7 @@
                 <ComboBoxItem Content="Otro"></ComboBoxItem>
             </ComboBox>
             <Button x:Name="BtGuardarPac" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15" Click="BtGuardarPac_Click"/>
-            <Button x:Name="BtEliminarPac" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15"/>
+            <Button x:Name="BtEliminarPac" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15" Click="BtEliminarPac_Click"/>
 
         </Grid>
     </Grid>
