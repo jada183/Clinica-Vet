@@ -24,7 +24,7 @@ namespace ClinicaVeterinaria.Emple
     public partial class FormEmp : Window
     {
 
-
+        
         Empleado em;//empleado local
         bool NuevoEmp = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
@@ -441,6 +441,7 @@ namespace ClinicaVeterinaria.Emple
                 RecuperarValoresEmpEntrada();
             }
             main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+            
             this.Close();
         }
     }
