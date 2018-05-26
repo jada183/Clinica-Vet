@@ -223,7 +223,7 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormServ(Servicio s)
         {
-            FormService fs = new Service.FormService(s,uow,this);
+            FormService fs = new Service.FormService(s,this);
             fs.Show();
         }
         //eventos
@@ -330,7 +330,7 @@ namespace ClinicaVeterinaria
         //metodos
         public void CargarVentanaFormProv(Proveedor p)
         {
-            FormProv fpv = new FormProv(p, uow, this);
+            FormProv fpv = new FormProv(p,this);
             fpv.Show();
         }
         //eventos

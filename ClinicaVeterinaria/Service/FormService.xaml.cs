@@ -21,7 +21,7 @@ namespace ClinicaVeterinaria.Service
     /// </summary>
     public partial class FormService : Window
     {
-        UnityOfWork uow;
+       
 
         Servicio ser = new Servicio();//Servicio local
         bool NuevoServ = false;//cambia segun venga de nuevo producto o producto seleccionado
@@ -33,7 +33,7 @@ namespace ClinicaVeterinaria.Service
         int serDuracionOrigen;
         string serDescripcionOrigen="";
         //validador
-        private Boolean validado(Object obj)
+        private Boolean Validado(Object obj)
         {
             ValidationContext validationContext = new ValidationContext(obj, null, null);
             List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
@@ -57,14 +57,12 @@ namespace ClinicaVeterinaria.Service
             }
         }
 
-        public FormService(Servicio serv, UnityOfWork uw, MainWindow mw)
+        public FormService(Servicio serv,MainWindow mw)
         {
             InitializeComponent();
             ser = serv;
             GuardarrValoresServEntrada();
-            main = mw;
-            
-            
+            main = mw;        
             gridServicioSelect.DataContext = ser;
             //para identificar si es para crear un nuevo producto o para modificar uno existente
             if (ser.ServicioId == 0)
@@ -83,7 +81,7 @@ namespace ClinicaVeterinaria.Service
 
         private void BtGuardarServ_Click(object sender, RoutedEventArgs e)
         {
-            if (validado(ser))
+            if (Validado(ser))
             {
                 if (NuevoServ)
                 {
@@ -94,7 +92,7 @@ namespace ClinicaVeterinaria.Service
                     {
                         try
                         {
-                            //UnityOfWork uowaux = new UnityOfWork();
+                            
                             MainWindow.uow.RepositorioServicio.crear(ser);
                             MessageBox.Show("se ha guardado correctamente el Servicio");
                             modificado = true;
@@ -120,16 +118,16 @@ namespace ClinicaVeterinaria.Service
                 else
                 {
                     Servicio servAux = new Servicio();
-                    servAux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.ServicioId != ser.ServicioId);
+                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.ServicioId != ser.ServicioId);
                     if (servAux == null)
                     {
                         try
                         {
 
-                            uow.RepositorioServicio.actualizar(ser);
+                            MainWindow.uow.RepositorioServicio.actualizar(ser);
                             MessageBox.Show("se ha modificado correctamente el servicio");
                             modificado = true;
-                            main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
 
                             this.Close();
                         }
@@ -183,8 +181,8 @@ namespace ClinicaVeterinaria.Service
                     case MessageBoxResult.Yes:
 
 
-                        uow.RepositorioServicio.eliminar(ser);
-                        main.CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+                        MainWindow.uow.RepositorioServicio.eliminar(ser);
+                        main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
                         this.Close();
                         break;
                     case MessageBoxResult.No:

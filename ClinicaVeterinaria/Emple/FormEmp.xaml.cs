@@ -2,6 +2,7 @@
 using ClinicaVeterinaria.MODEL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -77,8 +78,31 @@ namespace ClinicaVeterinaria.Emple
             CargarHorarios();
 
         }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         #region perfil
-     
+
         public void GuardarValoresEmpEntrada()
         {
             NombreOriginal = em.Nombre;
