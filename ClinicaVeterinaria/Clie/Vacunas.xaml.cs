@@ -28,7 +28,7 @@ namespace ClinicaVeterinaria.Clie
         Vacuna NuevaVacuna = new Vacuna();
         bool modificar = false;
       
-        public Vacunas(Paciente p,UnityOfWork uow)
+        public Vacunas(Paciente p)
         {
             InitializeComponent();
             Paci = p;
@@ -40,6 +40,7 @@ namespace ClinicaVeterinaria.Clie
             }
             catch { }
             gridNuevaVacuna.Visibility = Visibility.Hidden;
+            
         }
         //metodos
         private Boolean Validado(Object obj)
@@ -73,7 +74,7 @@ namespace ClinicaVeterinaria.Clie
 
         }
         //eventos
-        private void dgVacuna_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DgVacuna_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -91,6 +92,7 @@ namespace ClinicaVeterinaria.Clie
             {
                 VacSelect = (Vacuna)(dgVacuna.SelectedItem);
                 CargaNuevaVacuna(VacSelect);
+                modificar = true;
 
             }
             catch
@@ -105,7 +107,7 @@ namespace ClinicaVeterinaria.Clie
             {
 
                 CargaNuevaVacuna(VacSelect);
-
+                modificar = true;
             }
             catch
             {
@@ -116,6 +118,7 @@ namespace ClinicaVeterinaria.Clie
         private void BtAgregarVacuna_Click(object sender, RoutedEventArgs e)
         {
             NuevaVacuna.Fecha = DateTime.Today;
+            modificar = false;
             CargaNuevaVacuna(NuevaVacuna);
         }
 
@@ -124,7 +127,31 @@ namespace ClinicaVeterinaria.Clie
 
             if (modificar)
             {
+                if (Validado(VacSelect))
+                {
+                    try
+                    {
 
+                        Empleado emple = (Empleado)(cbListEmpVac.SelectedItem);
+                        VacSelect.Empleado = emple;
+                        VacSelect.EmpleadoId = emple.EmpleadoId;
+                        VacSelect.Paciente = Paci;
+                        VacSelect.PacienteId = Paci.PacienteId;
+                        MainWindow.uow.RepositorioVacuna.actualizar(VacSelect);
+                        MessageBox.Show("se ha actualizado  correctamente");                    
+                        dgVacuna.ItemsSource = MainWindow.uow.RepositorioVacuna.obtenerVarios(c => c.PacienteId == Paci.PacienteId);
+                        gridNuevaVacuna.Visibility = Visibility.Hidden;
+                        
+                        cbListEmpVac.SelectedIndex = 0;
+                        
+                    }
+
+                    catch (Exception erro)
+                    {
+                        MessageBox.Show(erro.Message);
+                    }
+                }
+                else { }
             }
             else
             {
@@ -143,6 +170,8 @@ namespace ClinicaVeterinaria.Clie
                         NuevaVacuna = new Vacuna();
                         dgVacuna.ItemsSource = MainWindow.uow.RepositorioVacuna.obtenerVarios(c => c.PacienteId == Paci.PacienteId);
                         gridNuevaVacuna.Visibility = Visibility.Hidden;
+                       
+                        cbListEmpVac.SelectedIndex = 0;
                     }
 
                     catch (Exception erro)
@@ -151,6 +180,41 @@ namespace ClinicaVeterinaria.Clie
                     }
                 }
                 else { }
+            }
+        }
+
+        private void BtEliminarVacuna_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta vacuna?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        MainWindow.uow.RepositorioVacuna.eliminar(VacSelect);
+                        dgVacuna.ItemsSource = MainWindow.uow.RepositorioVacuna.obtenerVarios(c => c.PacienteId == Paci.PacienteId);
+                        //this.Close();
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch(Exception erro)
+            {
+                MessageBox.Show(erro.Message);
             }
         }
     }

@@ -90,6 +90,9 @@
     <Compile Include="Clie\FormMas.xaml.cs">
       <DependentUpon>FormMas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clie\Historiales.xaml.cs">
+      <DependentUpon>Historiales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Clie\Vacunas.xaml.cs">
       <DependentUpon>Vacunas.xaml</DependentUpon>
     </Compile>
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Clie\FormMas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clie\Historiales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

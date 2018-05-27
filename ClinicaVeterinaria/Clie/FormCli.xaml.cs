@@ -21,8 +21,8 @@ namespace ClinicaVeterinaria.Clie
     /// </summary>
     public partial class FormCli : Window
     {
-        
-        Cliente cli = new Cliente();//empleado local
+
+        Cliente cli;//empleado local
         bool NuevoCli = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
@@ -35,9 +35,9 @@ namespace ClinicaVeterinaria.Clie
         string emailOriginalCli = "";
 
         //Para las mascotas
-        List<Paciente> mascotas = new List<Paciente>();
-        Paciente masSelect = new Paciente();
-        public static UnityOfWork uow2 = new UnityOfWork();
+        List<Paciente> mascotas;
+        Paciente masSelect;
+        //public static UnityOfWork uow2 = new UnityOfWork();
 
         public FormCli(Cliente cl, MainWindow mw)
         {
@@ -60,7 +60,8 @@ namespace ClinicaVeterinaria.Clie
 
             }
             //para mascotas
-            CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
+            CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => cli.ClienteId == c.ClienteId));
+            
         }
         private Boolean Validado(Object obj)
         {
@@ -92,7 +93,7 @@ namespace ClinicaVeterinaria.Clie
             if (Validado(cli)) { 
                 if (NuevoCli)
                 {
-                    Cliente aux = new Cliente();
+                    Cliente aux;
                     aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email);//para comprobar que no existe ningun cliente con ese correo
                     if (aux == null)
                     {
@@ -104,7 +105,7 @@ namespace ClinicaVeterinaria.Clie
                                 MessageBox.Show("se ha guardado correctamente el Cliente");                           
                                 modificado = true;
                                 main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-                                GuardarValoresCliEntrada();
+                                
                                 this.Close();
                             }
                             catch
@@ -128,7 +129,7 @@ namespace ClinicaVeterinaria.Clie
                 //cuando se modifica un empleado
                 else
                 {
-                    Cliente aux = new Cliente();
+                    Cliente aux;
                     aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.ClienteId != cli.ClienteId);//para comprobar que no existe ningun cliente con ese correo
                     if (aux == null)
                     {
@@ -162,14 +163,7 @@ namespace ClinicaVeterinaria.Clie
             else { }
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (modificado == false)
-            {
-                RecuperarValoresCliEntrada();
-            }
-            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-        }
+       
 
         private void RecuperarValoresCliEntrada()
         {
@@ -208,7 +202,7 @@ namespace ClinicaVeterinaria.Clie
                     {
                         case MessageBoxResult.Yes:
 
-
+                            MainWindow.uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == cli.ClienteId);
                             MainWindow.uow.RepositorioCliente.eliminar(cli);
                             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
                             this.Close();
@@ -234,7 +228,8 @@ namespace ClinicaVeterinaria.Clie
         }
         #endregion
         #region mascota
-        public void CargarDgMascotas(List<Paciente> pac) {
+        public void CargarDgMascotas(List<Paciente> pac)
+        {
             try
             {
                 mascotas = pac;
@@ -244,7 +239,7 @@ namespace ClinicaVeterinaria.Clie
         }
         public void CargarVentanaFormMas(Paciente p)
         {
-            FormMas fm = new FormMas(p,this,uow2);
+            FormMas fm = new FormMas(p,this);
             fm.ShowDialog();
         }
         //eventos
@@ -280,7 +275,8 @@ namespace ClinicaVeterinaria.Clie
             try
             {
                 Paciente p = new Paciente();
-                p.ClienteId = cli.ClienteId;          
+                p.ClienteId = cli.ClienteId;
+                p.Propietario = cli;
                 CargarVentanaFormMas(p);
 
             }
@@ -315,8 +311,8 @@ namespace ClinicaVeterinaria.Clie
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        uow2.RepositorioPaciente.eliminar(masSelect);
-                        CargarDgMascotas(uow2.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId));                 
+                        MainWindow.uow.RepositorioPaciente.eliminar(masSelect);
+                        CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId));                      
                         break;
                     case MessageBoxResult.No:
 
@@ -338,7 +334,7 @@ namespace ClinicaVeterinaria.Clie
         {
             try
             {
-                masSelect=uow2.RepositorioPaciente.obtenerUno(c => c.Nombre == tbBuscadorPac.Text && cli.ClienteId == c.ClienteId);
+                masSelect= MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == tbBuscadorPac.Text && cli.ClienteId == c.ClienteId);
                 CargarVentanaFormMas(masSelect);
             }
             catch
@@ -349,7 +345,7 @@ namespace ClinicaVeterinaria.Clie
         {
             try
             {
-                Vacunas vac = new Vacunas(masSelect,uow2);
+                Vacunas vac = new Vacunas(masSelect);
                 vac.ShowDialog();
             }
             catch
@@ -357,8 +353,29 @@ namespace ClinicaVeterinaria.Clie
 
             }
         }
+        private void BtAbrirHistoriales_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Historiales his = new Historiales(masSelect);
+                his.ShowDialog();
+            }
+            catch
+            {
+
+            }
+        }
         #endregion
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (modificado == false)
+            {
+                RecuperarValoresCliEntrada();
+            }
+            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
+           
+        }
 
-
+     
     }
 }

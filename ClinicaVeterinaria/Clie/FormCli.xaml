@@ -95,14 +95,14 @@
                                 <Label Content="Vacunas" Foreground="White"></Label>
                             </StackPanel>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirHistoriales">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirHistoriales" Click="BtAbrirHistoriales_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="../Imagenes/historialesMIcon.png" Width="auto" Height="auto"></Image>
                                 <Label Content="Historiales medicos" Foreground="White"></Label>
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True">
+                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                             <DataGridTextColumn Header="Especie" Width="2*"  Binding="{Binding Path=Especie}"/>

@@ -25,19 +25,19 @@ namespace ClinicaVeterinaria.Clie
     /// </summary>
     public partial class FormMas : Window
     {
-        UnityOfWork uow;
+        
         Paciente pac = new Paciente();
         bool NuevoPac = false;
         FormCli formcli;
        
 
-        public FormMas(Paciente p, FormCli fcli, UnityOfWork uw)
+        public FormMas(Paciente p, FormCli fcli)
         {
             InitializeComponent();
             pac = p;
             formcli = fcli;
             gridMascota.DataContext = pac;
-            uow = uw;
+           
             if (pac.PacienteId == 0)
             {
                 BtEliminarPac.Visibility = Visibility.Hidden;
@@ -83,16 +83,17 @@ namespace ClinicaVeterinaria.Clie
                 if (NuevoPac)
                 {
                     Paciente pacAux = new Paciente();
-                    pacAux = uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId);
+                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId);
                     if (pacAux == null)
                     {
                         try
                         {
-
-                            uow.RepositorioPaciente.crear(pac);
-                            MessageBox.Show("se ha guardado correctamente la  mascota");
                             
-                            formcli.CargarDgMascotas(uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                            MainWindow.uow.RepositorioPaciente.crear(pac);
+                            MessageBox.Show("se ha guardado correctamente la  mascota");
+
+                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                            
 
                             this.Close();
                         }
@@ -112,16 +113,16 @@ namespace ClinicaVeterinaria.Clie
                 else
                 {
                     Paciente pacAux = new Paciente();
-                    pacAux = uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId && pac.PacienteId != c.PacienteId);
+                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId && pac.PacienteId != c.PacienteId);
                     if (pacAux == null)
                     {
                         try
                         {
 
-                            uow.RepositorioPaciente.actualizar(pac);
+                            MainWindow.uow.RepositorioPaciente.actualizar(pac);
                             MessageBox.Show("se ha modificado correctamente la mascota");
                             
-                            formcli.CargarDgMascotas(uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
 
                             this.Close();
                         }
@@ -153,8 +154,8 @@ namespace ClinicaVeterinaria.Clie
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        uow.RepositorioPaciente.eliminar(pac);
-                        formcli.CargarDgMascotas(uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                        MainWindow.uow.RepositorioPaciente.eliminar(pac);
+                        formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
                         this.Close();
                         break;
                     case MessageBoxResult.No:

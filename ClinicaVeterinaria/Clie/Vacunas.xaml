@@ -42,8 +42,8 @@
                 <Label Content="Fecha" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10"/>
                 <DatePicker x:Name="dpVacunaFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" Text="{Binding Path=Fecha, Mode=TwoWay}" />
                 <Label Content="Empleado" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"/>
-                <ComboBox x:Name="cbListEmpVac" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Nombre" SelectedValuePath="EmpleadoId">
-                </ComboBox>
+                <ComboBox x:Name="cbListEmpVac" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Usuario" SelectedValuePath="EmpleadoId" />
+
                 <Button x:Name="btGuardarHor" Content="guardar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="6" Margin="10,10,10,10" Click="BtGuardarHor_Click"/>
 
 
@@ -52,7 +52,7 @@
                 <Button x:Name="BtAgregarVacuna"  HorizontalAlignment="Left" Margin="10,0,10,0" Click="BtAgregarVacuna_Click">
                     <Image Source="../Imagenes/add.png"></Image>
                 </Button>
-                <Button x:Name="BtEliminarVacuna"  HorizontalAlignment="Left" Margin="10,0,10,0" >
+                <Button x:Name="BtEliminarVacuna"  HorizontalAlignment="Left" Margin="10,0,10,0" Click="BtEliminarVacuna_Click" >
                     <Image  Source="../Imagenes/delete.png"></Image>
                 </Button>
                 <Button x:Name="BtEditarVacuna"  HorizontalAlignment="Left" Margin="10,0,10,0" Click="BtEditarVacuna_Click" >
@@ -60,7 +60,7 @@
                 </Button>
             </StackPanel>
 
-            <DataGrid x:Name="dgVacuna" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="dgVacuna_SelectionChanged" MouseDoubleClick="dgVacuna_MouseDoubleClick">
+            <DataGrid x:Name="dgVacuna" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgVacuna_SelectionChanged" MouseDoubleClick="dgVacuna_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                     <DataGridTextColumn Header="Aplicada por" Width="2*" Binding="{Binding Path=Empleado.Nombre}"/>
