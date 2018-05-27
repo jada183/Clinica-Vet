@@ -67,7 +67,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormProd(Producto p)
         {
             FormProd fp = new FormProd(p,this);
-            fp.Show();
+            fp.ShowDialog();
         }
         //eventos
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
@@ -225,7 +225,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormServ(Servicio s)
         {
             FormService fs = new Service.FormService(s,this);
-            fs.Show();
+            fs.ShowDialog();
         }
         //eventos
         private void BtAgregarServ_Click(object sender, RoutedEventArgs e)
@@ -332,7 +332,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormProv(Proveedor p)
         {
             FormProv fpv = new FormProv(p,this);
-            fpv.Show();
+            fpv.ShowDialog();
         }
         //eventos
         private void BtAgregarProv_Click(object sender, RoutedEventArgs e)
@@ -448,7 +448,7 @@ namespace ClinicaVeterinaria
         {
 
             FormEmp femp = new FormEmp(em,this);
-            femp.Show();
+            femp.ShowDialog();
         }
         //eventos
         private void BtAgregarEmp_Click(object sender, RoutedEventArgs e)
@@ -593,7 +593,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormCli(Cliente cl)
         {
             FormCli fcli = new FormCli(cl,this);
-            fcli.Show();
+            fcli.ShowDialog();
         }
         //eventos
         private void BtAgregarCli_Click(object sender, RoutedEventArgs e)

@@ -245,7 +245,7 @@ namespace ClinicaVeterinaria.Clie
         public void CargarVentanaFormMas(Paciente p)
         {
             FormMas fm = new FormMas(p,this,uow2);
-            fm.Show();
+            fm.ShowDialog();
         }
         //eventos
         private void dgMascota_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -330,6 +330,18 @@ namespace ClinicaVeterinaria.Clie
             catch
             {
                 MessageBox.Show("seleccione un horario");
+            }
+        }
+
+        private void BtBuscarMascota_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                masSelect=uow2.RepositorioPaciente.obtenerUno(c => c.Nombre == tbBuscadorPac.Text && cli.ClienteId == c.ClienteId);
+                CargarVentanaFormMas(masSelect);
+            }
+            catch
+            {
             }
         }
         #endregion

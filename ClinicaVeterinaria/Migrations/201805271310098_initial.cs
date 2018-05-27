@@ -54,14 +54,14 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         HistorialClinicoId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
-                        PacienteId = c.Int(),
+                        PacienteId = c.Int(nullable: false),
                         Enfermedad = c.String(nullable: false, maxLength: 80),
                         Detalles = c.String(),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HistorialClinicoId)
                 .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
-                .ForeignKey("dbo.Paciente", t => t.PacienteId)
+                .ForeignKey("dbo.Paciente", t => t.PacienteId, cascadeDelete: true)
                 .Index(t => t.PacienteId)
                 .Index(t => t.EmpleadoId);
             
@@ -104,12 +104,12 @@ namespace ClinicaVeterinaria.Migrations
                         VacunaId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
                         Nombre = c.String(nullable: false, maxLength: 40),
-                        PacienteId = c.Int(),
+                        PacienteId = c.Int(nullable: false),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.VacunaId)
                 .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
-                .ForeignKey("dbo.Paciente", t => t.PacienteId)
+                .ForeignKey("dbo.Paciente", t => t.PacienteId, cascadeDelete: true)
                 .Index(t => t.PacienteId)
                 .Index(t => t.EmpleadoId);
             

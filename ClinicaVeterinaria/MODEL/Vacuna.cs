@@ -19,7 +19,7 @@ namespace ClinicaVeterinaria.MODEL
         public string Nombre { get; set; }
 
         public virtual Paciente Paciente { get; set; }
-        public int? PacienteId{ get; set; }
+        public int PacienteId{ get; set; }
         public virtual Empleado Empleado { get; set; }
 
         public int? EmpleadoId { get; set; }

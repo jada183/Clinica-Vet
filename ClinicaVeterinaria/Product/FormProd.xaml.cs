@@ -251,7 +251,7 @@ namespace ClinicaVeterinaria
         private void BtBuscarProv_Click(object sender, RoutedEventArgs e)
         {
             BuscadorProv bp = new BuscadorProv(pr);
-            bp.Show();
+            bp.ShowDialog();
         }
         public void GuardarrValoresProdEntrada()
         {

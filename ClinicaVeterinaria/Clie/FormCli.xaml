@@ -75,7 +75,7 @@
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                         <Label Content="Nombre de la mascota" Margin="5,5,5,5"></Label>
                         <TextBox x:Name="tbBuscadorPac" Width="400"  Margin="5,5,5,5"></TextBox>
-                        <Button   Margin="5,5,5,5" x:Name="BtBuscarMascota">
+                        <Button   Margin="5,5,5,5" x:Name="BtBuscarMascota" Click="BtBuscarMascota_Click">
                             <Image x:Name="imgBuscarPac" Source="../Imagenes/lupa.png"></Image>
                         </Button>
                     </StackPanel>
