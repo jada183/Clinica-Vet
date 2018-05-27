@@ -37,7 +37,7 @@ namespace ClinicaVeterinaria.Clie
         //Para las mascotas
         List<Paciente> mascotas = new List<Paciente>();
         Paciente masSelect = new Paciente();
-        UnityOfWork uow2 = new UnityOfWork();
+        public static UnityOfWork uow2 = new UnityOfWork();
 
         public FormCli(Cliente cl, MainWindow mw)
         {
@@ -327,9 +327,10 @@ namespace ClinicaVeterinaria.Clie
                         break;
                 }
             }
-            catch
+            catch(Exception erro)
             {
-                MessageBox.Show("seleccione un horario");
+
+                MessageBox.Show("seleccione una mascota"+erro.Message);
             }
         }
 
@@ -342,6 +343,18 @@ namespace ClinicaVeterinaria.Clie
             }
             catch
             {
+            }
+        }
+        private void BtAbrirVacunas_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Vacunas vac = new Vacunas(masSelect,uow2);
+                vac.ShowDialog();
+            }
+            catch
+            {
+
             }
         }
         #endregion

@@ -89,7 +89,7 @@
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarMas" Click="BtEditarMas_Click">
                             <Image Source="../Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirVacunas">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirVacunas" Click="BtAbrirVacunas_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="../Imagenes/vacunaIcon.png" Width="auto" Height="auto"></Image>
                                 <Label Content="Vacunas" Foreground="White"></Label>
