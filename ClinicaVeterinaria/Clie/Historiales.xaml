@@ -42,7 +42,7 @@
             <Label Content="Enfermedad" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10"/>
             <TextBox x:Name="tbHistorialEnfermedad" Grid.Column="2" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2" Text="{Binding Path=Enfermedad, Mode=TwoWay}"/>
             <Label Content="Fecha" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10"/>
-            <DatePicker x:Name="dpHistorialFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" Text="{Binding Path=Fecha, Mode=TwoWay}" />
+            <DatePicker x:Name="dpHistorialFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es" />
             <Label Content="Empleado" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"/>
             <ComboBox x:Name="cbListEmpHis" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Nombre" SelectedValuePath="Usuario">
             </ComboBox>

@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Globalization;
 
 namespace ClinicaVeterinaria.Clie
 {
@@ -28,13 +29,22 @@ namespace ClinicaVeterinaria.Clie
         
         Paciente pac = new Paciente();
         bool NuevoPac = false;
+        bool modificado=false;
         FormCli formcli;
-       
+        string nombreOriginalMas= "";
+        string especieOriginalMas = "";
+        string razaOriginalMas = "";
+        double pesoOriginalMas;
+        double alturaOriginalMas;
+        string sexoOriginalMas = "";
+        DateTime fechaOriginalMas;
+        CultureInfo ci = new CultureInfo("Es-Es");
 
         public FormMas(Paciente p, FormCli fcli)
         {
-            InitializeComponent();
+            InitializeComponent();           
             pac = p;
+            GuardarValoresMasEntrada();
             formcli = fcli;
             gridMascota.DataContext = pac;
            
@@ -91,7 +101,7 @@ namespace ClinicaVeterinaria.Clie
                             
                             MainWindow.uow.RepositorioPaciente.crear(pac);
                             MessageBox.Show("se ha guardado correctamente la  mascota");
-
+                            modificado = true;
                             formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
                             
 
@@ -100,13 +110,13 @@ namespace ClinicaVeterinaria.Clie
                         catch
                         {
                             MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
-                            //RecuperarValoresProdEntrada();
+                           
                         }
                     }
                     else
                     {
                         MessageBox.Show("existe una mascota con ese nombre registrado");
-                        //RecuperarValoresProdEntrada();
+                       
                     }
                 }
                 //modificar
@@ -121,7 +131,7 @@ namespace ClinicaVeterinaria.Clie
 
                             MainWindow.uow.RepositorioPaciente.actualizar(pac);
                             MessageBox.Show("se ha modificado correctamente la mascota");
-                            
+                            modificado = true;
                             formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
 
                             this.Close();
@@ -217,6 +227,35 @@ namespace ClinicaVeterinaria.Clie
 
             }
             catch { }
+        }
+        private void RecuperarValoresMasEntrada()
+        {
+            pac.Nombre = nombreOriginalMas;
+            pac.Especie= especieOriginalMas;
+            pac.Raza= razaOriginalMas;
+            pac.Peso = pesoOriginalMas;
+            pac.Altura= alturaOriginalMas;
+            pac.Sexo= sexoOriginalMas;
+            pac.FechaNacimiento= fechaOriginalMas;
+        }
+        public void GuardarValoresMasEntrada()
+        {
+            nombreOriginalMas = pac.Nombre;
+            especieOriginalMas = pac.Especie;
+            razaOriginalMas = pac.Raza;
+            pesoOriginalMas = pac.Peso;
+            alturaOriginalMas = pac.Altura;
+            sexoOriginalMas = pac.Sexo;
+            fechaOriginalMas = pac.FechaNacimiento;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (modificado == false)
+            {
+                RecuperarValoresMasEntrada();
+            }
+          
         }
     }
 }
