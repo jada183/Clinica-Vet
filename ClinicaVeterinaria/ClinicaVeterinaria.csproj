@@ -90,12 +90,18 @@
     <Compile Include="Clie\FormMas.xaml.cs">
       <DependentUpon>FormMas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clie\Historiales.xaml.cs">
+      <DependentUpon>Historiales.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Clie\Vacunas.xaml.cs">
+      <DependentUpon>Vacunas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805221743250_initial.cs" />
-    <Compile Include="Migrations\201805221743250_initial.Designer.cs">
-      <DependentUpon>201805221743250_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201805271310098_initial.cs" />
+    <Compile Include="Migrations\201805271310098_initial.Designer.cs">
+      <DependentUpon>201805271310098_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Proveed\FormProv.xaml.cs">
       <DependentUpon>FormProv.xaml</DependentUpon>
@@ -108,6 +114,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Clie\FormMas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clie\Historiales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clie\Vacunas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,8 +207,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201805221743250_initial.resx">
-      <DependentUpon>201805221743250_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805271310098_initial.resx">
+      <DependentUpon>201805271310098_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

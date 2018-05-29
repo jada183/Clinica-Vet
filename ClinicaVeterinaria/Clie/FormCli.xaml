@@ -75,7 +75,7 @@
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                         <Label Content="Nombre de la mascota" Margin="5,5,5,5"></Label>
                         <TextBox x:Name="tbBuscadorPac" Width="400"  Margin="5,5,5,5"></TextBox>
-                        <Button   Margin="5,5,5,5" x:Name="BtBuscarMascota">
+                        <Button   Margin="5,5,5,5" x:Name="BtBuscarMascota" Click="BtBuscarMascota_Click">
                             <Image x:Name="imgBuscarPac" Source="../Imagenes/lupa.png"></Image>
                         </Button>
                     </StackPanel>
@@ -83,30 +83,30 @@
                         <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtNuevaMascota" Click="BtNuevaMascota_Click" >
                             <Image x:Name="imgNuevoPac" Source="../Imagenes/add.png"></Image>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarMascota">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEliminarMascota" Click="BtEliminarMascota_Click">
                             <Image x:Name="imgBorrarHor" Source="../Imagenes/delete.png"></Image>
                         </Button>
                         <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtEditarMas" Click="BtEditarMas_Click">
                             <Image Source="../Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirVacunas">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirVacunas" Click="BtAbrirVacunas_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="../Imagenes/vacunaIcon.png" Width="auto" Height="auto"></Image>
                                 <Label Content="Vacunas" Foreground="White"></Label>
                             </StackPanel>
                         </Button>
-                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirHistoriales">
+                        <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAbrirHistoriales" Click="BtAbrirHistoriales_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="../Imagenes/historialesMIcon.png" Width="auto" Height="auto"></Image>
                                 <Label Content="Historiales medicos" Foreground="White"></Label>
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True">
+                    <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                             <DataGridTextColumn Header="Especie" Width="2*"  Binding="{Binding Path=Especie}"/>
-                            <DataGridTextColumn Header="Fecha Nacimiento" Width="2*" Binding="{Binding Path=Edad}"/>
+                            <DataGridTextColumn Header="Fecha Nacimiento" Width="2*" Binding="{Binding Path=FechaNacimiento}"/>
                             <DataGridTextColumn Header="Sexo" Width="2*" Binding="{Binding Path=Sexo}"/>
                             <DataGridTextColumn Header="Raza" Width="*" Binding="{Binding Path=Raza}"/>
                             <DataGridTextColumn Header="Peso" Width="*" Binding="{Binding Path=Peso}"/>

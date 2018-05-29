@@ -12,7 +12,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
     <Grid>
         <Grid x:Name="gridMascota"  Margin="10,10,10,10">
 
@@ -38,7 +38,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Label x:Name="lgridProdTitulo" Content="Mascota" FontSize="32" HorizontalAlignment="Center" Margin="62,38,63,37" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
-            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120"  MinWidth="120" MinHeight="115" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="btImgProd" Grid.Column="0"  Grid.Row="1" MaxWidth="120"  MinWidth="120" MinHeight="115" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btImgProd_Click">
 
                 <Image x:Name="imgProd" ClipToBounds="True" Source="{Binding Path=Imagen, Mode=TwoWay}" Stretch="Fill" Margin="5,5,5,5" />
 
@@ -56,7 +56,7 @@
             <TextBox x:Name="tbPesokProd" Grid.Column="4" Grid.Row="5" Margin="10,10,10,10" Text="{Binding Path=Peso, Mode=TwoWay}"></TextBox>
             <Label Content="kg" Grid.Column="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Label Content="Fecha de nacimiento" Grid.Column="0" Grid.Row="6" VerticalAlignment="Bottom" Margin="10,10,10,10" Grid.ColumnSpan="2"/>
-            <DatePicker x:Name="dpFechaNacimiento" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=FechaNacimiento, Mode=TwoWay}"/>
+            <DatePicker x:Name="dpFechaNacimiento" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" SelectedDate="{Binding Path=FechaNacimiento, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es"/>
             <Label Content="Sexo" Grid.Column="3" Grid.Row="6" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
             <ComboBox x:Name="cbSexo" Grid.Column="4" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Sexo, Mode=TwoWay}">
                 <ComboBoxItem Content="Macho"></ComboBoxItem>
@@ -64,7 +64,7 @@
                 <ComboBoxItem Content="Otro"></ComboBoxItem>
             </ComboBox>
             <Button x:Name="BtGuardarPac" Content="guardar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15" Click="BtGuardarPac_Click"/>
-            <Button x:Name="BtEliminarPac" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15"/>
+            <Button x:Name="BtEliminarPac" Content="Eliminar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="8" Margin="5,14,5,15" Click="BtEliminarPac_Click"/>
 
         </Grid>
     </Grid>

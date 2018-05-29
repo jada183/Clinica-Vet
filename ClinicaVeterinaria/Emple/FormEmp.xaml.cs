@@ -2,6 +2,7 @@
 using ClinicaVeterinaria.MODEL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,9 @@ namespace ClinicaVeterinaria.Emple
     /// </summary>
     public partial class FormEmp : Window
     {
-        UnityOfWork uow;
-        UnityOfWork uow2 = new UnityOfWork();//usada de forma local para los horarios
 
-        Empleado em = new Empleado();//empleado local
+        UnityOfWork uow2 = new UnityOfWork();
+        Empleado em;//empleado local
         bool NuevoEmp = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
@@ -46,13 +46,13 @@ namespace ClinicaVeterinaria.Emple
         private List<Horario> Horarios = new List<Horario>();
         private Horario HorSelect = new Horario();
         private Horario horarioGuardar = new Horario();
-        public FormEmp(Empleado emp, UnityOfWork uw, MainWindow mw)
+        public FormEmp(Empleado emp, MainWindow mw)
         {
             InitializeComponent();
             em = emp;//el producto que paso por parametro lo asigno a una variable local
             GuardarValoresEmpEntrada();
             main = mw;//asigno a una variable local la main window que paso por parametro
-            uow = uw;//la unity que deben tener en comun ambas ventanas
+           
 
             gridEmpleadoSelect.DataContext = em;
             if (em.Usuario == null)
@@ -77,8 +77,31 @@ namespace ClinicaVeterinaria.Emple
             CargarHorarios();
 
         }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         #region perfil
-     
+
         public void GuardarValoresEmpEntrada()
         {
             NombreOriginal = em.Nombre;
@@ -110,88 +133,91 @@ namespace ClinicaVeterinaria.Emple
 
         private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
-            if (NuevoEmp)
-            {
-                Empleado aux = new Empleado();
-                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario);//para comprobar que no existe ningun usuario con ese nombre
-                if(aux==null)
+            if (Validado(em)) { 
+                if (NuevoEmp)
                 {
-                    if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
+                    Empleado aux = new Empleado();
+                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario);//para comprobar que no existe ningun usuario con ese nombre
+                    if(aux==null)
                     {
-                        try
+                        if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
                         {
-                            UnityOfWork uowaux = new UnityOfWork();
-                            uowaux.RepositorioEmpleado.crear(em);
-                            MessageBox.Show("se ha guardado correctamente el empleado");
-                            GuardarValoresEmpEntrada();
-                            modificado = true;
-                            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-                            this.Close();
-                        }
-                        catch 
-                        {
+                            try
+                            {
 
-                            MessageBox.Show("no se puede guardar en empleado por algun dato mal introducido");
+                                MainWindow.uow.RepositorioEmpleado.crear(em);
+                                MessageBox.Show("se ha guardado correctamente el empleado");
+                                GuardarValoresEmpEntrada();
+                                modificado = true;
+                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                                this.Close();
+                            }
+                            catch 
+                            {
+
+                                MessageBox.Show("no se puede guardar en empleado por algun dato mal introducido");
                            
 
-                        }
+                            }
                        
-                    }
-                    //cuando la confirmacion de contraseña no coincide con la primera contraseña
-                    else
-                    {
-                        MessageBox.Show("las contraseñas no coinciden");
-                        tbConfirmContraseñaEmp.Text = "";
+                        }
+                        //cuando la confirmacion de contraseña no coincide con la primera contraseña
+                        else
+                        {
+                            MessageBox.Show("las contraseñas no coinciden");
+                            tbConfirmContraseñaEmp.Text = "";
 
-                    }
-                }
-                //cuando existe un empleado con ese nombre de usuario
-                else
-                {
-                    MessageBox.Show("existe un empleado con ese nombre de usuario");
-                    RecuperarValoresEmpEntrada();
-                    tbUsuarioEmp.Text = "";
-                }
-            }
-            //cuando se modifica un empleado
-            else
-            {
-                Empleado aux = new Empleado();
-                aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId);//para comprobar que no existe ningun usuario con ese nombre
-                if (aux == null)
-                {
-                    if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
-                    {
-                        try
-                        {
-                            uow.RepositorioEmpleado.actualizar(em);
-                            MessageBox.Show("se ha modificado correctamente el empleado");
-                            GuardarValoresEmpEntrada();
-                            modificado = true;
-                            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-                            this.Close();
                         }
-                        catch
-                        {
-                            MessageBox.Show("no se ha podido modificar el empleado");
-                        }
-                       
                     }
-                    //cuando la confirmacion de contraseña no coincide con la primera contraseña
+                    //cuando existe un empleado con ese nombre de usuario
                     else
                     {
-                        MessageBox.Show("las contraseñas no coinciden");
-                        tbConfirmContraseñaEmp.Text = "";
+                        MessageBox.Show("existe un empleado con ese nombre de usuario");
+                        RecuperarValoresEmpEntrada();
+                        tbUsuarioEmp.Text = "";
                     }
                 }
-                //cuando existe un empleado con ese nombre de usuario
+                //cuando se modifica un empleado
                 else
                 {
-                    MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
-                    RecuperarValoresEmpEntrada();
-                    tbUsuarioEmp.Text = "";
+                    Empleado aux = new Empleado();
+                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId);//para comprobar que no existe ningun usuario con ese nombre
+                    if (aux == null)
+                    {
+                        if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
+                        {
+                            try
+                            {
+                                MainWindow.uow.RepositorioEmpleado.actualizar(em);
+                                MessageBox.Show("se ha modificado correctamente el empleado");
+                                GuardarValoresEmpEntrada();
+                                modificado = true;
+                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                                this.Close();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("no se ha podido modificar el empleado");
+                            }
+                       
+                        }
+                        //cuando la confirmacion de contraseña no coincide con la primera contraseña
+                        else
+                        {
+                            MessageBox.Show("las contraseñas no coinciden");
+                            tbConfirmContraseñaEmp.Text = "";
+                        }
+                    }
+                    //cuando existe un empleado con ese nombre de usuario
+                    else
+                    {
+                        MessageBox.Show("existe un empleado con ese nombre de usuario o  algun dato tiene un formato incorrecto");
+                        RecuperarValoresEmpEntrada();
+                        tbUsuarioEmp.Text = "";
+                    }
                 }
             }
+            else { }
         }
 
         private void BtEliminarEmp_Click(object sender, RoutedEventArgs e)
@@ -212,8 +238,8 @@ namespace ClinicaVeterinaria.Emple
                         case MessageBoxResult.Yes:
                            
                             dgHorario.ItemsSource = "";
-                            uow.RepositorioEmpleado.eliminar(em);
-                            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            MainWindow.uow.RepositorioEmpleado.eliminar(em);
+                            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
                             this.Close();
                             break;
                         case MessageBoxResult.No:
@@ -313,7 +339,7 @@ namespace ClinicaVeterinaria.Emple
         private void BtGuardarHor_Click(object sender, RoutedEventArgs e)
         {
 
-            //@@@ hace que falle el borrado
+           
 
             try
             {
@@ -414,7 +440,8 @@ namespace ClinicaVeterinaria.Emple
             {
                 RecuperarValoresEmpEntrada();
             }
-            main.CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+            
             this.Close();
         }
     }

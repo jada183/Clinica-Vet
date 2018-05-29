@@ -25,7 +25,7 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class MainWindow : Window
     {
-        UnityOfWork uow = new UnityOfWork();
+        public static UnityOfWork uow = new UnityOfWork();
 
         //variables usadas en la gestion de producto     
         private List<Producto> productosDtGrid = new List<Producto>();
@@ -41,7 +41,7 @@ namespace ClinicaVeterinaria
 
         //variable usadas para la gestion de empleado
         private List<Empleado> empleados = new List<Empleado>();
-        private Empleado empSelect = new Empleado();
+        public static Empleado empSelect = new Empleado();
 
         //variables usadas en clientes
         private List<Cliente> Clientes = new List<Cliente>();
@@ -55,6 +55,7 @@ namespace ClinicaVeterinaria
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+           
         }
         #region Producto
         //metodos
@@ -65,8 +66,8 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormProd(Producto p)
         {
-            FormProd fp = new FormProd(p, uow, this);
-            fp.Show();
+            FormProd fp = new FormProd(p,this);
+            fp.ShowDialog();
         }
         //eventos
         private void BtAgregarProd_Click(object sender, RoutedEventArgs e)
@@ -223,8 +224,8 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormServ(Servicio s)
         {
-            FormService fs = new Service.FormService(s,uow,this);
-            fs.Show();
+            FormService fs = new Service.FormService(s,this);
+            fs.ShowDialog();
         }
         //eventos
         private void BtAgregarServ_Click(object sender, RoutedEventArgs e)
@@ -330,8 +331,8 @@ namespace ClinicaVeterinaria
         //metodos
         public void CargarVentanaFormProv(Proveedor p)
         {
-            FormProv fpv = new FormProv(p, uow, this);
-            fpv.Show();
+            FormProv fpv = new FormProv(p,this);
+            fpv.ShowDialog();
         }
         //eventos
         private void BtAgregarProv_Click(object sender, RoutedEventArgs e)
@@ -445,14 +446,16 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormEmp(Empleado em)
         {
-            FormEmp femp = new FormEmp(em, uow, this);
-            femp.Show();
+
+            FormEmp femp = new FormEmp(em,this);
+            femp.ShowDialog();
         }
         //eventos
         private void BtAgregarEmp_Click(object sender, RoutedEventArgs e)
         {
             Empleado emp = new Empleado();
             CargarVentanaFormEmp(emp);
+            
         }
         private void DgEmpleado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -589,8 +592,8 @@ namespace ClinicaVeterinaria
         }
         public void CargarVentanaFormCli(Cliente cl)
         {
-            FormCli fcli = new FormCli(cl, uow, this);
-            fcli.Show();
+            FormCli fcli = new FormCli(cl,this);
+            fcli.ShowDialog();
         }
         //eventos
         private void BtAgregarCli_Click(object sender, RoutedEventArgs e)
@@ -668,9 +671,9 @@ namespace ClinicaVeterinaria
                             break;
                     }
                 }
-                catch
+                catch(Exception erro)
                 {
-                    MessageBox.Show("seleccione un cliente");
+                    MessageBox.Show(erro.Message);
                 }
             }
             else
@@ -698,7 +701,7 @@ namespace ClinicaVeterinaria
         }
 
         #endregion
-
+       
 
     }
 }

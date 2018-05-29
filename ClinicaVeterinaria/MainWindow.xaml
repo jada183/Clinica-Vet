@@ -290,13 +290,23 @@
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
                                 <DataGridTextColumn Header="Titulacion" Width="2*" Binding="{Binding Path=Telefono}"/>
                                 <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Path=Email}"/>
-                                <DataGridTextColumn Header="Numero de mascotas" Width="*" Binding="{Binding Path=Mascotas.Count}"/>
+                               
                             </DataGrid.Columns>
                         </DataGrid>
 
                     </DockPanel>
                 </TabItem>
+                <TabItem  x:Name="tabCita"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/clientIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Cita" FontSize="18"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    
+                </TabItem>
             </TabControl>
+           
         </Grid>
     </Grid>
 </Window>

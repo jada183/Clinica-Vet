@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ClinicaVeterinaria.MODEL;
 using ClinicaVeterinaria.DAL;
+using System.ComponentModel.DataAnnotations;
+
 namespace ClinicaVeterinaria.Proveed
 {
     /// <summary>
@@ -20,7 +22,8 @@ namespace ClinicaVeterinaria.Proveed
     /// </summary>
     public partial class FormProv : Window
     {
-        UnityOfWork uow;
+        
+    
         Proveedor pv = new Proveedor();//proveedor local
         bool NuevoProv = false;//cambia segun venga de nuevo proveedor o proveedor seleccionado
         MainWindow main;//la mainwindows local
@@ -33,10 +36,9 @@ namespace ClinicaVeterinaria.Proveed
         string direccionOriginal = "";
         string emailOriginal = "";
 
-        public FormProv(Proveedor prov,UnityOfWork uw,MainWindow mw)
+        public FormProv(Proveedor prov,MainWindow mw)
         {
             InitializeComponent();
-            uow = uw;
             main = mw;
             pv = prov;
             GuardarValoresProvEntrada();
@@ -53,68 +55,96 @@ namespace ClinicaVeterinaria.Proveed
 
             }
         }
-       
-        private void BtGuardarProv_Click(object sender, RoutedEventArgs e)
+        //validador
+        private Boolean Validado(Object obj)
         {
-            //nuevo producto
-            if (NuevoProv)
-            {
-                Proveedor provAux = new Proveedor();
-                provAux = uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email);
-                if (provAux == null)
-                {
-                    try
-                    {
-                        
-                        uow.RepositorioProveedor.crear(pv);
-                        MessageBox.Show("se ha guardado correctamente el Proveedor");
-                        modificado = true;
-                        main.CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
 
-                        this.Close();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
-                        RecuperarValoresProvEntrada();
-                    }
-                }
-                else
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
                 {
-                    MessageBox.Show("existe un proveedor con el mismo email");
-                    RecuperarValoresProvEntrada();
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
                 }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
             }
-            //modificar
             else
             {
-                Proveedor provAux = new Proveedor();
-                provAux = uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId);
-                if (provAux == null)
+                return true;
+            }
+        }
+
+        private void BtGuardarProv_Click(object sender, RoutedEventArgs e)
+        {
+           
+            //nuevo producto
+            if (Validado(pv)) { 
+                if (NuevoProv)
                 {
-                    try
+                    Proveedor provAux = new Proveedor();
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email);
+                    if (provAux == null)
                     {
+                        try
+                        {
+                        
+                            MainWindow.uow.RepositorioProveedor.crear(pv);
+                            MessageBox.Show("se ha guardado correctamente el Proveedor");
+                            modificado = true;
+                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
 
-                        uow.RepositorioProveedor.actualizar(pv);
-                        MessageBox.Show("se ha modificado correctamente el proveedor");
-                        modificado = true;
-                        main.CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
-
-                        this.Close();
+                            this.Close();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                        
+                        }
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
-                        RecuperarValoresProvEntrada();
+                        MessageBox.Show("existe un proveedor con el mismo email");
+                        tbEmailProv.Text = "";
                     }
                 }
+                //modificar
                 else
                 {
-                    MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
-                    RecuperarValoresProvEntrada();
+                    Proveedor provAux = new Proveedor();
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId);
+                    if (provAux == null)
+                    {
+                        try
+                        {
 
+                            MainWindow.uow.RepositorioProveedor.actualizar(pv);
+                            MessageBox.Show("se ha modificado correctamente el proveedor");
+                            modificado = true;
+                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
+
+                            this.Close();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("error falta aun campo obligatorio por cubrir o algun tipo de dato con valores no validos");
+                            RecuperarValoresProvEntrada();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
+                        RecuperarValoresProvEntrada();
+
+                    }
                 }
             }
+            else { }
         }
         public void GuardarValoresProvEntrada()
         {
@@ -142,7 +172,7 @@ namespace ClinicaVeterinaria.Proveed
             {
                 RecuperarValoresProvEntrada();
             }
-            main.CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
         }
 
         private void BtEliminarProv_Click(object sender, RoutedEventArgs e)
@@ -161,8 +191,8 @@ namespace ClinicaVeterinaria.Proveed
                     case MessageBoxResult.Yes:
 
 
-                        uow.RepositorioProveedor.eliminar(pv);
-                        main.CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+                        MainWindow.uow.RepositorioProveedor.eliminar(pv);
+                        main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
                         this.Close();
                         break;
                     case MessageBoxResult.No:

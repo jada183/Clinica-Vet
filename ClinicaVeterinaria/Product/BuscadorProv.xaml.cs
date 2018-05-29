@@ -21,25 +21,25 @@ namespace ClinicaVeterinaria
     public partial class BuscadorProv : Window
     {
 
-        UnityOfWork uow= new UnityOfWork();
+        
         Proveedor prov;
         Producto prod = new Producto();
         
         List<Proveedor> listProv = new List<Proveedor>();
-        public BuscadorProv(Producto p, UnityOfWork uw)
+        public BuscadorProv(Producto p)
         {
             InitializeComponent();
             prod= p;
-            listProv = uow.RepositorioProveedor.obtenerTodos();
+            listProv = MainWindow.uow.RepositorioProveedor.obtenerTodos();
             dgProveedor.ItemsSource = listProv;
-            uow=uw;
+           
         }
         //carga el proveedor en el datagrid
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                prov = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProv.Text);
+                prov = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProv.Text);
                 if(prov!= null)
                 {
                     listProv = new List<Proveedor>();
@@ -59,7 +59,7 @@ namespace ClinicaVeterinaria
         //muestra todos los proveedores en datagrid de ventana
         private void BtMostrarTodos_Click(object sender, RoutedEventArgs e)
         {
-            listProv = uow.RepositorioProveedor.obtenerTodos();
+            listProv = MainWindow.uow.RepositorioProveedor.obtenerTodos();
             dgProveedor.ItemsSource = listProv;
         }
         //cambia el producto seleccionado 
@@ -78,7 +78,7 @@ namespace ClinicaVeterinaria
             {
                 prov = (Proveedor)(dgProveedor.SelectedItem);
                 prod.ProveedorId = prov.ProveedorId;
-                prod.Proveedor = uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
+                prod.Proveedor = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
                 this.Close();
             }
             catch { }
@@ -90,7 +90,7 @@ namespace ClinicaVeterinaria
             {
                 
                 prod.ProveedorId = prov.ProveedorId;
-                prod.Proveedor = uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
+                prod.Proveedor = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
                 this.Close();
             }
             else
@@ -98,5 +98,6 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("Seleccione un proveedor");
             }
         }
+       
     }
 }
