@@ -361,6 +361,7 @@
                             <DockPanel>
 
                                 <Label Content="Citas atendidas" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10"></Label>
+                                
                                 <DataGrid x:Name="dgCitasAtendidas" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
