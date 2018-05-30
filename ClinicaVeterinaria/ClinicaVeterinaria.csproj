@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuscadorPac.xaml.cs">
+      <DependentUpon>BuscadorPac.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Citass\FormCita.xaml.cs">
       <DependentUpon>FormCita.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
     <Compile Include="Service\FormService.xaml.cs">
       <DependentUpon>FormService.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuscadorPac.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Citass\FormCita.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

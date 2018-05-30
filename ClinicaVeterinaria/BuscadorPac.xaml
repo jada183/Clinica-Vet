@@ -1,0 +1,40 @@
+﻿<Window x:Class="ClinicaVeterinaria.BuscadorPac"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClinicaVeterinaria"
+        mc:Ignorable="d"
+        Title="BuscadorPac" Height="650" Width="800"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+        WindowState="Maximized">
+    <Grid>
+        <DockPanel>
+            <Label  Content="Paciente" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
+            <StackPanel DockPanel.Dock="top" Orientation="Horizontal" Margin="10,20,10,5">
+                <Label Content="Email del dueño" Margin="5,5,5,5" VerticalAlignment="Bottom"></Label>
+                <TextBox x:Name="tbBuscadorPac" Width="400"  Margin="5,5,5,5"></TextBox>
+                <Button  x:Name="BtBuscarListPac"  Margin="5,5,5,5">
+                    <Image  Source="/Imagenes/lupa.png"></Image>
+                </Button>
+               
+            </StackPanel>
+            <Button x:Name="BtSeleccionarPac" DockPanel.Dock="Bottom" HorizontalAlignment="Left"  Content="Seleccionar" Margin="10,10,10,10"/>
+            <DataGrid x:Name="dgPaciente" Margin="10,10,10,10" AutoGenerateColumns="False"  IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
+                    <DataGridTextColumn Header="Especie" Width="2*" Binding="{Binding Path=Especie}"/>
+                    <DataGridTextColumn Header="Raza" Width="2*" Binding="{Binding Path=Raza}"/>
+                    <DataGridTextColumn Header="Sexo" Width="*" Binding="{Binding Path=Sexo}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>
