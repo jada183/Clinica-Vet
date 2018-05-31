@@ -30,6 +30,7 @@ namespace ClinicaVeterinaria.Emple
         MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
         //variables que recuperar cuando  la modificacion no se realiza correctamente
+       
         string NombreOriginal = "";
         string ApellidosOrigina = "";
         string TipoOriginal="";
@@ -74,7 +75,7 @@ namespace ClinicaVeterinaria.Emple
                 CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
             }
             catch { }
-            CargarHorarios();
+            
 
         }
         private Boolean Validado(Object obj)
@@ -297,21 +298,7 @@ namespace ClinicaVeterinaria.Emple
 
                 }
             }
-            for (int i = 0; i < 24; i++)
-            {
-                for (int j = 0; j < 60; j = j + 30)
-                {
-                    if (j == 0)
-                    {
-                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
-                    }
-                    else
-                    {
-                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
-                    }
-
-                }
-            }
+            cbHoraINuevoHor.SelectedItem = 0;
         }
         public void CargardgHorarios(List<Horario> h)
         {
@@ -332,6 +319,7 @@ namespace ClinicaVeterinaria.Emple
         //eventos
         private void BtNuevoHorario_Click(object sender, RoutedEventArgs e)
         {
+            CargarHorarios();
             CargaNuevoHorario();
             ActualizarComboBoxHorario();
         }
@@ -360,6 +348,7 @@ namespace ClinicaVeterinaria.Emple
                 horarioGuardar = new Horario();
                 CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
                 LimpiarGridNuevoHorario();
+                LimpiarComboBox();
             }
             catch
             {
@@ -371,6 +360,7 @@ namespace ClinicaVeterinaria.Emple
         private void BtCancelarNuevoHor_Click(object sender, RoutedEventArgs e)
         {
             LimpiarGridNuevoHorario();
+            LimpiarComboBox();
         }
         private void DgHorario_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -431,6 +421,47 @@ namespace ClinicaVeterinaria.Emple
                 catch { }
             }
         }
+        //carga de primer comboBox
+        private void cbHoraINuevoHor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbHoraINuevoHor.Text != "" && cbHoraINuevoHor.Text != null)
+            {
+
+
+                cbHoraFNuevoHor.IsEnabled = true;
+               
+            }
+        }
+        //carga de segundo comboBox
+        private void CbHoraFNuevoHor_DropDownOpened(object sender, EventArgs e)
+        {
+            cbHoraFNuevoHor.Items.Clear();
+            cbHoraFNuevoHor.SelectedIndex = 0;
+            String[] horayminHorInicial = new String[2];
+            horayminHorInicial = cbHoraINuevoHor.Text.Split(':');
+            cbHoraFNuevoHor.Items.Clear();
+            for (int i = Convert.ToInt32(horayminHorInicial[0]); i < 24; i++)
+            {
+                for (int j = Convert.ToInt32(horayminHorInicial[1]); j < 60; j = j + 30)
+                {
+                    if (j == 0)
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
+                    }
+                    else
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
+                    }
+
+                }
+                horayminHorInicial[1] = "0";
+            }
+        }
+        public void LimpiarComboBox()
+        {
+            cbHoraFNuevoHor.Items.Clear();
+            cbHoraINuevoHor.Items.Clear();
+        }
 
         #endregion
 
@@ -444,5 +475,11 @@ namespace ClinicaVeterinaria.Emple
             
             this.Close();
         }
+
+       
+
+       
+
+        
     }
 }
