@@ -462,6 +462,7 @@ namespace ClinicaVeterinaria
             try
             {
                 empSelect = (Empleado)(dgEmpleado.SelectedItem);
+                
             }
             catch { }
         }
