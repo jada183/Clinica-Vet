@@ -374,6 +374,23 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
+                <TabItem  x:Name="tabVenta"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/ProdIcon32.png" Margin="5,10,5,10"/>
+                            <Label Content="Productos"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <DataGrid x:Name="dgHorario" Margin="10,5,10,20" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Dia" Width="2*" Binding="{Binding Path=Dia}"/>
+                                <DataGridTextColumn Header="Hora inicio" Width="2*" Binding="{Binding Path=HoraInic}"/>
+                                <DataGridTextColumn Header="Hora salida" Width="2*" Binding="{Binding Path=HoraFin}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
             </TabControl>
            
         </Grid>

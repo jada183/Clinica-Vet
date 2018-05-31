@@ -55,7 +55,7 @@ namespace ClinicaVeterinaria
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-           
+            dgHorario.ItemsSource = uow.RepositorioHorario.obtenerTodos();
         }
         #region Producto
         //metodos
