@@ -514,6 +514,7 @@ namespace ClinicaVeterinaria
 
 
                             uow.RepositorioEmpleado.eliminar(empSelect);
+                            uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
                             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
 
                             break;
@@ -658,8 +659,14 @@ namespace ClinicaVeterinaria
                     {
                         case MessageBoxResult.Yes:
 
-
+                            //eliminado en cascada
                             uow.RepositorioCliente.eliminar(cliSelect);
+                            uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == null);
+                            uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
+                            uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
+                            uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+
+                            //recargo las tablas que lo necesiten
                             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
 
                             break;

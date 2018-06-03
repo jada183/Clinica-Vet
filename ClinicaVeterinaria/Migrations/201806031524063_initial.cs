@@ -42,10 +42,10 @@ namespace ClinicaVeterinaria.Migrations
                         Imagen = c.String(),
                         Sexo = c.String(nullable: false),
                         Ingresado = c.Boolean(nullable: false),
-                        ClienteId = c.Int(nullable: false),
+                        ClienteId = c.Int(),
                     })
                 .PrimaryKey(t => t.PacienteId)
-                .ForeignKey("dbo.Cliente", t => t.ClienteId, cascadeDelete: true)
+                .ForeignKey("dbo.Cliente", t => t.ClienteId)
                 .Index(t => t.ClienteId);
             
             CreateTable(
@@ -54,14 +54,14 @@ namespace ClinicaVeterinaria.Migrations
                     {
                         HistorialClinicoId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
-                        PacienteId = c.Int(nullable: false),
+                        PacienteId = c.Int(),
                         Enfermedad = c.String(nullable: false, maxLength: 80),
                         Detalles = c.String(),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HistorialClinicoId)
                 .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
-                .ForeignKey("dbo.Paciente", t => t.PacienteId, cascadeDelete: true)
+                .ForeignKey("dbo.Paciente", t => t.PacienteId)
                 .Index(t => t.PacienteId)
                 .Index(t => t.EmpleadoId);
             
@@ -91,10 +91,10 @@ namespace ClinicaVeterinaria.Migrations
                         Dia = c.String(nullable: false),
                         HoraInic = c.String(nullable: false),
                         HoraFin = c.String(nullable: false),
-                        EmpleadoId = c.Int(nullable: false),
+                        EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HorarioId)
-                .ForeignKey("dbo.Empleado", t => t.EmpleadoId, cascadeDelete: true)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
                 .Index(t => t.EmpleadoId);
             
             CreateTable(
@@ -104,12 +104,12 @@ namespace ClinicaVeterinaria.Migrations
                         VacunaId = c.Int(nullable: false, identity: true),
                         Fecha = c.DateTime(nullable: false),
                         Nombre = c.String(nullable: false, maxLength: 40),
-                        PacienteId = c.Int(nullable: false),
+                        PacienteId = c.Int(),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.VacunaId)
                 .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
-                .ForeignKey("dbo.Paciente", t => t.PacienteId, cascadeDelete: true)
+                .ForeignKey("dbo.Paciente", t => t.PacienteId)
                 .Index(t => t.PacienteId)
                 .Index(t => t.EmpleadoId);
             

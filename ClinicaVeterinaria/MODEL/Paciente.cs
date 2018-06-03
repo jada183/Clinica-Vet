@@ -45,7 +45,7 @@ namespace ClinicaVeterinaria.MODEL
         public bool Ingresado { get; set; }
 
         public virtual Cliente Propietario { get; set; }
-        public int ClienteId{ get; set; }
+        public int? ClienteId{ get; set; }
 
         public ICollection<Cita> Citas { get; set; }
 

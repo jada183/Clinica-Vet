@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"  x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="800"
+        Title="MainWindow" Height="702.5" Width="1154"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -137,11 +137,11 @@
                     </TabItem.Header>
                     <DockPanel>
                         <Label   Content="Servicios" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
-                        
+
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Nombre" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorServNombre" Width="400" Margin="5,5,5,5"></TextBox>
-                            
+
                             <Button x:Name="btBuscarServ"   Margin="5,5,5,5" Click="BtBuscarServ_Click">
                                 <Image Source="Imagenes/lupa.png"></Image>
                             </Button>
@@ -178,7 +178,7 @@
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Email" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorProvEmail" Width="400"   Margin="5,5,5,5"></TextBox>
-                           
+
                             <Button x:Name="btBuscarProv"   Margin="5,5,5,5" Click="BtBuscarProv_Click">
                                 <Image  Source="Imagenes/lupa.png"></Image>
                             </Button>
@@ -226,7 +226,7 @@
                                 <Image x:Name="imgBuscarListEmp" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                       
+
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Usuario empleado" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorEmp" Width="400"  Margin="5,5,5,5"></TextBox>
@@ -290,7 +290,7 @@
                                 <DataGridTextColumn Header="Apellidos" Width="2*" Binding="{Binding Path=Apellidos}"/>
                                 <DataGridTextColumn Header="Titulacion" Width="2*" Binding="{Binding Path=Telefono}"/>
                                 <DataGridTextColumn Header="Email" Width="2*" Binding="{Binding Path=Email}"/>
-                               
+
                             </DataGrid.Columns>
                         </DataGrid>
 
@@ -304,7 +304,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <TabControl>
-                        
+
                         <TabItem  x:Name="tabCitasSinAtender" FontSize="18">
 
                             <TabItem.Header>
@@ -361,7 +361,7 @@
                             <DockPanel>
 
                                 <Label Content="Citas atendidas" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10"></Label>
-                                
+
                                 <DataGrid x:Name="dgCitasAtendidas" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
@@ -374,7 +374,7 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem  x:Name="tabVenta"  FontSize="18">
+                <TabItem  x:Name="tabHorario"  FontSize="18">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="Imagenes/ProdIcon32.png" Margin="5,10,5,10"/>
@@ -391,8 +391,55 @@
                         </DataGrid>
                     </Grid>
                 </TabItem>
+                <TabItem  x:Name="tabVenta"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/ventaIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="Ventas"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel LastChildFill="False">
+                        <Label Content="Ventas" HorizontalAlignment="Center" DockPanel.Dock="Top" FontSize="32"/>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListVen">
+                                <ComboBoxItem Content="Todos" x:Name="cbListVenTodos" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
+                                <ComboBoxItem Content="Email cliente"></ComboBoxItem>
+
+
+                            </ComboBox>
+                            <TextBox x:Name="tbBuscadorListVen" Width="400"  Margin="5,5,5,5"></TextBox>
+                            <Button   Margin="5,5,5,5" x:Name="btBucarListVenta">
+                                <Image x:Name="imgBuscarListVen" Source="Imagenes/lupa.png"/>
+                            </Button>
+                        </StackPanel>
+                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom">
+                            <DataGrid x:Name="dgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Producto" Width="2*" Binding="{Binding Path=Producto.NombreProducto}"/>
+                                    <DataGridTextColumn Header="Precio unidad" Width="2*" Binding="{Binding Path=Producto.Precio}" />
+                                    <DataGridTextColumn Header="Cantidad" Width="2*" Binding="{Binding Path=Cantidad}" />
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                        </Expander>
+                        <Label Content="Lineas de venta" DockPanel.Dock="Bottom" FontSize="32" HorizontalAlignment="Center"/>
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0">
+                                <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta}"/>
+                                <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=EmpleadoVenta.Nombre}"/>
+                                <DataGridTextColumn Header="Cliente" Width="2*" Binding="{Binding Path=ClienteVenta.Nombre}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </TabItem>
             </TabControl>
-           
+
         </Grid>
     </Grid>
 </Window>

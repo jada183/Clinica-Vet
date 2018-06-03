@@ -18,7 +18,7 @@ namespace ClinicaVeterinaria.MODEL
 
         public virtual Paciente Paciente{ get; set; }
 
-        public int PacienteId{ get; set; }
+        public int? PacienteId{ get; set; }
 
         [Required(ErrorMessage = "No te olvides de la enfermedad")]
         [StringLength(80, MinimumLength = 4)]
