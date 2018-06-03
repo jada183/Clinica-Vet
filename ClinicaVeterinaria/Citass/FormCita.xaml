@@ -12,8 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip"
-        WindowState="Maximized">
+        ResizeMode="CanResizeWithGrip" Closed="Window_Closed"
+        >
     <Grid>
         <Grid x:Name="gridCita"  Visibility="Visible" Width="auto" Margin="10,10,10,10">
             <Grid.ColumnDefinitions>
@@ -37,24 +37,24 @@
             </Grid.RowDefinitions>
             <Label Content="Cita" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"  HorizontalAlignment="Center" FontSize="32" Grid.ColumnSpan="2"/>
             <Label Content="Servicio" Grid.Column="0" Grid.Row="1" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbServCita" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" DisplayMemberPath = "Nombre" SelectedValuePath = "ServicioId"  Text="{Binding Path=Nombre, Mode=TwoWay}" Grid.ColumnSpan="1"></ComboBox>
+            <ComboBox x:Name="cbServCita" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" DisplayMemberPath = "Nombre"  SelectedValue="{Binding Path=Servicio, Mode=TwoWay}" Grid.ColumnSpan="1" SelectionChanged="CbServCita_SelectionChanged" SelectedIndex="0"></ComboBox>
             <Label Content="Empleado-usuario" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbEmpUsu" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" DisplayMemberPath = "Nombre" SelectedValuePath = "Usuario"  Grid.ColumnSpan="1"></ComboBox>
+            <ComboBox x:Name="cbEmpCita" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" DisplayMemberPath = "Nombre"   Grid.ColumnSpan="1" SelectedValue="{Binding Path=Sanitario, Mode=TwoWay}" SelectedIndex="0" SelectionChanged="CbEmpCita_SelectionChanged"></ComboBox>
 
 
             <Label Content="Paciente" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbPacCita" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" DisplayMemberPath = "Nombre" SelectedValuePath = "PacienteId"  Text="{Binding Path=Paciente.Nombre, Mode=TwoWay}"></ComboBox>
+            <ComboBox x:Name="cbPacCita" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" DisplayMemberPath = "Nombre"   SelectedValue="{Binding Path=Paciente, Mode=TwoWay}" SelectionChanged="CbPacCita_SelectionChanged"></ComboBox>
             <Label Content="Correo dueño" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
             <TextBox x:Name="tbPropPac" Grid.Column="3" Grid.Row="3" Margin="10,10,10,10" IsEnabled="False"/>
             <Label Content="Fecha" Grid.Column="0" Grid.Row="4" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
             <DatePicker x:Name="dpFechaCit" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es"/>
             <Label Content="Hora" Grid.Column="2" Grid.Row="4" Margin="10,10,10,10" VerticalAlignment="Bottom"></Label>
-            <ComboBox x:Name="cbHoraCit" Grid.Column="3" Grid.Row="4" Margin="10,10,10,10" Text="{Binding Path=Hora, Mode=TwoWay}" IsEnabled="False"/>
+            <ComboBox x:Name="cbHoraCit" Grid.Column="3" Grid.Row="4" Margin="10,10,10,10" Text="{Binding Path=Hora, Mode=TwoWay}" SelectedIndex="0" DropDownOpened="CbHoraCit_DropDownOpened"/>
 
 
             <Label Content="Causa" Grid.Column="0" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbCausaCita" MinLines="5" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Causa, Mode=TwoWay}"/>
-            <Button Grid.Column="1" Grid.Row="7" Content="Guardar" x:Name="btGuardarCita" Margin="10,10,10,10" />
+            <TextBox x:Name="tbCausaCita" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Causa, Mode=TwoWay}" TextWrapping="Wrap"/>
+            <Button Grid.Column="1" Grid.Row="7" Content="Guardar" x:Name="btGuardarCita" Margin="10,10,10,10" Click="BtGuardarCita_Click" />
             <Button Grid.Column="2" Grid.Row="7" Content="Eliminar" x:Name="btEliminarCita" Margin="10,10,10,10"/>
         </Grid>
     </Grid>

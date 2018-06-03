@@ -18,6 +18,7 @@ using ClinicaVeterinaria.Service;
 using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
 using ClinicaVeterinaria.Clie;
+using ClinicaVeterinaria.Citass;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -46,6 +47,11 @@ namespace ClinicaVeterinaria
         //variables usadas en clientes
         private List<Cliente> Clientes = new List<Cliente>();
         private Cliente cliSelect = new Cliente();
+
+        //variables usadas en citas
+        private List<Cita> Citas = new List<Cita>();
+        private List<Cita> CitasAt = new List<Cita>();
+        private Cita citaSelect = new Cita();
         public MainWindow()
         {
             InitializeComponent();
@@ -55,7 +61,7 @@ namespace ClinicaVeterinaria
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-            dgHorario.ItemsSource = uow.RepositorioHorario.obtenerTodos();
+            CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
         }
         #region Producto
         //metodos
@@ -709,7 +715,56 @@ namespace ClinicaVeterinaria
         }
 
         #endregion
-       
+        #region Cita
+        //metodos
+        public void CargardgCitas(List<Cita> lcit)
+        {
+            Citas = lcit;
+            dgCita.ItemsSource = Citas;
+        }
+        public void CargardgCitasAtendidas(List<Cita> lcit)
+        {
+            CitasAt = lcit;
+            dgCitasAtendidas.ItemsSource = CitasAt;
+        }
+        public void CargarVentanaFormCita(Cita cita)
+        {
+            FormCita fcit = new FormCita(cita,this);
+            fcit.ShowDialog();
+        }
+        private void BtAgregarCita_Click(object sender, RoutedEventArgs e)
+        {
+            Cita cit = new Cita();
+            CargarVentanaFormCita(cit);
+        }
+        private void DgCita_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                citaSelect = (Cita)(dgCita.SelectedItem);
+
+            }
+            catch
+            {
+
+            }
+        }
+        private void DgCita_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                citaSelect = (Cita)(dgCita.SelectedItem);
+                CargarVentanaFormCita(citaSelect);
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        #endregion
+
 
     }
 }

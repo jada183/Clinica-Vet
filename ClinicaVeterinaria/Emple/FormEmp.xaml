@@ -134,7 +134,7 @@
 
                             <ComboBoxItem Content="lunes"></ComboBoxItem>
                             <ComboBoxItem Content="martes"></ComboBoxItem>
-                            <ComboBoxItem Content="miércoles"></ComboBoxItem>
+                            <ComboBoxItem Content="miercoles"></ComboBoxItem>
                             <ComboBoxItem Content="jueves"></ComboBoxItem>
                             <ComboBoxItem Content="viernes"></ComboBoxItem>
                             <ComboBoxItem Content="sabado"></ComboBoxItem>

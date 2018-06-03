@@ -330,7 +330,7 @@
 
                                 </StackPanel>
                                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10">
+                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtAgregarCita" Click="BtAgregarCita_Click">
                                         <Image  Source="Imagenes/add.png"></Image>
                                     </Button>
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10">
@@ -341,7 +341,7 @@
                                     </Button>
                                 </StackPanel>
 
-                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
@@ -374,23 +374,7 @@
                         </TabItem>
                     </TabControl>
                 </TabItem>
-                <TabItem  x:Name="tabHorario"  FontSize="18">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Imagenes/ProdIcon32.png" Margin="5,10,5,10"/>
-                            <Label Content="Productos"/>
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Grid>
-                        <DataGrid x:Name="dgHorario" Margin="10,5,10,20" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Dia" Width="2*" Binding="{Binding Path=Dia}"/>
-                                <DataGridTextColumn Header="Hora inicio" Width="2*" Binding="{Binding Path=HoraInic}"/>
-                                <DataGridTextColumn Header="Hora salida" Width="2*" Binding="{Binding Path=HoraFin}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-                </TabItem>
+               
                 <TabItem  x:Name="tabVenta"  FontSize="18">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">

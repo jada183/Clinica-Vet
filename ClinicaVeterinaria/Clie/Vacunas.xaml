@@ -40,7 +40,7 @@
                 <Label Content="Nombre" Grid.Column="1" Grid.Row="1" Margin="4.5,10,10,10"/>
                 <TextBox x:Name="tbVacunaNombre" Grid.Column="2" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2" Text="{Binding Path=Nombre, Mode=TwoWay}"/>
                 <Label Content="Fecha" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10"/>
-                <DatePicker x:Name="dpVacunaFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es"/>
+                <DatePicker x:Name="dpVacunaFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyyy'}" Language="Es-es"/>
                 <Label Content="Empleado" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"/>
                 <ComboBox x:Name="cbListEmpVac" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Usuario" SelectedValuePath="EmpleadoId" />
 
