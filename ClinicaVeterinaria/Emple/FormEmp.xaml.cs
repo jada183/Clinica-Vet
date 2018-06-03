@@ -431,6 +431,7 @@ namespace ClinicaVeterinaria.Emple
 
                 cbHoraFNuevoHor.IsEnabled = true;
                
+               
             }
         }
         //carga de segundo comboBox
@@ -457,6 +458,7 @@ namespace ClinicaVeterinaria.Emple
                 }
                 horayminHorInicial[1] = "0";
             }
+            cbHoraFNuevoHor.SelectedItem = 0;
         }
         public void LimpiarComboBox()
         {
