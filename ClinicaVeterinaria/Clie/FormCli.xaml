@@ -72,7 +72,7 @@
                 </TabItem.Header>
                 <DockPanel x:Name="dockPaciente">
                     <Label x:Name="lPacienteTitulo"  Content="Mascotas" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  />
-                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                         <Label Content="Nombre de la mascota" Margin="5,5,5,5"></Label>
                         <TextBox x:Name="tbBuscadorPac" Width="400"  Margin="5,5,5,5"></TextBox>
                         <Button   Margin="5,5,5,5" x:Name="BtBuscarMascota" Click="BtBuscarMascota_Click">
@@ -102,6 +102,7 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
+                    
                     <DataGrid x:Name="dgMascota" Margin="10,5,10,20" AutoGenerateColumns="False" DockPanel.Dock="Top" SelectionChanged="dgMascota_SelectionChanged" MouseDoubleClick="dgMascota_MouseDoubleClick" IsReadOnly="True" SelectedIndex="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
