@@ -105,9 +105,9 @@
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806031524063_initial.cs" />
-    <Compile Include="Migrations\201806031524063_initial.Designer.cs">
-      <DependentUpon>201806031524063_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201806041825463_Initial.cs" />
+    <Compile Include="Migrations\201806041825463_Initial.Designer.cs">
+      <DependentUpon>201806041825463_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Proveed\FormProv.xaml.cs">
       <DependentUpon>FormProv.xaml</DependentUpon>
@@ -221,8 +221,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201806031524063_initial.resx">
-      <DependentUpon>201806031524063_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806041825463_Initial.resx">
+      <DependentUpon>201806041825463_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
