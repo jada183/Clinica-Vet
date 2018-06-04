@@ -43,9 +43,10 @@
 
 
             <Label Content="Paciente" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbPacCita" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" DisplayMemberPath = "Nombre"   SelectedValue="{Binding Path=Paciente, Mode=TwoWay}" SelectionChanged="CbPacCita_SelectionChanged"></ComboBox>
-            <Label Content="Correo dueño" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbPropPac" Grid.Column="3" Grid.Row="3" Margin="10,10,10,10" IsEnabled="False"/>
+            <TextBox x:Name="tbPacCita" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"   Text="{Binding Path=Paciente.Nombre, Mode=TwoWay}" IsEnabled="False"></TextBox>
+            <Button   Margin="10,10,10,10" x:Name="BtBuscarPac" Grid.Column="2" Grid.Row="3" VerticalAlignment="Bottom" Height="27" Width="45" Background="#fff" HorizontalAlignment="Left">
+                <Image x:Name="imgBuscarListProd" Source="../Imagenes/lupa.png"/>
+            </Button>
             <Label Content="Fecha" Grid.Column="0" Grid.Row="4" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
             <DatePicker x:Name="dpFechaCit" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es"/>
             <Label Content="Hora" Grid.Column="2" Grid.Row="4" Margin="10,10,10,10" VerticalAlignment="Bottom"></Label>

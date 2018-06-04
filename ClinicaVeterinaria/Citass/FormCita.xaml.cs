@@ -61,7 +61,7 @@ namespace ClinicaVeterinaria.Citass
            
             CargarcbSerCit(MainWindow.uow.RepositorioServicio.obtenerTodos());
             CargarcbEmpCit(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
-            CargarcbPacCit(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+           
             gridCita.DataContext = cita;
             
             if (NuevaCita != true)
@@ -126,11 +126,7 @@ namespace ClinicaVeterinaria.Citass
             cbEmpCita.ItemsSource = "";
             cbEmpCita.ItemsSource = e;
         }
-        public void CargarcbPacCit(List<Paciente> p)
-        {
-            cbPacCita.ItemsSource = "";
-            cbPacCita.ItemsSource = p;
-        }
+       
         //el metodo de cargar las horas disponibles segun la fecha marcada
         public void CargarHorasCbCita ()
         {
@@ -255,14 +251,6 @@ namespace ClinicaVeterinaria.Citass
 
         }
 
-       
-
-        private void CbPacCita_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            pac = (Paciente)cbPacCita.SelectedItem;
-            cita.PacienteId = pac.PacienteId;
-            tbPropPac.Text = MainWindow.uow.RepositorioCliente.obtenerUno(c => pac.ClienteId == c.ClienteId).Email;
-        }
 
         private void CbHoraCit_DropDownOpened(object sender, EventArgs e)
         {
