@@ -92,13 +92,13 @@ namespace ClinicaVeterinaria.Citass
                 catch { }
                 cbHoraCit.IsEnabled = true;
                 //CargarHorasCbCita();
+                
             }
             else
             {
                 dpFechaCit.IsEnabled = false;
                 cita.Fecha = DateTime.Today;
-                dpFechaCit.DisplayDateStart = DateTime.Today;
-                dpFechaCit.DisplayDateEnd = DateTime.Today.AddDays(60);
+                
             }
             
 
@@ -136,28 +136,23 @@ namespace ClinicaVeterinaria.Citass
 
                 if (lista.Count > 0)
                 {
-                    for (DateTime i = dpFechaCit.DisplayDateStart.Value; i < dpFechaCit.DisplayDateEnd.Value; i = i.AddDays(1))
+                    for (DateTime i = dpFechaCit.DisplayDateStart.Value; i <= dpFechaCit.DisplayDateEnd.Value; i = i.AddDays(1))
                     {
 
                         if (!lista.Contains(ci.DateTimeFormat.GetDayName(i.DayOfWeek).ToLower()))
                         {
-                            MessageBox.Show("se encuentra");
+                           
                             try
                             {
                                 dpFechaCit.BlackoutDates.Add(new CalendarDateRange(i));
                             }
-                            catch (Exception erro)
+                            catch 
                             {
-                                MessageBox.Show(erro.Message);
+                               // MessageBox.Show(erro.Message);
                             }
                            
                         }
-                        else
-                        {
-                            MessageBox.Show("no se encuentra este dia");
-                        }
-
-
+                        
                     }
 
                 }
@@ -312,10 +307,10 @@ namespace ClinicaVeterinaria.Citass
             {
                 empl = (Empleado)cbEmpCita.SelectedItem;
                 cita.EmpleadoId = empl.EmpleadoId;
-               
-                    AnularFechas();
-                    dpFechaCit.IsEnabled = true;
-                
+                dpFechaCit.DisplayDateStart = DateTime.Today;
+                dpFechaCit.DisplayDateEnd = DateTime.Today.AddDays(60);
+                AnularFechas();
+                dpFechaCit.IsEnabled = true;
                
                
             }
@@ -340,6 +335,11 @@ namespace ClinicaVeterinaria.Citass
             }
             catch { }
           
+        }
+
+        private void DpFechaCit_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CargarHorasCbCita();
         }
     }
 }

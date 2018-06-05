@@ -95,11 +95,11 @@
                         <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListHorarios">
                             <ComboBoxItem Content="Todos" x:Name="cbLisHorTodos" IsSelected="True"></ComboBoxItem>
                             <ComboBoxItem Content="Lunes"></ComboBoxItem>
-                            <ComboBoxItem Content="Martes"></ComboBoxItem>
-                            <ComboBoxItem Content="Miercoles"></ComboBoxItem>
-                            <ComboBoxItem Content="Jueves"></ComboBoxItem>
-                            <ComboBoxItem Content="Viernes"></ComboBoxItem>
-                            <ComboBoxItem Content="Sabado"></ComboBoxItem>
+                            <ComboBoxItem Content="martes"></ComboBoxItem>
+                            <ComboBoxItem Content="miércoles"></ComboBoxItem>
+                            <ComboBoxItem Content="jueves"></ComboBoxItem>
+                            <ComboBoxItem Content="viernes"></ComboBoxItem>
+                            <ComboBoxItem Content="sábado"></ComboBoxItem>
 
                         </ComboBox>
 
@@ -131,17 +131,17 @@
                         <Label x:Name="lgridNuevoHorario" Content="Nuevo Horario" FontSize="32" HorizontalAlignment="Center" Margin="140,10" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4"/>
                         <Label Content="Dia" Grid.Column="0" Grid.Row="1" Margin="4.5,10,10,10"/>
                         <ComboBox Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" x:Name="cbDiaHorNuevo" SelectedIndex="0" Text="{Binding Path=Dia, Mode=TwoWay}">
-
                             <ComboBoxItem Content="lunes"></ComboBoxItem>
                             <ComboBoxItem Content="martes"></ComboBoxItem>
-                            <ComboBoxItem Content="miercoles"></ComboBoxItem>
+                            <ComboBoxItem Content="miércoles"></ComboBoxItem>
                             <ComboBoxItem Content="jueves"></ComboBoxItem>
                             <ComboBoxItem Content="viernes"></ComboBoxItem>
-                            <ComboBoxItem Content="sabado"></ComboBoxItem>
+                            <ComboBoxItem Content="sábado"></ComboBoxItem>
+
                         </ComboBox>
                         <Label Content="Hora inicial" Grid.Column="0" Grid.Row="2" Margin="4.5,10,10,10"/>
                         <ComboBox Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" x:Name="cbHoraINuevoHor" SelectedIndex="0" Text="{Binding Path=HoraInic, Mode=TwoWay}" SelectionChanged="cbHoraINuevoHor_SelectionChanged">
-
+                           
                         </ComboBox>
                         <Label Content="Hora Final" Grid.Column="2" Grid.Row="2" Margin="4.5,10,10,10"/>
                         <ComboBox Grid.Column="3" Grid.Row="2" Margin="10,10,10,10" x:Name="cbHoraFNuevoHor" SelectedIndex="0" Text="{Binding Path=HoraFin, Mode=TwoWay}" IsEnabled="False"  DropDownOpened="CbHoraFNuevoHor_DropDownOpened">

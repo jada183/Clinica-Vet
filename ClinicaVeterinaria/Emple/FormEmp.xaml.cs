@@ -412,8 +412,8 @@ namespace ClinicaVeterinaria.Emple
                 CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
 
             }
-            else if (cbBuscarListHorarios.Text == "Lunes" || (cbBuscarListHorarios.Text == "Martes") || (cbBuscarListHorarios.Text == "Miercoles") || (cbBuscarListHorarios.Text == "Jueves") || (cbBuscarListHorarios.Text == "Viernes")
-                 || (cbBuscarListHorarios.Text == "Sabado"))
+            else if (cbBuscarListHorarios.Text == "lunes" || (cbBuscarListHorarios.Text == "martes") || (cbBuscarListHorarios.Text == "miércoles") || (cbBuscarListHorarios.Text == "jueves") || (cbBuscarListHorarios.Text == "viernes")
+                 || (cbBuscarListHorarios.Text == "sábado"))
             {
                 try
                 {

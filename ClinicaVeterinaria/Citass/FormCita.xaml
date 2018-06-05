@@ -48,9 +48,9 @@
                 <Image x:Name="imgBuscarListProd" Source="../Imagenes/lupa.png"/>
             </Button>
             <Label Content="Fecha" Grid.Column="0" Grid.Row="4" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
-            <DatePicker x:Name="dpFechaCit" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyyy'}" Language="Es-es"/>
+            <DatePicker x:Name="dpFechaCit" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyyy'}" Language="Es-es" SelectedDateChanged="DpFechaCit_SelectedDateChanged"/>
             <Label Content="Hora" Grid.Column="2" Grid.Row="4" Margin="10,10,10,10" VerticalAlignment="Bottom"></Label>
-            <ComboBox x:Name="cbHoraCit" Grid.Column="3" Grid.Row="4" Margin="10,10,10,10" Text="{Binding Path=Hora, Mode=TwoWay}" SelectedIndex="0" DropDownOpened="CbHoraCit_DropDownOpened" IsEnabled="False"/>
+            <ComboBox x:Name="cbHoraCit" Grid.Column="3" Grid.Row="4" Margin="10,10,10,10" Text="{Binding Path=Hora, Mode=TwoWay}" SelectedIndex="0" DropDownOpened="CbHoraCit_DropDownOpened" IsEnabled="False" />
 
 
             <Label Content="Causa" Grid.Column="0" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
