@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,151 @@ namespace ClinicaVeterinaria
     /// </summary>
     public partial class BuscadorPac : Window
     {
-      
-        public BuscadorPac(Paciente p)
+        Paciente pac;
+        Cita cita;
+        Cliente cl;
+        public BuscadorPac(Object obj)
         {
             InitializeComponent();
+            CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+            try
+            {
+                cita = (Cita)obj;
+              
+            }
+            catch { }
             
+                    
+        }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public void CargarDgPacientes(List<Paciente> lpac)
+        {
+            try
+            {
+                dgPaciente.ItemsSource = lpac;
+            }
+            catch { }
             
-            
+        }
+
+        private void DgPaciente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                pac = (Paciente)dgPaciente.SelectedItem;
+            }
+            catch { }
+        }
+
+        private void DgPaciente_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                pac = (Paciente)dgPaciente.SelectedItem;
+                if (pac.PacienteId > 0)
+                {
+                    cita.PacienteId = pac.PacienteId;
+                    cita.Paciente = pac;
+                    if (Validado(cita))
+                    {
+                        MainWindow.uow.RepositorioCita.actualizar(cita);
+                    }
+                    else
+                    {
+
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una mascota");
+                }
+                this.Close();
+            }
+            catch { }
+        }
+
+        private void BtBuscarListPac_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                cl = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorPac.Text);
+                if (cl.ClienteId > 0)
+                {
+                    CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.ClienteId==cl.ClienteId));
+                }
+                else
+                {
+                    MessageBox.Show("no se ha encontrado ninguna mascota de ese email de dueño");
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtBuscartodiosPac_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtSeleccionarPac_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (pac.PacienteId > 0)
+                {
+                    cita.PacienteId = pac.PacienteId;
+                    cita.Paciente = pac;
+                    if (Validado(cita))
+                    {
+                        MainWindow.uow.RepositorioCita.actualizar(cita);
+                    }
+                    else
+                    {
+
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una mascota");
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

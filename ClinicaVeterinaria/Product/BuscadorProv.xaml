@@ -22,7 +22,7 @@
                 <Button   Margin="5,5,5,5" Click="Button_Click">
                     <Image  Source="../Imagenes/lupa.png"></Image>
                 </Button>
-                <Button x:Name="btMostrarTodos" HorizontalAlignment="Left"  Content="Mostrar todos" Margin="10,10,10,10" Click="BtMostrarTodos_Click"/>
+                <Button x:Name="tMostrarTodos" HorizontalAlignment="Left"  Content="Mostrar todos" Margin="10,10,10,10" Click="BtMostrarTodos_Click"/>
             </StackPanel>
             <Button x:Name="btSeleccionar" DockPanel.Dock="Bottom" HorizontalAlignment="Left"  Content="Seleccionar" Margin="10,10,10,10" Click="BtSeleccionar_Click"/>
             <DataGrid x:Name="dgProveedor" Margin="10,5,10,20" AutoGenerateColumns="False" SelectionChanged="DgProveedor_SelectionChanged" MouseDoubleClick="DgProveedor_MouseDoubleClick" IsReadOnly="True">

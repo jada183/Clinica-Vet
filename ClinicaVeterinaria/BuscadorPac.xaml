@@ -13,20 +13,21 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        WindowState="Maximized">
+        >
     <Grid>
         <DockPanel>
             <Label  Content="Paciente" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
             <StackPanel DockPanel.Dock="top" Orientation="Horizontal" Margin="10,20,10,5">
                 <Label Content="Email del dueño" Margin="5,5,5,5" VerticalAlignment="Bottom"></Label>
                 <TextBox x:Name="tbBuscadorPac" Width="400"  Margin="5,5,5,5"></TextBox>
-                <Button  x:Name="BtBuscarListPac"  Margin="5,5,5,5">
+                <Button  x:Name="BtBuscarListPac"  Margin="5,5,5,5" Click="BtBuscarListPac_Click">
                     <Image  Source="/Imagenes/lupa.png"></Image>
                 </Button>
-               
+                <Button  x:Name="BtBuscartodiosPac"  Margin="5,5,5,5" Content="Mostrar todos" Click="BtBuscartodiosPac_Click"/>
+
             </StackPanel>
-            <Button x:Name="BtSeleccionarPac" DockPanel.Dock="Bottom" HorizontalAlignment="Left"  Content="Seleccionar" Margin="10,10,10,10"/>
-            <DataGrid x:Name="dgPaciente" Margin="10,10,10,10" AutoGenerateColumns="False"  IsReadOnly="True">
+            <Button x:Name="BtSeleccionarPac" DockPanel.Dock="Bottom" HorizontalAlignment="Left"  Content="Seleccionar" Margin="10,10,10,10" Click="BtSeleccionarPac_Click"/>
+            <DataGrid x:Name="dgPaciente" Margin="10,10,10,10" AutoGenerateColumns="False"  IsReadOnly="True" SelectionChanged="DgPaciente_SelectionChanged" MouseDoubleClick="DgPaciente_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Nombre}"/>
                     <DataGridTextColumn Header="Especie" Width="2*" Binding="{Binding Path=Especie}"/>

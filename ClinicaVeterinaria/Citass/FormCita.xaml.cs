@@ -61,8 +61,12 @@ namespace ClinicaVeterinaria.Citass
            
             CargarcbSerCit(MainWindow.uow.RepositorioServicio.obtenerTodos());
             CargarcbEmpCit(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+            try
+            {
+                gridCita.DataContext = cita;
+            }
+            catch { }
            
-            gridCita.DataContext = cita;
             
             if (NuevaCita != true)
             {
@@ -88,6 +92,13 @@ namespace ClinicaVeterinaria.Citass
                 catch { }
                 cbHoraCit.IsEnabled = true;
                 //CargarHorasCbCita();
+            }
+            else
+            {
+                dpFechaCit.IsEnabled = false;
+                cita.Fecha = DateTime.Today;
+                dpFechaCit.DisplayDateStart = DateTime.Today;
+                dpFechaCit.DisplayDateEnd = DateTime.Today.AddDays(60);
             }
             
 
@@ -115,6 +126,52 @@ namespace ClinicaVeterinaria.Citass
                 return true;
             }
         }
+        private void AnularFechas()
+        {
+
+            try
+            {
+                dpFechaCit.BlackoutDates.Clear();
+                List<string> lista = MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == cita.Sanitario.EmpleadoId).Select(c => c.Dia).ToList<string>();
+
+                if (lista.Count > 0)
+                {
+                    for (DateTime i = dpFechaCit.DisplayDateStart.Value; i < dpFechaCit.DisplayDateEnd.Value; i = i.AddDays(1))
+                    {
+
+                        if (!lista.Contains(ci.DateTimeFormat.GetDayName(i.DayOfWeek).ToLower()))
+                        {
+                            MessageBox.Show("se encuentra");
+                            try
+                            {
+                                dpFechaCit.BlackoutDates.Add(new CalendarDateRange(i));
+                            }
+                            catch (Exception erro)
+                            {
+                                MessageBox.Show(erro.Message);
+                            }
+                           
+                        }
+                        else
+                        {
+                            MessageBox.Show("no se encuentra este dia");
+                        }
+
+
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("este empleado no tiene horarios establecidos");
+                    dpFechaCit.IsEnabled = false;
+                }
+
+            }
+            catch { }
+
+        }
+
         //carga el comboBox de los servicios de la cita
         public void CargarcbSerCit(List<Servicio> s)
         {
@@ -218,8 +275,13 @@ namespace ClinicaVeterinaria.Citass
 
         private void CbServCita_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            servi = (Servicio)cbServCita.SelectedItem;
-            cita.ServicioId = servi.ServicioId;
+            try
+            {
+                servi = (Servicio)cbServCita.SelectedItem;
+                cita.ServicioId = servi.ServicioId;
+            }
+            catch { }
+            
 
         }
 
@@ -240,14 +302,25 @@ namespace ClinicaVeterinaria.Citass
             else
             {
                 RecuperarValoresEntrada();
-                main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerTodos());
+                main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c=> c.Atendida==false));
             }
         }
 
         private void CbEmpCita_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            empl = (Empleado)cbEmpCita.SelectedItem;
-            cita.EmpleadoId = empl.EmpleadoId;
+            try
+            {
+                empl = (Empleado)cbEmpCita.SelectedItem;
+                cita.EmpleadoId = empl.EmpleadoId;
+               
+                    AnularFechas();
+                    dpFechaCit.IsEnabled = true;
+                
+               
+               
+            }
+            catch { }
+           
 
         }
 
@@ -255,6 +328,18 @@ namespace ClinicaVeterinaria.Citass
         private void CbHoraCit_DropDownOpened(object sender, EventArgs e)
         {
             CargarHorasCbCita();
+        }
+
+        private void BtBuscarPac_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                BuscadorPac bpac = new BuscadorPac(cita);
+                bpac.ShowDialog();
+            }
+            catch { }
+          
         }
     }
 }
