@@ -24,11 +24,12 @@ namespace ClinicaVeterinaria.Migrations
                   new Empleado { Nombre = "empleado4", Usuario = "empleado4", Contraseña = "empleado4", Tipo = "Dependiente", Apellidos = "Gonzales Perez", Email = "Empleado4@gmail.com", EmpleadoId = 5, Titulacion = "Vendedor" }
                  );
             context.Horarios.AddOrUpdate(
-             new Horario { HorarioId = 1, HoraInic = "8:30", HoraFin = "13:00", Dia = "lunes", EmpleadoId = 1 },
-             new Horario { HorarioId = 2, HoraInic = "10:30", HoraFin = "13:00", Dia = "martes", EmpleadoId = 2 },
-             new Horario { HorarioId = 3, HoraInic = "11:00", HoraFin = "15:00", Dia = "martes", EmpleadoId = 3 },
-             new Horario { HorarioId = 4, HoraInic = "7:00", HoraFin = "14:00", Dia = "martes", EmpleadoId = 4},
-             new Horario { HorarioId = 5, HoraInic = "9:00", HoraFin = "15:00", Dia = "viernes", EmpleadoId = 5 }
+                 new Horario { HorarioId = 1, HoraInic = "8:30", HoraFin = "13:00", Dia = "lunes", EmpleadoId = 1 },
+                 new Horario { HorarioId = 6, HoraInic = "8:30", HoraFin = "13:00", Dia = "martes", EmpleadoId = 1 },
+                 new Horario { HorarioId = 2, HoraInic = "10:30", HoraFin = "13:00", Dia = "martes", EmpleadoId = 2 },
+                 new Horario { HorarioId = 3, HoraInic = "11:00", HoraFin = "15:00", Dia = "martes", EmpleadoId = 3 },
+                 new Horario { HorarioId = 4, HoraInic = "7:00", HoraFin = "14:00", Dia = "martes", EmpleadoId = 4 },
+                  new Horario { HorarioId = 5, HoraInic = "9:00", HoraFin = "15:00", Dia = "viernes", EmpleadoId = 5 }
              );
             context.Proveedores.AddOrUpdate(
                new Proveedor { Nombre = "proveedor prueba", Apellidos = "apellidos", Email = "proveedor@gmail.com", ProveedorId = 1, Direccion = "calle 1", Movil = "69851653", Telefono = "988234135" },
