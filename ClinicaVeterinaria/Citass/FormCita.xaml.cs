@@ -48,7 +48,7 @@ namespace ClinicaVeterinaria.Citass
             if (cita.CitaId == 0)
             {
                 btEliminarCita.Visibility = Visibility.Hidden;
-                empl = cita.Sanitario;
+                empl = new Empleado();
                 NuevaCita =true;
             }
             else
@@ -96,7 +96,7 @@ namespace ClinicaVeterinaria.Citass
             }
             else
             {
-                dpFechaCit.IsEnabled = false;
+               
                 cita.Fecha = DateTime.Today;
                 
             }
@@ -128,7 +128,7 @@ namespace ClinicaVeterinaria.Citass
         }
         private void AnularFechas()
         {
-
+            //dpFechaCit.BlackoutDates.Add(new CalendarDateRange(DateTime.Today));
             try
             {
                 dpFechaCit.BlackoutDates.Clear();
@@ -184,7 +184,7 @@ namespace ClinicaVeterinaria.Citass
         {
             try
             {
-                bool salir = false;
+                bool auxsalir = false;
                 DateTime dtaux = Convert.ToDateTime(dpFechaCit.Text);
                 cbHoraCit.Items.Clear();
                 List<Cita> listAux = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Fecha.Equals(dtaux) && empl.EmpleadoId == c.EmpleadoId && cita.CitaId!=c.CitaId);
@@ -204,17 +204,20 @@ namespace ClinicaVeterinaria.Citass
                         int auxint4 = Convert.ToInt32(corteshoraFin[1]);
                         for (int i = auxint1; i <= auxint2; i++)
                         {
-                            
+
                             for (int j = auxint3; j < 60; j += 30)
                             {
-                                string constructorHora = "";
-                                if (i == auxint2 && j == auxint4)
+                                if (j == auxint4 && i == auxint2)
                                 {
-                                    salir = true;
+                                    
+
+                                    auxsalir = true;
                                     break;
                                 }
                                 else
                                 {
+
+                                    string constructorHora;
                                     if (j == 0)
                                     {
                                         constructorHora = Convert.ToString(i) + ":" + Convert.ToString(j) + "0";
@@ -224,14 +227,15 @@ namespace ClinicaVeterinaria.Citass
                                     {
                                         constructorHora = Convert.ToString(i) + ":" + Convert.ToString(j);
                                     }
+                                    cbHoraCit.Items.Add(constructorHora);
                                 }
-                                cbHoraCit.Items.Add(constructorHora);
+
                             }
-                            //cuando se da el caso de que llega a la hora limite sale del bucle
-                            if (salir)
+                            if (auxsalir == true)
                             {
-                                i = auxint2 + 1;
+                                break;
                             }
+                            auxint3 = 0;
                         }
                     }
 
@@ -239,9 +243,67 @@ namespace ClinicaVeterinaria.Citass
                 //cuando hay citas ese dia
                 else
                 {
+                    string auxDia = ci.DateTimeFormat.GetDayName(dpFechaCit.SelectedDate.Value.DayOfWeek);
+                    List<Horario> listauxhor = MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.Dia.Equals(auxDia) && c.EmpleadoId == empl.EmpleadoId);
+                    foreach (Horario h in listauxhor)
+                    {
+                        //saco el valor de la hora y minuto inicial
+                        String[] corteshoraini = h.HoraInic.Split(':');
+                        String[] corteshoraFin = h.HoraFin.Split(':');
+                        int auxint1 = Convert.ToInt32(corteshoraini[0]);
+                        int auxint2 = Convert.ToInt32(corteshoraFin[0]);
+                        int auxint3 = Convert.ToInt32(corteshoraini[1]);
+                        int auxint4 = Convert.ToInt32(corteshoraFin[1]);
+                        for (int i = auxint1; i <= auxint2; i++)
+                        {
+
+                            for (int j = 0; j < 60; j += 30)
+                            {
+                                if (j == auxint4 && i == auxint2)
+                                {
+
+
+                                    auxsalir = true;
+                                    break;
+                                }
+                                else
+                                {
+
+                                    string constructorHora;
+                                    if (j == 0)
+                                    {
+                                        constructorHora = Convert.ToString(i) + ":" + Convert.ToString(j) + "0";
+
+                                    }
+                                    else
+                                    {
+                                        constructorHora = Convert.ToString(i) + ":" + Convert.ToString(j);
+                                    }
+
+                                    DateTime auxdt = Convert.ToDateTime(dpFechaCit.Text);
+                                    //busco una cita que este a la hora del constructorhora y la fecha  del dp
+                                    Cita citAux = MainWindow.uow.RepositorioCita.obtenerUno(c => c.Fecha.Equals(auxdt) && c.Hora.Equals(constructorHora));
+                                    if (citAux == null)
+                                    {
+                                        cbHoraCit.Items.Add(constructorHora);
+
+                                    }
+
+                                }
+
+                            }
+                            if (auxsalir == true)
+                            {
+                                break;
+                            }
+                            auxint4 = 0;
+                        }
+                    }
 
                 }
+                cbHoraCit.IsEnabled = true;
             }
+           
             catch(Exception erro) { MessageBox.Show(erro.Message); }
         }
 
@@ -272,8 +334,9 @@ namespace ClinicaVeterinaria.Citass
         {
             try
             {
-                servi = (Servicio)cbServCita.SelectedItem;
+                servi = (Servicio)cbServCita.SelectedItem;             
                 cita.ServicioId = servi.ServicioId;
+                cita.Servicio = servi;
             }
             catch { }
             
@@ -307,6 +370,7 @@ namespace ClinicaVeterinaria.Citass
             {
                 empl = (Empleado)cbEmpCita.SelectedItem;
                 cita.EmpleadoId = empl.EmpleadoId;
+                cita.Sanitario = empl;
                 dpFechaCit.DisplayDateStart = DateTime.Today;
                 dpFechaCit.DisplayDateEnd = DateTime.Today.AddDays(60);
                 AnularFechas();

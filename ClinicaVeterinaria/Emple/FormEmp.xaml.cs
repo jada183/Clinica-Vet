@@ -343,13 +343,19 @@ namespace ClinicaVeterinaria.Emple
 
                 horarioGuardar.EmpleadoId = em.EmpleadoId;
                 //horarioGuardar.Empleado = em;
-                MainWindow.uow.RepositorioHorario.crear(horarioGuardar);
-                MessageBox.Show("se ha guardado correctamente el horario");
-                NuevoHorario = new Horario();
-                horarioGuardar = new Horario();
-                CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
-                LimpiarGridNuevoHorario();
-                LimpiarComboBox();
+                if (Validado(horarioGuardar))
+                {
+                    MainWindow.uow.RepositorioHorario.crear(horarioGuardar);
+                    MessageBox.Show("se ha guardado correctamente el horario");
+                    NuevoHorario = new Horario();
+                    horarioGuardar = new Horario();
+                    CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                    LimpiarGridNuevoHorario();
+                    LimpiarComboBox();
+
+                }
+                else { }
+              
             }
             catch
             {
