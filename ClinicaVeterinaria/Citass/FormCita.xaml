@@ -37,9 +37,9 @@
             </Grid.RowDefinitions>
             <Label Content="Cita" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"  HorizontalAlignment="Center" FontSize="32" Grid.ColumnSpan="2"/>
             <Label Content="Servicio" Grid.Column="0" Grid.Row="1" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbServCita" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" DisplayMemberPath = "Nombre"  SelectedValue="{Binding Path=Servicio, Mode=TwoWay}" Grid.ColumnSpan="1" SelectionChanged="CbServCita_SelectionChanged" SelectedIndex="0"></ComboBox>
+            <ComboBox x:Name="cbServCita" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" DisplayMemberPath = "Nombre"  SelectedValue="{Binding Path=Servicio, Mode=TwoWay}" Grid.ColumnSpan="1" SelectionChanged="CbServCita_SelectionChanged" ></ComboBox>
             <Label Content="Empleado-usuario" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <ComboBox x:Name="cbEmpCita" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" DisplayMemberPath = "Nombre"   Grid.ColumnSpan="1" SelectedValue="{Binding Path=Sanitario, Mode=TwoWay}" SelectedIndex="0" SelectionChanged="CbEmpCita_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="cbEmpCita" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" DisplayMemberPath = "Nombre"   Grid.ColumnSpan="1" SelectedValue="{Binding Path=Sanitario, Mode=TwoWay}"  SelectionChanged="CbEmpCita_SelectionChanged"></ComboBox>
 
 
             <Label Content="Paciente" Grid.Column="0" Grid.Row="3" Margin="10,10,10,10" VerticalAlignment="Bottom"/>

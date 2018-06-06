@@ -98,7 +98,7 @@ namespace ClinicaVeterinaria.Citass
             {
                
                 cita.Fecha = DateTime.Today;
-                
+                dpFechaCit.IsEnabled = false;
             }
             
 
