@@ -762,9 +762,66 @@ namespace ClinicaVeterinaria
             }
         }
 
+        private void BtEliminarCita_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta cita?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioCita.eliminar(citaSelect);
+                        CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un producto");
+            }
+        }
+        private void BtCheckear_Click(object sender, RoutedEventArgs e)
+        {
+            if(citaSelect != null)
+            {
+                citaSelect.Atendida =true;
+                MainWindow.uow.RepositorioCita.actualizar(citaSelect);
+                CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+            }
+        }
+
+
+
 
         #endregion
 
-
+        private void btEditarCit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+               
+                CargarVentanaFormCita(citaSelect);
+            }
+            catch
+            {
+                MessageBox.Show("Seleccione una cita");             
+            }
+        }
     }
 }

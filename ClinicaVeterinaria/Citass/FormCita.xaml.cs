@@ -259,7 +259,7 @@ namespace ClinicaVeterinaria.Citass
 
                             for (int j = 0; j < 60; j += 30)
                             {
-                                if (j == auxint4 && i == auxint2)
+                                if (j == auxint3 && i == auxint2)
                                 {
 
 
@@ -296,7 +296,7 @@ namespace ClinicaVeterinaria.Citass
                             {
                                 break;
                             }
-                            auxint4 = 0;
+                            auxint3 = 0;
                         }
                     }
 
@@ -323,11 +323,16 @@ namespace ClinicaVeterinaria.Citass
         {
             cita.Hora = horaOrigenCita;
             cita.PacienteId = pacienteIdOrigenCita;
+            cita.Paciente = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.PacienteId == cita.PacienteId);
             cita.EmpleadoId= EmpleadoIdOrigenCita;
+            cita.Sanitario = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == cita.EmpleadoId);             
             cita.ServicioId= ServicioIdOrigenCita;
+            cita.Servicio = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.ServicioId == cita.ServicioId);
+           
             cita.Fecha = fechaOrigenCita;         
             cita.Causa= causaOrigenCita;
             cita.Atendida= atendidaOrigenCita;
+            
         }
 
         private void CbServCita_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -345,11 +350,33 @@ namespace ClinicaVeterinaria.Citass
 
         private void BtGuardarCita_Click(object sender, RoutedEventArgs e)
         {
-            if (Validado(cita))
+            if (NuevaCita == true)
             {
-
+                if (Validado(cita))
+                {
+                    MainWindow.uow.RepositorioCita.crear(cita);
+                    MessageBox.Show("se ha guardado correctamente");
+                    main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                    modificado = true;
+                    this.Close();
+                }
+                else { }
             }
-            else { }
+            else
+            {
+              
+                
+                    if (Validado(cita))
+                    {
+                        MainWindow.uow.RepositorioCita.actualizar(cita);
+                        MessageBox.Show("se ha actualizado correctamente");
+                        main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                        modificado = true;
+                        this.Close();
+                    }
+                    else { }
+                
+            }
         }
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -404,6 +431,41 @@ namespace ClinicaVeterinaria.Citass
         private void DpFechaCit_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             CargarHorasCbCita();
+        }
+
+        private void btEliminarCita_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta cita?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        MainWindow.uow.RepositorioCita.eliminar(cita);
+                        main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                        this.Close();
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                
+            }
         }
     }
 }

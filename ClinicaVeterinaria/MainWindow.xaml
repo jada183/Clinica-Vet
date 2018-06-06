@@ -333,17 +333,20 @@
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtAgregarCita" Click="BtAgregarCita_Click">
                                         <Image  Source="Imagenes/add.png"></Image>
                                     </Button>
-                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10">
+                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCita" Click="BtEliminarCita_Click">
                                         <Image  Source="Imagenes/delete.png" ></Image>
                                     </Button>
-                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" >
+                                    <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarCit" Click="btEditarCit_Click">
+                                        <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
+                                    </Button>
+                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtCheckear" Click="BtCheckear_Click" >
                                         <Image Source="Imagenes/tickIcon.png"></Image>
                                     </Button>
                                 </StackPanel>
 
                                 <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
+                                        <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha , StringFormat='dd/MM/yyyy'}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
@@ -361,14 +364,21 @@
                             <DockPanel>
 
                                 <Label Content="Citas atendidas" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10"></Label>
+                                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
 
+                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCitaAtendida">
+                                        <Image  Source="Imagenes/delete.png" ></Image>
+                                    </Button>
+
+                                </StackPanel>
                                 <DataGrid x:Name="dgCitasAtendidas" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
+                                        <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha, StringFormat='dd/MM/yyyy'}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
                                     </DataGrid.Columns>
+                                    
                                 </DataGrid>
                             </DockPanel>
                         </TabItem>
