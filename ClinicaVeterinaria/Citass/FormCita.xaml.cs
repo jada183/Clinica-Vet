@@ -187,7 +187,7 @@ namespace ClinicaVeterinaria.Citass
                 bool auxsalir = false;
                 DateTime dtaux = Convert.ToDateTime(dpFechaCit.Text);
                 cbHoraCit.Items.Clear();
-                List<Cita> listAux = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Fecha.Equals(dtaux) && empl.EmpleadoId == c.EmpleadoId && cita.CitaId!=c.CitaId);
+                List<Cita> listAux = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Fecha.Equals(dtaux) && empl.EmpleadoId == c.EmpleadoId && cita.CitaId!=c.CitaId &&  c.Atendida==false);
                 //si no hay citas ese dia
                 if (listAux.Count == 0)
                 {
@@ -282,7 +282,7 @@ namespace ClinicaVeterinaria.Citass
 
                                     DateTime auxdt = Convert.ToDateTime(dpFechaCit.Text);
                                     //busco una cita que este a la hora del constructorhora y la fecha  del dp
-                                    Cita citAux = MainWindow.uow.RepositorioCita.obtenerUno(c => c.Fecha.Equals(auxdt) && c.Hora.Equals(constructorHora));
+                                    Cita citAux = MainWindow.uow.RepositorioCita.obtenerUno(c => c.Fecha.Equals(auxdt) && c.Hora.Equals(constructorHora) && c.Atendida==false);
                                     if (citAux == null)
                                     {
                                         cbHoraCit.Items.Add(constructorHora);
@@ -382,12 +382,11 @@ namespace ClinicaVeterinaria.Citass
         {
             if (modificado)
             {
-
+                main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
             }
             else
             {
-                RecuperarValoresEntrada();
-                main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c=> c.Atendida==false));
+               
             }
         }
 
@@ -395,6 +394,7 @@ namespace ClinicaVeterinaria.Citass
         {
             try
             {
+                cbHoraCit.Items.Clear();
                 empl = (Empleado)cbEmpCita.SelectedItem;
                 cita.EmpleadoId = empl.EmpleadoId;
                 cita.Sanitario = empl;
@@ -402,6 +402,7 @@ namespace ClinicaVeterinaria.Citass
                 dpFechaCit.DisplayDateEnd = DateTime.Today.AddDays(60);
                 AnularFechas();
                 dpFechaCit.IsEnabled = true;
+                
                
                
             }

@@ -62,6 +62,7 @@ namespace ClinicaVeterinaria
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
+            CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
         }
         #region Producto
         //metodos
@@ -521,8 +522,10 @@ namespace ClinicaVeterinaria
 
                             uow.RepositorioEmpleado.eliminar(empSelect);
                             uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
+                            uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == null);
                             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida==false));
+                            CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             break;
                         case MessageBoxResult.No:
 
@@ -671,9 +674,10 @@ namespace ClinicaVeterinaria
                             uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
                             uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
                             uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
-
+                            
                             //recargo las tablas que lo necesiten
                             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.PacienteId == null));
 
                             break;
                         case MessageBoxResult.No:
@@ -793,35 +797,66 @@ namespace ClinicaVeterinaria
             }
             catch
             {
-                MessageBox.Show("seleccione un producto");
+                MessageBox.Show("seleccione una cita");
             }
         }
         private void BtCheckear_Click(object sender, RoutedEventArgs e)
         {
             if(citaSelect != null)
             {
-                citaSelect.Atendida =true;
-                MainWindow.uow.RepositorioCita.actualizar(citaSelect);
-                CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                try
+                {
+                    string messageBoxText = "Estas seguro que deseas marcar como atendida esta cita?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                    // Process message box results
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+
+
+                            citaSelect.Atendida = true;
+                            MainWindow.uow.RepositorioCita.actualizar(citaSelect);
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
+
+                            break;
+                        case MessageBoxResult.No:
+
+                            break;
+                        case MessageBoxResult.Cancel:
+                            // User pressed Cancel button
+                            // ...
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("seleccione una cita");
+                }
+               
             }
         }
+        private void btEditarCit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
 
+                CargarVentanaFormCita(citaSelect);
+            }
+            catch
+            {
+                MessageBox.Show("Seleccione una cita");
+            }
+        }
 
 
 
         #endregion
 
-        private void btEditarCit_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-               
-                CargarVentanaFormCita(citaSelect);
-            }
-            catch
-            {
-                MessageBox.Show("Seleccione una cita");             
-            }
-        }
+
     }
 }

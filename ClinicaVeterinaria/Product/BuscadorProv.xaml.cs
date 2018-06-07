@@ -103,11 +103,15 @@ namespace ClinicaVeterinaria
             {
                 prov = (Proveedor)(dgProveedor.SelectedItem);
                 prod.ProveedorId = prov.ProveedorId;
-                prod.Proveedor = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
+                prod.Proveedor = prov;
                 if (Validado(prod))
                 {
-                    MainWindow.uow.RepositorioProducto.actualizar(prod);
+                    if (prod.ProductoId > 0)
+                    {
+                        MainWindow.uow.RepositorioProducto.actualizar(prod);
+                    }
                     
+                   
                 }
                 else
                 {
@@ -126,7 +130,12 @@ namespace ClinicaVeterinaria
                 prod.ProveedorId = prov.ProveedorId;
                 prod.Proveedor = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.ProveedorId == prod.ProveedorId);
                 if(Validado(prod)){
-                    MainWindow.uow.RepositorioProducto.actualizar(prod);
+                    if (prod.ProductoId > 0)
+                    {
+                        MainWindow.uow.RepositorioProducto.actualizar(prod);
+                    }
+                    
+                   
                 }
                 else
                 {

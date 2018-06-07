@@ -89,7 +89,11 @@ namespace ClinicaVeterinaria
                     cita.Paciente = pac;
                     if (Validado(cita))
                     {
-                        MainWindow.uow.RepositorioCita.actualizar(cita);
+                        if (cita.CitaId > 0)
+                        {
+                            MainWindow.uow.RepositorioCita.actualizar(cita);
+                        }
+                        
                     }
                     else
                     {
@@ -148,7 +152,11 @@ namespace ClinicaVeterinaria
                     cita.Paciente = pac;
                     if (Validado(cita))
                     {
-                        MainWindow.uow.RepositorioCita.actualizar(cita);
+                        if (cita.CitaId > 0)
+                        {
+                            MainWindow.uow.RepositorioCita.actualizar(cita);
+                        }
+                        
                     }
                     else
                     {

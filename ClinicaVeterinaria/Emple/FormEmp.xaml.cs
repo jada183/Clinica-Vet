@@ -242,6 +242,8 @@ namespace ClinicaVeterinaria.Emple
                             MainWindow.uow.RepositorioEmpleado.eliminar(em);
                             MainWindow.uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
                             main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                            main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             this.Close();
                             break;
                         case MessageBoxResult.No:

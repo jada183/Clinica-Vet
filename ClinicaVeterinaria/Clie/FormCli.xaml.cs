@@ -385,7 +385,8 @@ namespace ClinicaVeterinaria.Clie
                 RecuperarValoresCliEntrada();
             }
             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-           
+            main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+            main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
         }
 
      
