@@ -52,6 +52,7 @@ namespace ClinicaVeterinaria
         private List<Cita> Citas = new List<Cita>();
         private List<Cita> CitasAt = new List<Cita>();
         private Cita citaSelect = new Cita();
+        private Cita citaSelectAten = new Cita();
         public MainWindow()
         {
             InitializeComponent();
@@ -852,8 +853,135 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("Seleccione una cita");
             }
         }
+        // buscador de citas
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                if (cbBuscarListCit.Text == "Usuario empleado")
+                {
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCit.Text);
+                    if (empaux.Usuario != null)
+                    {
+                        if (dpFechaBusCita.SelectedDate != null)
+                        {
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false && c.Fecha == dpFechaBusCita.SelectedDate && c.EmpleadoId == empaux.EmpleadoId));
+                        }
+                        else
+                        {
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false && c.EmpleadoId == empaux.EmpleadoId));
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (dpFechaBusCita.SelectedDate != null)
+                    {
+                        CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false && c.Fecha == dpFechaBusCita.SelectedDate));
+                    }
+                    else
+                    {
+                        CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+
+                    }
+                }
 
 
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ninguna cita");
+            }
+        }
+
+        private void BtBuscadorCitaAten_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cbBuscarListCitAten.Text == "Usuario empleado")
+                {
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCitAten.Text);
+                    if (empaux.Usuario != null)
+                    {
+                        if (dpFechaBusCitaAten.SelectedDate != null)
+                        {
+                            CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true && c.Fecha == dpFechaBusCitaAten.SelectedDate && c.EmpleadoId == empaux.EmpleadoId));
+                        }
+                        else
+                        {
+                            CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true && c.EmpleadoId == empaux.EmpleadoId));
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (dpFechaBusCitaAten.SelectedDate != null)
+                    {
+                        CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true && c.Fecha == dpFechaBusCitaAten.SelectedDate));
+                    }
+                    else
+                    {
+                        CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+                MessageBox.Show("no se ha encontrado ninguna cita");
+            }
+        }
+        private void BtEliminarCitaAtendida_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta cita?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioCita.eliminar(citaSelectAten);
+                        CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione una cita");
+            }
+        }
+
+        private void DgCitasAtendidas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                citaSelectAten = (Cita)(dgCitasAtendidas.SelectedItem);
+            }
+            catch
+            {
+
+            }
+        }
 
         #endregion
 

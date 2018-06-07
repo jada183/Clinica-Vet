@@ -316,15 +316,12 @@
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                                     <Label Content="Fecha" Margin="5,5,5,5"></Label>
                                     <DatePicker x:Name="dpFechaBusCita" Margin="5,5,5,5" Width="150"  Language="Es-es"></DatePicker>
-                                    <Button   Margin="5,5,5,5">
-                                        <Image  Source="Imagenes/lupa.png"></Image>
-                                    </Button>
                                     <ComboBox Margin="20,5,5,5" x:Name="cbBuscarListCit">
                                         <ComboBoxItem Content="Todos" x:Name="cbListCitTodos" IsSelected="True"></ComboBoxItem>
                                         <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
                                     </ComboBox>
                                     <TextBox x:Name="tbBuscarListCit" Margin="5,5,5,5" MinWidth="300"/>
-                                    <Button   Margin="5,5,5,5">
+                                    <Button   Margin="5,5,5,5" Click="Button_Click">
                                         <Image  Source="Imagenes/lupa.png"></Image>
                                     </Button>
 
@@ -364,14 +361,27 @@
                             <DockPanel>
 
                                 <Label Content="Citas atendidas" DockPanel.Dock="Top" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10"></Label>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                                    <Label Content="Fecha" Margin="5,5,5,5"></Label>
+                                    <DatePicker x:Name="dpFechaBusCitaAten" Margin="5,5,5,5" Width="150"  Language="Es-es"></DatePicker>
+                                    <ComboBox Margin="20,5,5,5" x:Name="cbBuscarListCitAten">
+                                        <ComboBoxItem Content="Todos" x:Name="cbListCitTodosAten" IsSelected="True"></ComboBoxItem>
+                                        <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
+                                    </ComboBox>
+                                    <TextBox x:Name="tbBuscarListCitAten" Margin="5,5,5,5" MinWidth="300"/>
+                                    <Button   Margin="5,5,5,5" x:Name="BtBuscadorCitaAten" Click="BtBuscadorCitaAten_Click">
+                                        <Image  Source="Imagenes/lupa.png"></Image>
+                                    </Button>
+
+                                </StackPanel>
                                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
 
-                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCitaAtendida">
+                                    <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCitaAtendida" Click="BtEliminarCitaAtendida_Click">
                                         <Image  Source="Imagenes/delete.png" ></Image>
                                     </Button>
 
                                 </StackPanel>
-                                <DataGrid x:Name="dgCitasAtendidas" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True">
+                                <DataGrid x:Name="dgCitasAtendidas" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True" SelectionChanged="DgCitasAtendidas_SelectionChanged">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha, StringFormat='dd/MM/yyyy'}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
@@ -380,6 +390,7 @@
                                     </DataGrid.Columns>
                                     
                                 </DataGrid>
+                                
                             </DockPanel>
                         </TabItem>
                     </TabControl>
@@ -408,7 +419,7 @@
                             </Button>
                         </StackPanel>
                         <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom">
-                            <DataGrid x:Name="dgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid x:Name="DgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Producto" Width="2*" Binding="{Binding Path=Producto.NombreProducto}"/>
                                     <DataGridTextColumn Header="Precio unidad" Width="2*" Binding="{Binding Path=Producto.Precio}" />
@@ -423,7 +434,7 @@
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                        <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta}"/>
                                 <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=EmpleadoVenta.Nombre}"/>
