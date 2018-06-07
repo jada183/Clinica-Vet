@@ -53,6 +53,11 @@ namespace ClinicaVeterinaria
         private List<Cita> CitasAt = new List<Cita>();
         private Cita citaSelect = new Cita();
         private Cita citaSelectAten = new Cita();
+
+        //variables para la gestion de las ventas
+        private List<Venta> ventas = new List<Venta>();
+        private List<LineaVenta> lineasVenta = new List<LineaVenta>();
+        private Venta ventaSelect = new Venta();
         public MainWindow()
         {
             InitializeComponent();
@@ -64,6 +69,7 @@ namespace ClinicaVeterinaria
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
+            CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
         }
         #region Producto
         //metodos
@@ -983,6 +989,84 @@ namespace ClinicaVeterinaria
             }
         }
 
+        #endregion
+        #region Venta
+        //metodos
+        public void CargarDgVenta(List<Venta> lv)
+        {
+            ventas = lv;
+            DgVentas.ItemsSource = ventas;
+
+        }
+        public void CargarDgLineasVenta(List<LineaVenta> lnv)
+        {
+            lineasVenta = lnv;
+            DgLineasVentaV.ItemsSource = lineasVenta;
+        }
+        //eventos
+        private void DgVentas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ventaSelect = (Venta)(DgVentas.SelectedItem);
+                expanderLineasVentaV.IsExpanded = true;
+                CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+            }
+            catch
+            {
+
+            }
+
+        }
+        private void BtBucarListVenta_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbBuscarListVen.Text == "Todos")
+            {
+                try
+                {
+                    CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                    DgVentas.SelectedIndex = 0;
+                
+                }
+                catch
+                {
+
+                }
+
+            }
+            else if(cbBuscarListVen.Text == "Usuario empleado")
+            {
+                try
+                {
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text);
+                    if (empaux.Usuario != null)
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c=>c.EmpleadoId==empaux.EmpleadoId));
+                        DgVentas.SelectedIndex = 0;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            else if(cbBuscarListVen.Text== "Email cliente")
+            {
+                try
+                {
+                    Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text);
+                    if (cliaux.Email != null)
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.ClienteId == cliaux.ClienteId));
+                        DgVentas.SelectedIndex = 0;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
         #endregion
 
 

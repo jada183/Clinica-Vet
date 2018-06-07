@@ -414,11 +414,12 @@
 
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorListVen" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="btBucarListVenta">
+                            <Button   Margin="5,5,5,5" x:Name="BtBucarListVenta" Click="BtBucarListVenta_Click">
                                 <Image x:Name="imgBuscarListVen" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom">
+                  
+                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom" Header="Lineas de venta" Margin="10,10,10,10"   IsExpanded="False"> 
                             <DataGrid x:Name="DgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Producto" Width="2*" Binding="{Binding Path=Producto.NombreProducto}"/>
@@ -428,13 +429,14 @@
 
                             </DataGrid>
                         </Expander>
-                        <Label Content="Lineas de venta" DockPanel.Dock="Bottom" FontSize="32" HorizontalAlignment="Center"/>
+                        
+
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0">
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
+                        <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgVentas_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta}"/>
                                 <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=EmpleadoVenta.Nombre}"/>
