@@ -102,13 +102,15 @@
     <Compile Include="Clie\Vacunas.xaml.cs">
       <DependentUpon>Vacunas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DAL\RepositorioEstadoIngresado.cs" />
     <Compile Include="Emple\FormEmp.xaml.cs">
       <DependentUpon>FormEmp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806051810236_initial.cs" />
-    <Compile Include="Migrations\201806051810236_initial.Designer.cs">
-      <DependentUpon>201806051810236_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201806071656102_initial.cs" />
+    <Compile Include="Migrations\201806071656102_initial.Designer.cs">
+      <DependentUpon>201806071656102_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\EstadoIngresado.cs" />
     <Compile Include="Proveed\FormProv.xaml.cs">
       <DependentUpon>FormProv.xaml</DependentUpon>
     </Compile>
@@ -221,8 +223,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201806051810236_initial.resx">
-      <DependentUpon>201806051810236_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806071656102_initial.resx">
+      <DependentUpon>201806071656102_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

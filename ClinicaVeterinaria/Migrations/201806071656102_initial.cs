@@ -49,17 +49,21 @@ namespace ClinicaVeterinaria.Migrations
                 .Index(t => t.ClienteId);
             
             CreateTable(
-                "dbo.HistorialClinico",
+                "dbo.EstadoIngresado",
                 c => new
                     {
-                        HistorialClinicoId = c.Int(nullable: false, identity: true),
+                        EstadoIngresadoId = c.Int(nullable: false, identity: true),
+                        Temperatura = c.Double(nullable: false),
+                        FrecuenciaCardiaca = c.Int(nullable: false),
+                        FrecuenciaRespiratoria = c.Int(nullable: false),
+                        RevisionGeneral = c.String(),
+                        PerdidasFisiologicas = c.String(),
+                        Medicacion = c.String(),
                         Fecha = c.DateTime(nullable: false),
                         PacienteId = c.Int(),
-                        Enfermedad = c.String(nullable: false, maxLength: 80),
-                        Detalles = c.String(),
                         EmpleadoId = c.Int(),
                     })
-                .PrimaryKey(t => t.HistorialClinicoId)
+                .PrimaryKey(t => t.EstadoIngresadoId)
                 .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
                 .ForeignKey("dbo.Paciente", t => t.PacienteId)
                 .Index(t => t.PacienteId)
@@ -82,6 +86,23 @@ namespace ClinicaVeterinaria.Migrations
                         Contraseña = c.String(nullable: false, maxLength: 12),
                     })
                 .PrimaryKey(t => t.EmpleadoId);
+            
+            CreateTable(
+                "dbo.HistorialClinico",
+                c => new
+                    {
+                        HistorialClinicoId = c.Int(nullable: false, identity: true),
+                        Fecha = c.DateTime(nullable: false),
+                        PacienteId = c.Int(),
+                        Enfermedad = c.String(nullable: false, maxLength: 80),
+                        Detalles = c.String(),
+                        EmpleadoId = c.Int(),
+                    })
+                .PrimaryKey(t => t.HistorialClinicoId)
+                .ForeignKey("dbo.Empleado", t => t.EmpleadoId)
+                .ForeignKey("dbo.Paciente", t => t.PacienteId)
+                .Index(t => t.PacienteId)
+                .Index(t => t.EmpleadoId);
             
             CreateTable(
                 "dbo.Horario",
@@ -208,7 +229,7 @@ namespace ClinicaVeterinaria.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Cita", "ServicioId", "dbo.Servicio");
-            DropForeignKey("dbo.HistorialClinico", "PacienteId", "dbo.Paciente");
+            DropForeignKey("dbo.EstadoIngresado", "PacienteId", "dbo.Paciente");
             DropForeignKey("dbo.LineaVenta", "VentaId", "dbo.Venta");
             DropForeignKey("dbo.Producto", "ProveedorId", "dbo.Proveedor");
             DropForeignKey("dbo.LineaVenta", "ProductoId", "dbo.Producto");
@@ -218,7 +239,9 @@ namespace ClinicaVeterinaria.Migrations
             DropForeignKey("dbo.Vacuna", "PacienteId", "dbo.Paciente");
             DropForeignKey("dbo.Vacuna", "EmpleadoId", "dbo.Empleado");
             DropForeignKey("dbo.Horario", "EmpleadoId", "dbo.Empleado");
+            DropForeignKey("dbo.HistorialClinico", "PacienteId", "dbo.Paciente");
             DropForeignKey("dbo.HistorialClinico", "EmpleadoId", "dbo.Empleado");
+            DropForeignKey("dbo.EstadoIngresado", "EmpleadoId", "dbo.Empleado");
             DropForeignKey("dbo.Cita", "EmpleadoId", "dbo.Empleado");
             DropForeignKey("dbo.Cita", "PacienteId", "dbo.Paciente");
             DropIndex("dbo.Producto", new[] { "ProveedorId" });
@@ -231,6 +254,8 @@ namespace ClinicaVeterinaria.Migrations
             DropIndex("dbo.Horario", new[] { "EmpleadoId" });
             DropIndex("dbo.HistorialClinico", new[] { "EmpleadoId" });
             DropIndex("dbo.HistorialClinico", new[] { "PacienteId" });
+            DropIndex("dbo.EstadoIngresado", new[] { "EmpleadoId" });
+            DropIndex("dbo.EstadoIngresado", new[] { "PacienteId" });
             DropIndex("dbo.Paciente", new[] { "ClienteId" });
             DropIndex("dbo.Cita", new[] { "ServicioId" });
             DropIndex("dbo.Cita", new[] { "EmpleadoId" });
@@ -243,8 +268,9 @@ namespace ClinicaVeterinaria.Migrations
             DropTable("dbo.Venta");
             DropTable("dbo.Vacuna");
             DropTable("dbo.Horario");
-            DropTable("dbo.Empleado");
             DropTable("dbo.HistorialClinico");
+            DropTable("dbo.Empleado");
+            DropTable("dbo.EstadoIngresado");
             DropTable("dbo.Paciente");
             DropTable("dbo.Cita");
         }

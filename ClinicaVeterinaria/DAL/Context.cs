@@ -145,7 +145,7 @@ namespace ClinicaVeterinaria.DAL
         public DbSet<Vacuna> Vacunas { get; set; }
         public DbSet<LineaVenta> LineasVenta { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
-
+        public DbSet<EstadoIngresado> EstadoIngresados { get; set; }
         
 
        
