@@ -24,12 +24,13 @@ namespace ClinicaVeterinaria.Emple
     public partial class FormEmp : Window
     {
 
-        UnityOfWork uow2 = new UnityOfWork();
+        
         Empleado em;//empleado local
         bool NuevoEmp = false;//cambia segun venga de nuevo empleado o empleado seleccionado
         MainWindow main;//la mainwindows local
         bool modificado = false;//comprueba que el empleado fue modificado correctamente para no reinicializar los valores
         //variables que recuperar cuando  la modificacion no se realiza correctamente
+       
         string NombreOriginal = "";
         string ApellidosOrigina = "";
         string TipoOriginal="";
@@ -71,10 +72,10 @@ namespace ClinicaVeterinaria.Emple
             //para los horarios
             try
             {
-                CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
             }
             catch { }
-            CargarHorarios();
+            
 
         }
         private Boolean Validado(Object obj)
@@ -239,7 +240,10 @@ namespace ClinicaVeterinaria.Emple
                            
                             dgHorario.ItemsSource = "";
                             MainWindow.uow.RepositorioEmpleado.eliminar(em);
+                            MainWindow.uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
                             main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                            main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             this.Close();
                             break;
                         case MessageBoxResult.No:
@@ -297,21 +301,7 @@ namespace ClinicaVeterinaria.Emple
 
                 }
             }
-            for (int i = 0; i < 24; i++)
-            {
-                for (int j = 0; j < 60; j = j + 30)
-                {
-                    if (j == 0)
-                    {
-                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
-                    }
-                    else
-                    {
-                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
-                    }
-
-                }
-            }
+            cbHoraINuevoHor.SelectedItem = 0;
         }
         public void CargardgHorarios(List<Horario> h)
         {
@@ -332,6 +322,7 @@ namespace ClinicaVeterinaria.Emple
         //eventos
         private void BtNuevoHorario_Click(object sender, RoutedEventArgs e)
         {
+            CargarHorarios();
             CargaNuevoHorario();
             ActualizarComboBoxHorario();
         }
@@ -354,12 +345,19 @@ namespace ClinicaVeterinaria.Emple
 
                 horarioGuardar.EmpleadoId = em.EmpleadoId;
                 //horarioGuardar.Empleado = em;
-                uow2.RepositorioHorario.crear(horarioGuardar);
-                MessageBox.Show("se ha guardado correctamente el horario");
-                NuevoHorario = new Horario();
-                horarioGuardar = new Horario();
-                CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
-                LimpiarGridNuevoHorario();
+                if (Validado(horarioGuardar))
+                {
+                    MainWindow.uow.RepositorioHorario.crear(horarioGuardar);
+                    MessageBox.Show("se ha guardado correctamente el horario");
+                    NuevoHorario = new Horario();
+                    horarioGuardar = new Horario();
+                    CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                    LimpiarGridNuevoHorario();
+                    LimpiarComboBox();
+
+                }
+                else { }
+              
             }
             catch
             {
@@ -371,6 +369,7 @@ namespace ClinicaVeterinaria.Emple
         private void BtCancelarNuevoHor_Click(object sender, RoutedEventArgs e)
         {
             LimpiarGridNuevoHorario();
+            LimpiarComboBox();
         }
         private void DgHorario_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -396,8 +395,8 @@ namespace ClinicaVeterinaria.Emple
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        uow2.RepositorioHorario.eliminar(HorSelect);
-                        CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                        MainWindow.uow.RepositorioHorario.eliminar(HorSelect);
+                        CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
                         cbBuscarListHorarios.SelectedIndex = 0;
                         break;
                     case MessageBoxResult.No:
@@ -418,18 +417,61 @@ namespace ClinicaVeterinaria.Emple
         {
             if (cbBuscarListHorarios.Text == "Todos")
             {
-                CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
+                CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId));
 
             }
-            else if (cbBuscarListHorarios.Text == "Lunes" || (cbBuscarListHorarios.Text == "Martes") || (cbBuscarListHorarios.Text == "Miercoles") || (cbBuscarListHorarios.Text == "Jueves") || (cbBuscarListHorarios.Text == "Viernes")
-                 || (cbBuscarListHorarios.Text == "Sabado"))
+            else if (cbBuscarListHorarios.Text == "lunes" || (cbBuscarListHorarios.Text == "martes") || (cbBuscarListHorarios.Text == "miércoles") || (cbBuscarListHorarios.Text == "jueves") || (cbBuscarListHorarios.Text == "viernes")
+                 || (cbBuscarListHorarios.Text == "sábado"))
             {
                 try
                 {
-                    CargardgHorarios(uow2.RepositorioHorario.obtenerVarios(c => c.Dia == cbBuscarListHorarios.Text && c.EmpleadoId == em.EmpleadoId));
+                    CargardgHorarios(MainWindow.uow.RepositorioHorario.obtenerVarios(c => c.Dia == cbBuscarListHorarios.Text && c.EmpleadoId == em.EmpleadoId));
                 }
                 catch { }
             }
+        }
+        //carga de primer comboBox
+        private void cbHoraINuevoHor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbHoraINuevoHor.Text != "" && cbHoraINuevoHor.Text != null)
+            {
+
+
+                cbHoraFNuevoHor.IsEnabled = true;
+               
+               
+            }
+        }
+        //carga de segundo comboBox
+        private void CbHoraFNuevoHor_DropDownOpened(object sender, EventArgs e)
+        {
+            cbHoraFNuevoHor.Items.Clear();
+            cbHoraFNuevoHor.SelectedIndex = 0;
+            String[] horayminHorInicial = new String[2];
+            horayminHorInicial = cbHoraINuevoHor.Text.Split(':');
+            cbHoraFNuevoHor.Items.Clear();
+            for (int i = Convert.ToInt32(horayminHorInicial[0]); i < 24; i++)
+            {
+                for (int j = Convert.ToInt32(horayminHorInicial[1]); j < 60; j = j + 30)
+                {
+                    if (j == 0)
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j) + "0");
+                    }
+                    else
+                    {
+                        cbHoraFNuevoHor.Items.Add(Convert.ToString(i) + ":" + Convert.ToString(j));
+                    }
+
+                }
+                horayminHorInicial[1] = "0";
+            }
+            cbHoraFNuevoHor.SelectedItem = 0;
+        }
+        public void LimpiarComboBox()
+        {
+            cbHoraFNuevoHor.Items.Clear();
+            cbHoraINuevoHor.Items.Clear();
         }
 
         #endregion
@@ -444,5 +486,11 @@ namespace ClinicaVeterinaria.Emple
             
             this.Close();
         }
+
+       
+
+       
+
+        
     }
 }

@@ -202,8 +202,14 @@ namespace ClinicaVeterinaria.Clie
                     {
                         case MessageBoxResult.Yes:
 
-                            MainWindow.uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == cli.ClienteId);
+                            //elimino en cascada
                             MainWindow.uow.RepositorioCliente.eliminar(cli);
+                            MainWindow.uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == null);
+                            MainWindow.uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
+                            MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
+                            MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+
+                            //recargo las tablas
                             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
                             this.Close();
                             break;
@@ -311,7 +317,13 @@ namespace ClinicaVeterinaria.Clie
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
+                        //elimino en cascada
                         MainWindow.uow.RepositorioPaciente.eliminar(masSelect);
+                        MainWindow.uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
+                        MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
+                        MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+
+                        //recargo las tablas
                         CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId));                      
                         break;
                     case MessageBoxResult.No:
@@ -323,10 +335,10 @@ namespace ClinicaVeterinaria.Clie
                         break;
                 }
             }
-            catch(Exception erro)
+            catch
             {
 
-                MessageBox.Show("seleccione una mascota"+erro.Message);
+                MessageBox.Show("seleccione una mascota");
             }
         }
 
@@ -373,7 +385,8 @@ namespace ClinicaVeterinaria.Clie
                 RecuperarValoresCliEntrada();
             }
             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-           
+            main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+            main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
         }
 
      

@@ -24,6 +24,6 @@ namespace ClinicaVeterinaria.MODEL
         public string HoraFin { get; set; }
 
         public virtual Empleado Empleado {get;set;}
-        public int   EmpleadoId { get; set; }
+        public int?   EmpleadoId { get; set; }
     }
 }

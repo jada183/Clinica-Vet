@@ -55,7 +55,7 @@
             <Label Content="Peso" Grid.Column="3" Grid.Row="5" Margin="10,0,10,10" VerticalAlignment="Bottom" />
             <TextBox x:Name="tbPesokProd" Grid.Column="4" Grid.Row="5" Margin="10,10,10,10" Text="{Binding Path=Peso, Mode=TwoWay}"></TextBox>
             <Label Content="kg" Grid.Column="5" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            <Label Content="Fecha de nacimiento" Grid.Column="0" Grid.Row="6" VerticalAlignment="Bottom" Margin="10,10,10,10" Grid.ColumnSpan="2"/>
+            <Label Content="Fecha de nacimiento" Grid.Column="0" Grid.Row="6" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
             <DatePicker x:Name="dpFechaNacimiento" Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" SelectedDate="{Binding Path=FechaNacimiento, Mode=TwoWay, StringFormat='dd/MM/yyy'}" Language="Es-es"/>
             <Label Content="Sexo" Grid.Column="3" Grid.Row="6" VerticalAlignment="Bottom" Margin="10,10,10,10"/>
             <ComboBox x:Name="cbSexo" Grid.Column="4" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Sexo, Mode=TwoWay}">

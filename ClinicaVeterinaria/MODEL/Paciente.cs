@@ -16,7 +16,7 @@ namespace ClinicaVeterinaria.MODEL
             Citas = new HashSet<Cita>();
             Historiales = new HashSet<HistorialClinico>();
             Vacunas = new HashSet<Vacuna>();
-         
+            EstadoIngresados = new HashSet<EstadoIngresado>();
         }
 
         public int PacienteId { get; set; }
@@ -45,7 +45,7 @@ namespace ClinicaVeterinaria.MODEL
         public bool Ingresado { get; set; }
 
         public virtual Cliente Propietario { get; set; }
-        public int ClienteId{ get; set; }
+        public int? ClienteId{ get; set; }
 
         public ICollection<Cita> Citas { get; set; }
 
@@ -53,6 +53,7 @@ namespace ClinicaVeterinaria.MODEL
 
         public ICollection<Vacuna> Vacunas { get; set; }
     
+        public ICollection<EstadoIngresado> EstadoIngresados { get; set; }
     }
    
 }

@@ -165,6 +165,10 @@ namespace ClinicaVeterinaria.Clie
                 {
                     case MessageBoxResult.Yes:
                         MainWindow.uow.RepositorioPaciente.eliminar(pac);
+                        MainWindow.uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
+                        MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
+                        MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);                  
+                        //recargo las ventanas necesarias
                         formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
                         this.Close();
                         break;

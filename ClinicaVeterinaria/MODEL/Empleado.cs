@@ -18,6 +18,7 @@ namespace ClinicaVeterinaria.MODEL
             Citas = new HashSet<Cita>();
             HistorialesClinicos = new HashSet<HistorialClinico>();        
             Horarios = new HashSet<Horario>();
+            EstadoIngresados = new HashSet<EstadoIngresado>();
         }
 
 
@@ -72,6 +73,7 @@ namespace ClinicaVeterinaria.MODEL
 
         public ICollection<HistorialClinico> HistorialesClinicos { get; set; } 
 
+        public ICollection<EstadoIngresado> EstadoIngresados { get; set; }
        
 
         public ICollection<Horario> Horarios { get; set; }

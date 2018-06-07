@@ -138,7 +138,7 @@ namespace ClinicaVeterinaria.Proveed
                     }
                     else
                     {
-                        MessageBox.Show("existe un producto con el mismo nombre y marca ya registrado");
+                        MessageBox.Show("existe un proveedor con ese email");
                         RecuperarValoresProvEntrada();
 
                     }
