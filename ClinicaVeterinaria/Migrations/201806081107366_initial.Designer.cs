@@ -13,7 +13,7 @@ namespace ClinicaVeterinaria.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806071656102_initial"; }
+            get { return "201806081107366_initial"; }
         }
         
         string IMigrationMetadata.Source
