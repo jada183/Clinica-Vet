@@ -98,7 +98,8 @@ namespace ClinicaVeterinaria.Clie
                     {
                         try
                         {
-                            
+
+
                             MainWindow.uow.RepositorioPaciente.crear(pac);
                             MessageBox.Show("se ha guardado correctamente la  mascota");
                             modificado = true;
