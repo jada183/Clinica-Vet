@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using System.Windows;
 
 namespace ClinicaVeterinaria.DAL
 {
@@ -28,8 +29,12 @@ namespace ClinicaVeterinaria.DAL
         public void eliminar(TEntity entidad)
         {
             //dbSet.Remove(entidad);
-            context.Entry(entidad).State = EntityState.Deleted;
-            context.SaveChanges();
+            
+            
+                context.Entry(entidad).State = EntityState.Deleted;
+                context.SaveChanges();
+          
+            
         }
         public void eliminarVarios(Expression<Func<TEntity, bool>> predicate)
         {

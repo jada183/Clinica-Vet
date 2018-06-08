@@ -8,7 +8,7 @@ using ClinicaVeterinaria.MODEL;
 using System.Runtime.Remoting.Contexts;
 
 using System.Data.Entity.Migrations;
-using ClinicaVeterinaria.Migrations;
+//using ClinicaVeterinaria.Migrations;
 
 namespace ClinicaVeterinaria.DAL
 {
@@ -24,7 +24,7 @@ namespace ClinicaVeterinaria.DAL
 
 
 
-              Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+             // Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
             }
             else
             {

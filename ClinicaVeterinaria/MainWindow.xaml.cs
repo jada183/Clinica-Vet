@@ -676,15 +676,23 @@ namespace ClinicaVeterinaria
                         case MessageBoxResult.Yes:
 
                             //eliminado en cascada
+                           
                             uow.RepositorioCliente.eliminar(cliSelect);
-                            uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == null);
-                            uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
-                            uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
-                            uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+                            List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == null);
+                            if (pac12.Count > 0)
+                            {
+                                uow.RepositorioPaciente.eliminarVarios(c => c.Propietario==null);
+                                uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
+                                uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
+                                uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+                                CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            }
+                            
+                            
                             
                             //recargo las tablas que lo necesiten
                             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.PacienteId == null));
+                          
 
                             break;
                         case MessageBoxResult.No:
