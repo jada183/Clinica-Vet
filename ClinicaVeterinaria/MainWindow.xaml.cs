@@ -58,6 +58,14 @@ namespace ClinicaVeterinaria
         private List<Venta> ventas = new List<Venta>();
         private List<LineaVenta> lineasVenta = new List<LineaVenta>();
         private Venta ventaSelect = new Venta();
+
+        //variables para tpv
+        Venta venta = new Venta();
+        Cliente cliTPV= new Cliente();
+        public Producto productoTPV { get; set; }
+        private double total = 0;
+        //empleado accceso
+        Empleado EmpActual = new Empleado();
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +78,11 @@ namespace ClinicaVeterinaria
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+            //temporal 
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+            //carga tpv
+            CargarTPVproductos_todos("Todos");
+            CargarcbClientTPV();
         }
         #region Producto
         //metodos
@@ -1078,7 +1091,284 @@ namespace ClinicaVeterinaria
             }
         }
         #endregion
+        #region TPV
+        public void CargarcbClientTPV()
+        {
+            cbClientTPV.ItemsSource = uow.RepositorioCliente.obtenerTodos();
+        }
+
+        public void CargarTPVproductos_todos(String categoria)
+        {
+          
+            List<Producto> list = new List<Producto>();
+            if (categoria != "Todos")
+            {
+                 list = uow.RepositorioProducto.obtenerVarios(c => c.Categoria == categoria);
+                lListProd.Content = categoria+"s";
+            }
+            else
+            {
+                list = uow.RepositorioProducto.obtenerTodos();
+                lListProd.Content = "Todos los productos";
+            }
+            //cliTPV = (Cliente)cbClientTPV.SelectedItem;
 
 
+
+            tpv_dock_productos.Children.Clear();
+
+            foreach (Producto prod in list)
+            {
+
+
+
+                StackPanel stackp = new StackPanel();
+
+                stackp.Orientation = Orientation.Vertical;
+                stackp.VerticalAlignment = VerticalAlignment.Center;
+                stackp.HorizontalAlignment = HorizontalAlignment.Stretch;
+                stackp.Width = 155;
+                stackp.Height = 135;
+
+                Label l = new Label();
+                l.Content = (prod.NombreProducto+"-"+prod.NombreMarca);
+                l.FontSize = 12;
+
+                Label lprice = new Label();
+                lprice.Content = "Precio:"+Convert.ToString(prod.Precio)+"€";
+                lprice.FontSize = 12;
+                lprice.Background = Brushes.SkyBlue;
+                Image img = new Image();
+
+                try
+                {
+                    BitmapImage logo = new BitmapImage();
+                    logo.BeginInit();
+                    logo.UriSource = new Uri(prod.Imagen);
+                    logo.EndInit();
+                    img.Source = logo;
+                    img.Stretch = Stretch.Fill;
+                    
+
+                    stackp.Children.Add(img);
+                }
+                catch { }
+             
+                stackp.Children.Add(l);
+                stackp.Children.Add(lprice);
+
+                Button bt = new Button();
+
+
+                String btNombreSinEspacios= prod.NombreProducto.Replace(" ", "_");
+                String btname= btNombreSinEspacios +"_"+Convert.ToString(prod.ProductoId);
+                bt.Name = btname;
+                if (prod.Stock > 0)
+                {
+                    bt.Background = Brushes.Lavender;
+                }
+                else
+                {
+                    bt.Background = Brushes.LightSalmon;
+                }
+
+                bt.Content = stackp;
+                bt.Width = 165;
+                bt.Height = 140;
+
+                bt.Margin = new Thickness(10, 10, 10, 10);
+                bt.Click += Producto_click;
+
+                tpv_dock_productos.Children.Add(bt);
+
+            }
+        }
+
+        private void Producto_click(object sender, RoutedEventArgs e)
+        {
+         
+            LineaVenta lv = new LineaVenta();
+
+
+            var aux = e.OriginalSource;
+            if (aux.GetType() == typeof(Button))
+            {
+                Button b = (Button)aux;
+                String btname = b.Name;
+
+                string[] divbtName = b.Name.Split('_');
+                
+                int auxint = Convert.ToInt32(divbtName[(divbtName.Count()) - 1]);
+                productoTPV = uow.RepositorioProducto.obtenerUno(c => auxint == c.ProductoId);
+
+                if (productoTPV.Stock < 1)
+                {
+                    MessageBox.Show("El producto no tiene stock", "ERROR", MessageBoxButton.OK, MessageBoxImage.Stop);
+                }
+                else
+                {
+                    venta.EmpleadoVenta = EmpActual;
+                    venta.EmpleadoId = EmpActual.EmpleadoId;
+                   
+                    venta.FechaVenta = DateTime.Now;
+
+
+                    if (venta.LineasVenta.Where(c => c.Producto.ProductoId.Equals(productoTPV.ProductoId)).FirstOrDefault() == null && venta.VentaId == 0)
+                    {
+
+                        lv = new LineaVenta();
+                        lv.Producto = productoTPV;
+                        lv.ProductoId = productoTPV.ProductoId;
+                        lv.Cantidad = 1;
+                        lv.Venta = venta;
+
+                        venta.LineasVenta.Add(lv);
+
+                        total += lv.Producto.Precio;
+                        setTotal();
+
+                        productoTPV.Stock--;//@@@@@@@@@@@@
+                        uow.RepositorioProducto.actualizar(productoTPV);
+                    }
+                    else
+                    {
+
+                        LineaVenta linea = venta.LineasVenta.Where(c => c.Producto.ProductoId.Equals(productoTPV.ProductoId)).FirstOrDefault();
+                        linea.Cantidad++;
+                        total += linea.Producto.Precio;
+                        setTotal();
+
+                        productoTPV.Stock--;
+                        uow.RepositorioProducto.actualizar(productoTPV);
+                    }
+
+
+                    dgridTPV.ItemsSource = "";
+                    dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+
+
+                }
+            }
+        }
+        public void setTotal()
+        {
+
+            TPVTotal.Content = Convert.ToString(total);
+        }
+        private void BTSelectCatMedicamento_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Medicamento");
+          
+        }
+        private void BTSelectCatTodos_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Todos");
+            
+        }
+        private void BTSelectCatAccesorio_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Accesorio");
+            
+        }
+        private void BTSelectCatAlimento_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Alimento");
+           
+        }
+        private void CbClientTPV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Cliente cl= (Cliente)cbClientTPV.SelectedItem;
+            venta.ClienteVenta = cl;
+            venta.ClienteId = cl.ClienteId;
+        }
+
+        private void BtCancelarVentaTPV_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                foreach (LineaVenta l in venta.LineasVenta)
+                {
+                    Producto proaux = uow.RepositorioProducto.obtenerUno(c => c.ProductoId == l.ProductoId);
+                    proaux.Stock += l.Cantidad;
+                    uow.RepositorioProducto.actualizar(proaux);
+                }
+                venta = new Venta();
+                total = 0;
+
+                dgridTPV.ItemsSource = "";
+                dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+                venta = new Venta();
+
+            }
+            catch { }
+
+
+
+        }
+
+        private void BtConfirmarVentaTPV_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (venta.LineasVenta.Count > 0)
+                {
+                    uow.RepositorioVenta.crear(venta);
+
+                    MessageBox.Show("se ha realizado la venta satisfactoriamente");
+                    CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                    //cbClientTPV.Text = "";
+
+                    venta = new Venta();
+                    Cliente cl=(Cliente)cbClientTPV.SelectedItem;
+                    venta.ClienteVenta = cl;
+                    venta.ClienteId = cl.ClienteId;
+                    dgridTPV.ItemsSource = "";
+                    dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+                             
+
+                }
+                else
+                {
+                    MessageBox.Show("no ha seleccionado ningun producto");
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("no ha seleccionado ningun producto");
+            }
+        }
+
+        #endregion
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //para el tpv que no guarde los cambios en caso de no ejecutar la venta
+            try
+            {
+                foreach (LineaVenta l in venta.LineasVenta)
+                {
+                    Producto proaux = uow.RepositorioProducto.obtenerUno(c => c.ProductoId == l.ProductoId);
+                    proaux.Stock += l.Cantidad;
+                    uow.RepositorioProducto.actualizar(proaux);
+                }
+                venta = new Venta();
+                total = 0;
+
+                dgridTPV.ItemsSource = "";
+                dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+                venta = new Venta();
+
+            }
+            catch { }
+        }
     }
 }

@@ -15,7 +15,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        WindowState="Maximized"
+        WindowState="Maximized" Closed="Window_Closed"
         >
     <Grid x:Name="gridPrueba">
 
@@ -459,31 +459,73 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="5*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                      
+                            <Grid Grid.Column="0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                <Label Content="Cetegoria" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
-                            </materialDesign:ColorZone>
-                        </Grid>
-                        <Grid  Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="6*"/>
-                            </Grid.RowDefinitions>
-                            <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                    <Label Content="Categoría" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                                </materialDesign:ColorZone>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0,10">
+                                <Button x:Name="BTSelectCatTodos" Margin="10,10,10,10" Background="DarkGreen" Click="BTSelectCatTodos_Click" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Todos" Foreground="White"></Label>
+                                      
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatMedicamento" Margin="10,10,10,10" Background="DarkCyan" Click="BTSelectCatMedicamento_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Medicamento" Foreground="White"></Label>
+                                        <Image Source="Imagenes/medicine.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatAccesorio" Margin="10,10,10,10" Background="DarkSalmon" Click="BTSelectCatAccesorio_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Accesorios" Foreground="White"></Label>
+                                        <Image Source="Imagenes/collar.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatAlimento" Margin="10,10,10,10" Background="DarkBlue" Click="BTSelectCatAlimento_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Alimentos" Foreground="White"></Label>
+                                        <Image Source="Imagenes/petFood.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                                <Grid Grid.Row="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
-                            </materialDesign:ColorZone>
-                        </Grid>
+                                        <Label Content="Cliente" FontSize="22" HorizontalAlignment="Center" Foreground="White"></Label>
+                                    </materialDesign:ColorZone>
+
+                                <ComboBox Grid.Row="1" Margin="5,5,5,5" x:Name="cbClientTPV" SelectionChanged="CbClientTPV_SelectionChanged" DisplayMemberPath = "Email" SelectedValuePath = "ClienteId" SelectedIndex="0"></ComboBox>
+                                </Grid>
+                            </Grid>
+                       
+                        <Grid  Grid.Column="1" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="7*"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                    <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White" x:Name="lListProd"></Label>
+                                </materialDesign:ColorZone>
+                            <WrapPanel Grid.Row="1" x:Name="tpv_dock_productos" Margin="0,0,0,10"></WrapPanel>
+                            </Grid>
+                        
                         <Grid  Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
-                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="5*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
@@ -491,6 +533,21 @@
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
                                 <Label Content="Factura" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
                             </materialDesign:ColorZone>
+                            <DataGrid Grid.Row="1" x:Name="dgridTPV"  AutoGenerateColumns="False"  Margin="5,5,5,5" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Producto" Binding="{Binding Path=Producto.NombreProducto}" Width="3*"/>
+                                    <DataGridTextColumn Header="Precio unidad" Binding="{Binding Path=Producto.Precio}" Width="*"/>
+                                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Path=Cantidad}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Background="Gold">
+                                <Label Content="Total:" VerticalAlignment="Center" FontSize="28"></Label>
+                                <Label x:Name="TPVTotal" Content="0.00" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+                                <Button x:Name="BtCancelarVentaTPV" Content="Cancelar" Margin="10,10,10,10" Click="BtCancelarVentaTPV_Click"></Button>
+                                <Button x:Name="BtConfirmarVentaTPV" Content="confirmar" Margin="10,10,10,10" Click="BtConfirmarVentaTPV_Click"></Button>
+                            </StackPanel>
                         </Grid>
                      
                     </Grid>

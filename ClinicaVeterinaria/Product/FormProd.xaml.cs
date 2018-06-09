@@ -108,7 +108,7 @@ namespace ClinicaVeterinaria
                             MessageBox.Show("se ha guardado correctamente el producto");
                             modificado = true;
                             main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
-
+                            main.CargarTPVproductos_todos("Todos");
                             this.Close();
                         }
                         catch
@@ -135,6 +135,7 @@ namespace ClinicaVeterinaria
 
                             MainWindow.uow.RepositorioProducto.actualizar(pr);
                             MessageBox.Show("se ha modificado correctamente el producto");
+                            main.CargarTPVproductos_todos("Todos");
                             modificado = true;
                             main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
 
