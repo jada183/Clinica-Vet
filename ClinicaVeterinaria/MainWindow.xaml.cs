@@ -681,7 +681,9 @@ namespace ClinicaVeterinaria
                             List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == null);
                             if (pac12.Count > 0)
                             {
+
                                 uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId==null);
+
                                 uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
                                 uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
                                 uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
