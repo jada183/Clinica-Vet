@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"  x:Class="ClinicaVeterinaria.MainWindow"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="702.5" Width="1154"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -444,6 +445,56 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </DockPanel>
+                </TabItem>
+                <TabItem  x:Name="tabTPV"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/tpvIcon.png" Margin="5,10,5,10"/>
+                            <Label Content="TPV"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                <Label Content="Cetegoria" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                            </materialDesign:ColorZone>
+                        </Grid>
+                        <Grid  Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="6*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                            </materialDesign:ColorZone>
+                        </Grid>
+                        <Grid  Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                <Label Content="Factura" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                            </materialDesign:ColorZone>
+                        </Grid>
+                     
+                    </Grid>
+                   
                 </TabItem>
             </TabControl>
 
