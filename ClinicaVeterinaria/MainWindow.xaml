@@ -435,7 +435,7 @@
                         
 
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtElimarVenta" Click="BtElimarVenta_Click">
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
                             </Button>
                         </StackPanel>

@@ -1106,6 +1106,41 @@ namespace ClinicaVeterinaria
                 }
             }
         }
+        private void BtElimarVenta_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta venta?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioVenta.eliminar(ventaSelect);
+                        CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                        DgVentas.SelectedIndex = 0;
+                        CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione una cita");
+            }
+        }
         #endregion
         #region TPV
         public void CargarcbClientTPV()
@@ -1386,5 +1421,7 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
+
+       
     }
 }
