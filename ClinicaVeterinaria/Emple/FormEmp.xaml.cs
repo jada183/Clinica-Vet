@@ -41,19 +41,19 @@ namespace ClinicaVeterinaria.Emple
         string EmailOriginal = "";
         string UsuarioOriginal = "";
         string contraseñaOriginal = "";
-
+        int empACtualId;
         //variables para horario
         private Horario NuevoHorario = new Horario();
         private List<Horario> Horarios = new List<Horario>();
         private Horario HorSelect = new Horario();
         private Horario horarioGuardar = new Horario();
-        public FormEmp(Empleado emp, MainWindow mw)
+        public FormEmp(Empleado emp, MainWindow mw,int idEmpActual)
         {
             InitializeComponent();
             em = emp;//el producto que paso por parametro lo asigno a una variable local
             GuardarValoresEmpEntrada();
             main = mw;//asigno a una variable local la main window que paso por parametro
-           
+            empACtualId = idEmpActual;
 
             gridEmpleadoSelect.DataContext = em;
             if (em.Usuario == null)
@@ -224,7 +224,7 @@ namespace ClinicaVeterinaria.Emple
 
         private void BtEliminarEmp_Click(object sender, RoutedEventArgs e)
         {
-            if (em.EmpleadoId != 1)
+            if (em.EmpleadoId != 1 && em.EmpleadoId!= empACtualId)
             {
                 List<Cita> lcita = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId && c.Atendida == false);
                 if (lcita.Count > 0)
@@ -270,7 +270,7 @@ namespace ClinicaVeterinaria.Emple
             }
             else
             {
-                MessageBox.Show("el empleado administrador no se puede borrarr");
+                MessageBox.Show("no se puede borrar el empleado actual ni el administrador");
             }
         }
         #endregion

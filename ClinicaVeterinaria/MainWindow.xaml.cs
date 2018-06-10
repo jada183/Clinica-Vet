@@ -79,7 +79,7 @@ namespace ClinicaVeterinaria
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
             //temporal 
-            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 2);
             //carga tpv
             CargarTPVproductos_todos("Todos");
             CargarcbClientTPV();
@@ -484,7 +484,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormEmp(Empleado em)
         {
 
-            FormEmp femp = new FormEmp(em,this);
+            FormEmp femp = new FormEmp(em,this,EmpActual.EmpleadoId);
             femp.ShowDialog();
         }
         //eventos
@@ -535,7 +535,7 @@ namespace ClinicaVeterinaria
 
         private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
         {
-            if (empSelect.EmpleadoId != 1) {
+            if (empSelect.EmpleadoId != 1 && empSelect.EmpleadoId!=EmpActual.EmpleadoId) {
                 List<Cita> lcita = uow.RepositorioCita.obtenerVarios(c => c.EmpleadoId == empSelect.EmpleadoId && c.Atendida == false);
                 if (lcita.Count > 0)
                 {
@@ -581,7 +581,7 @@ namespace ClinicaVeterinaria
             }
             else
             {
-                MessageBox.Show(" no se puede borrar el empleado admin");
+                MessageBox.Show(" no se puede borrar el empleado admin ni el empleado logueado");
             }
         }
         private void BtBucarListEmp_Click(object sender, RoutedEventArgs e)
