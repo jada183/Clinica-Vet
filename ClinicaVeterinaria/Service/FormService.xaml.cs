@@ -81,12 +81,13 @@ namespace ClinicaVeterinaria.Service
 
         private void BtGuardarServ_Click(object sender, RoutedEventArgs e)
         {
+            ser.Habilitado = true;
             if (Validado(ser))
             {
                 if (NuevoServ)
                 {
                     Servicio servAux = new Servicio();
-                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre);
+                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.Habilitado==true);
 
                     if (servAux == null)
                     {
@@ -96,7 +97,7 @@ namespace ClinicaVeterinaria.Service
                             MainWindow.uow.RepositorioServicio.crear(ser);
                             MessageBox.Show("se ha guardado correctamente el Servicio");
                             modificado = true;
-                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
+                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
 
                             this.Close();
                         }
@@ -118,7 +119,7 @@ namespace ClinicaVeterinaria.Service
                 else
                 {
                     Servicio servAux = new Servicio();
-                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.ServicioId != ser.ServicioId);
+                    servAux = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.Nombre == ser.Nombre && c.ServicioId != ser.ServicioId && c.Habilitado==true);
                     if (servAux == null)
                     {
                         try
@@ -127,7 +128,7 @@ namespace ClinicaVeterinaria.Service
                             MainWindow.uow.RepositorioServicio.actualizar(ser);
                             MessageBox.Show("se ha modificado correctamente el servicio");
                             modificado = true;
-                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
+                            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
 
                             this.Close();
                         }
@@ -180,9 +181,9 @@ namespace ClinicaVeterinaria.Service
                 {
                     case MessageBoxResult.Yes:
 
-
-                        MainWindow.uow.RepositorioServicio.eliminar(ser);
-                        main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
+                        ser.Habilitado = false;
+                        MainWindow.uow.RepositorioServicio.actualizar(ser);
+                        main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
                         this.Close();
                         break;
                     case MessageBoxResult.No:
@@ -206,7 +207,7 @@ namespace ClinicaVeterinaria.Service
             {
                 RecuperarValoresServEntrada();
             }
-            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerTodos());
+            main.CargardgServicio(MainWindow.uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
            
         }
     }

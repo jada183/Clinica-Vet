@@ -70,8 +70,8 @@ namespace ClinicaVeterinaria
         {
             InitializeComponent();
             //carga de datos inicial    
-            CargardgProductos(uow.RepositorioProducto.obtenerTodos());
-            CargardgServicio(uow.RepositorioServicio.obtenerTodos());
+            CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
+            CargardgServicio(uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
             CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
@@ -155,10 +155,11 @@ namespace ClinicaVeterinaria
                 {
                     case MessageBoxResult.Yes:
 
-
-                        uow.RepositorioProducto.eliminar(prodSelect);
-                        CargardgProductos(uow.RepositorioProducto.obtenerTodos());
-
+                        prodSelect.Habilitado = false;
+                        uow.RepositorioProducto.actualizar(prodSelect);
+                        dgProd.SelectedIndex = 0;
+                        CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
+                        CargarTPVproductos_todos("Todos");
                         break;
                     case MessageBoxResult.No:
 
@@ -169,23 +170,23 @@ namespace ClinicaVeterinaria
                         break;
                 }
             }
-            catch
+            catch(Exception erro)
             {
-                MessageBox.Show("seleccione un producto");
+                MessageBox.Show(erro.Message);
             }
         }
         private void BtBucarList_Click(object sender, RoutedEventArgs e)
         {
             if (cbBuscarListProd.Text == "Todos")
             {
-                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true));
 
             }
             else if (cbBuscarListProd.Text == "Marca")
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.NombreMarca == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.NombreMarca == tbBuscadorList.Text && c.Habilitado==true ));
                 }
                 catch { }
             }
@@ -193,7 +194,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.AnimalDirigido == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.AnimalDirigido == tbBuscadorList.Text && c.Habilitado==true));
                 }
                 catch
                 {
@@ -204,7 +205,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Stock == 0));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Stock == 0 && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -212,7 +213,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Categoria == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Categoria == tbBuscadorList.Text && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -333,10 +334,11 @@ namespace ClinicaVeterinaria
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        
-                        uow.RepositorioServicio.eliminar(serviSelect);
-                        CargardgServicio(uow.RepositorioServicio.obtenerTodos());
-                       
+                        serviSelect.Habilitado = false;
+                        uow.RepositorioServicio.actualizar(serviSelect);
+                        CargardgServicio(uow.RepositorioServicio.obtenerVarios(c => c.Habilitado == true));
+
+
                         break;
                     case MessageBoxResult.No:
 
@@ -1103,12 +1105,12 @@ namespace ClinicaVeterinaria
             List<Producto> list = new List<Producto>();
             if (categoria != "Todos")
             {
-                 list = uow.RepositorioProducto.obtenerVarios(c => c.Categoria == categoria);
+                 list = uow.RepositorioProducto.obtenerVarios(c => c.Categoria == categoria && c.Habilitado==true);
                 lListProd.Content = categoria+"s";
             }
             else
             {
-                list = uow.RepositorioProducto.obtenerTodos();
+                list = uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true);
                 lListProd.Content = "Todos los productos";
             }
             //cliTPV = (Cliente)cbClientTPV.SelectedItem;

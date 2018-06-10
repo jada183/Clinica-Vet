@@ -348,6 +348,7 @@
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
+                                        <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Servicio.Nombre}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
 
@@ -388,6 +389,7 @@
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
+                                        <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Servicio.Nombre}" />
                                     </DataGrid.Columns>
                                     
                                 </DataGrid>

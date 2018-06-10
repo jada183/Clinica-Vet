@@ -54,26 +54,26 @@ namespace ClinicaVeterinaria.DAL
                   new Horario { HorarioId = 5, HoraInic = "9:00", HoraFin = "15:00", Dia = "viernes", EmpleadoId = 5 }
                  );
                 context.Proveedores.AddOrUpdate(
-                   new Proveedor { Nombre = "proveedor prueba", Apellidos = "apellidos", Email = "proveedor@gmail.com",ProveedorId=1, Direccion="calle 1", Movil="69851653",Telefono="988234135"},
-                   new Proveedor { Nombre = "proveedor prueba2", Apellidos = "apellidos2", Email = "proveedor2@gmail.com", ProveedorId = 2 , Direccion = "calle 2", Movil = "69850003", Telefono = "98589474805" },
-                   new Proveedor { Nombre = "proveedor prueba3", Apellidos = "apellidos3", Email = "proveedor3@gmail.com", ProveedorId = 3 },
-                   new Proveedor { Nombre = "proveedor prueba4", Apellidos = "apellidos4", Email = "proveedor@gmail.com", ProveedorId = 4 },
-                   new Proveedor { Nombre = "proveedor prueba5", Apellidos = "apellidos5", Email = "proveedor5@gmail.com", ProveedorId = 5, Direccion = "calle rd", Movil = "6635850003", Telefono = "98889007480" }
+                   new Proveedor { Nombre = "proveedor prueba", Apellidos = "apellidos", Email = "proveedor@gmail.com",ProveedorId=1, Direccion="calle 1", Movil="69851653",Telefono="988234135", Habilitado = true },
+                   new Proveedor { Nombre = "proveedor prueba2", Apellidos = "apellidos2", Email = "proveedor2@gmail.com", ProveedorId = 2 , Direccion = "calle 2", Movil = "69850003", Telefono = "98589474805", Habilitado = true },
+                   new Proveedor { Nombre = "proveedor prueba3", Apellidos = "apellidos3", Email = "proveedor3@gmail.com", ProveedorId = 3 , Habilitado = true },
+                   new Proveedor { Nombre = "proveedor prueba4", Apellidos = "apellidos4", Email = "proveedor@gmail.com", ProveedorId = 4 , Habilitado = true },
+                   new Proveedor { Nombre = "proveedor prueba5", Apellidos = "apellidos5", Email = "proveedor5@gmail.com", ProveedorId = 5, Direccion = "calle rd", Movil = "6635850003", Telefono = "98889007480" , Habilitado = true }
                    );
 
                 context.Productos.AddOrUpdate(
-                  new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProveedorId = 1, Tamaño = 0, Peso = 0, Stock = 0 ,Categoria="Alimento",Precio=1,ProductoId=1},
-                  new Producto { NombreProducto = "producto prueba2", NombreMarca = "marca1", AnimalDirigido = "perro", ProveedorId = 2, Tamaño = 10, Peso = 1, Stock = 20, Categoria = "Medicamento", Precio = 5, ProductoId = 2 },
-                  new Producto { NombreProducto = "producto prueba3", NombreMarca = "marca2", AnimalDirigido = "gato", ProveedorId = 2, Tamaño = 10, Peso = 10, Stock = 0, Categoria = "Accesorio", Precio = 4, ProductoId = 3 },
-                  new Producto { NombreProducto = "producto prueba4", NombreMarca = "marca2", AnimalDirigido = "gato", ProveedorId = 3, Tamaño = 0, Peso = 0, Stock = 20, Categoria = "Alimento", Precio = 11.50, ProductoId = 4 },
-                  new Producto { NombreProducto = "producto prueba5", NombreMarca = "marca3", AnimalDirigido = "perro", ProveedorId = 3, Tamaño = 2, Peso = 3, Stock = 50, Categoria = "Alimento", Precio = 21.50, ProductoId = 5 }
+                  new Producto { NombreProducto = "producto prueba", NombreMarca = "marca1", AnimalDirigido = "gato", ProveedorId = 1, Tamaño = 0, Peso = 0, Stock = 0 ,Categoria="Alimento",Precio=1,ProductoId=1, Habilitado=true},
+                  new Producto { NombreProducto = "producto prueba2", NombreMarca = "marca1", AnimalDirigido = "perro", ProveedorId = 2, Tamaño = 10, Peso = 1, Stock = 20, Categoria = "Medicamento", Precio = 5, ProductoId = 2, Habilitado = true },
+                  new Producto { NombreProducto = "producto prueba3", NombreMarca = "marca2", AnimalDirigido = "gato", ProveedorId = 2, Tamaño = 10, Peso = 10, Stock = 0, Categoria = "Accesorio", Precio = 4, ProductoId = 3 , Habilitado = true },
+                  new Producto { NombreProducto = "producto prueba4", NombreMarca = "marca2", AnimalDirigido = "gato", ProveedorId = 3, Tamaño = 0, Peso = 0, Stock = 20, Categoria = "Alimento", Precio = 11.50, ProductoId = 4, Habilitado = true },
+                  new Producto { NombreProducto = "producto prueba5", NombreMarca = "marca3", AnimalDirigido = "perro", ProveedorId = 3, Tamaño = 2, Peso = 3, Stock = 50, Categoria = "Alimento", Precio = 21.50, ProductoId = 5 , Habilitado = true }
                   );
                 context.Servicios.AddOrUpdate(
-                    new Servicio{ ServicioId=1, Nombre="servicio prueba", Descripcion="descripcion de prueba", CosteServicio=10.55,Tiempo=30 },
-                    new Servicio { ServicioId = 2, Nombre = "servicio prueba2", Descripcion = "descripcion de prueba2", CosteServicio = 20.55, Tiempo = 40 },
-                    new Servicio { ServicioId = 3, Nombre = "servicio prueba3", Descripcion = "descripcion de prueba3", CosteServicio = 30.55, Tiempo = 20 },
-                    new Servicio { ServicioId = 4, Nombre = "servicio prueba4", Descripcion = "descripcion de prueba4", CosteServicio = 40.55, Tiempo = 20 },
-                    new Servicio { ServicioId = 5, Nombre = "servicio prueba5", Descripcion = "descripcion de prueba5", CosteServicio = 40.00, Tiempo = 60 }
+                    new Servicio{ ServicioId=1, Nombre="servicio prueba", Descripcion="descripcion de prueba", CosteServicio=10.55,Tiempo=30 ,Habilitado=true},
+                    new Servicio { ServicioId = 2, Nombre = "servicio prueba2", Descripcion = "descripcion de prueba2", CosteServicio = 20.55, Tiempo = 40, Habilitado = true },
+                    new Servicio { ServicioId = 3, Nombre = "servicio prueba3", Descripcion = "descripcion de prueba3", CosteServicio = 30.55, Tiempo = 20 , Habilitado = true },
+                    new Servicio { ServicioId = 4, Nombre = "servicio prueba4", Descripcion = "descripcion de prueba4", CosteServicio = 40.55, Tiempo = 20 , Habilitado = true },
+                    new Servicio { ServicioId = 5, Nombre = "servicio prueba5", Descripcion = "descripcion de prueba5", CosteServicio = 40.00, Tiempo = 60, Habilitado = true}
                         );
                 context.Clientes.AddOrUpdate(
                    new Cliente { ClienteId=1, Nombre="Juan carlos", Apellidos="Sarabando",Telefono="98812247", Movil="6451515251",Direccion="cifp carballeira nº 4",Email="sarabando@gmail.es"},
