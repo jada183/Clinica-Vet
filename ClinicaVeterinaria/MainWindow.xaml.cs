@@ -1063,8 +1063,16 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
-                    DgVentas.SelectedIndex = 0;
+                    if (DpFechaBuscVent.SelectedDate == null)
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                        DgVentas.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c=> c.FechaVenta==DpFechaBuscVent.SelectedDate));
+                        DgVentas.SelectedIndex = 0;
+                    }
                 
                 }
                 catch
@@ -1080,8 +1088,16 @@ namespace ClinicaVeterinaria
                     Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text);
                     if (empaux.Usuario != null)
                     {
-                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c=>c.EmpleadoId==empaux.EmpleadoId));
-                        DgVentas.SelectedIndex = 0;
+                        if (DpFechaBuscVent.SelectedDate == null)
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.EmpleadoId == empaux.EmpleadoId));
+                            DgVentas.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.FechaVenta == DpFechaBuscVent.SelectedDate && c.EmpleadoId == empaux.EmpleadoId));
+                            DgVentas.SelectedIndex = 0;
+                        }  
                     }
                 }
                 catch
@@ -1096,8 +1112,16 @@ namespace ClinicaVeterinaria
                     Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text);
                     if (cliaux.Email != null)
                     {
-                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.ClienteId == cliaux.ClienteId));
-                        DgVentas.SelectedIndex = 0;
+                        if (DpFechaBuscVent.SelectedDate == null)
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.ClienteId == cliaux.ClienteId));
+                            DgVentas.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.FechaVenta == DpFechaBuscVent.SelectedDate && c.ClienteId==cliaux.ClienteId));
+                            DgVentas.SelectedIndex = 0;
+                        }   
                     }
                 }
                 catch
@@ -1105,6 +1129,7 @@ namespace ClinicaVeterinaria
 
                 }
             }
+
         }
         private void BtElimarVenta_Click(object sender, RoutedEventArgs e)
         {
@@ -1261,7 +1286,7 @@ namespace ClinicaVeterinaria
                     venta.EmpleadoVenta = EmpActual;
                     venta.EmpleadoId = EmpActual.EmpleadoId;
                    
-                    venta.FechaVenta = DateTime.Now;
+                    venta.FechaVenta = DateTime.Today;
 
 
                     if (venta.LineasVenta.Where(c => c.Producto.ProductoId.Equals(productoTPV.ProductoId)).FirstOrDefault() == null && venta.VentaId == 0)
@@ -1352,8 +1377,11 @@ namespace ClinicaVeterinaria
                 dgridTPV.ItemsSource = "";
                 dgridTPV.ItemsSource = venta.LineasVenta.ToList();
 
-
+                total = 0;
+                setTotal();
                 venta = new Venta();
+
+                cbClientTPV.SelectedIndex = 0;
 
             }
             catch { }
@@ -1380,7 +1408,9 @@ namespace ClinicaVeterinaria
                     venta.ClienteId = cl.ClienteId;
                     dgridTPV.ItemsSource = "";
                     dgridTPV.ItemsSource = venta.LineasVenta.ToList();
-
+                    total = 0;
+                    setTotal();
+                    cbClientTPV.SelectedIndex = 0;
                              
 
                 }

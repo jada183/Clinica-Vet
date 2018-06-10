@@ -408,13 +408,13 @@
                     </TabItem.Header>
                     <DockPanel LastChildFill="False">
                         <Label Content="Ventas" HorizontalAlignment="Center" DockPanel.Dock="Top" FontSize="32"/>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
-                            <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListVen">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,5,10">
+                            <Label Content="Fecha" Margin="5,5,5,5"></Label>
+                            <DatePicker x:Name="DpFechaBuscVent" Width="150" Margin="5,5,5,5"  Language="Es-es"></DatePicker>
+                            <ComboBox Margin="20,5,5,5" x:Name="cbBuscarListVen">
                                 <ComboBoxItem Content="Todos" x:Name="cbListVenTodos" IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
                                 <ComboBoxItem Content="Email cliente"></ComboBoxItem>
-
-
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorListVen" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="BtBucarListVenta" Click="BtBucarListVenta_Click">
@@ -441,7 +441,7 @@
                         </StackPanel>
                         <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgVentas_SelectionChanged">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta}"/>
+                                <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta, StringFormat='dd/MM/yyyy'}"/>
                                 <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=EmpleadoVenta.Nombre}"/>
                                 <DataGridTextColumn Header="Cliente" Width="2*" Binding="{Binding Path=ClienteVenta.Nombre}" />
                             </DataGrid.Columns>
