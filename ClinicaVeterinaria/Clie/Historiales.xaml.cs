@@ -33,7 +33,7 @@ namespace ClinicaVeterinaria.Clie
         {
             InitializeComponent();
             Paci = p;
-            cbListEmpHis.ItemsSource = MainWindow.uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == "Sanitario");
+            cbListEmpHis.ItemsSource = MainWindow.uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == "Sanitario" && c.Habilitado==true);
             try
             {
                 dgHistorial.ItemsSource = MainWindow.uow.RepositorioHistorialClinico.obtenerVarios(c => c.PacienteId == Paci.PacienteId);

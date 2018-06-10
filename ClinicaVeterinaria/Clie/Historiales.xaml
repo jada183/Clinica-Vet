@@ -68,7 +68,7 @@
         <DataGrid x:Name="dgHistorial" Margin="10,10,10,10" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgHistorial_SelectionChanged" MouseDoubleClick="DgHistorial_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Enfermedad}"/>
-               
+                <DataGridTextColumn Header="gestionada por:" Width="2*" Binding="{Binding Path=Empleado.Nombre}"/>
                 <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -84,6 +84,7 @@ namespace ClinicaVeterinaria.Migrations
                         Direccion = c.String(),
                         Email = c.String(nullable: false, maxLength: 40),
                         Contraseña = c.String(nullable: false, maxLength: 12),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.EmpleadoId);
             

@@ -88,7 +88,7 @@ namespace ClinicaVeterinaria.Proveed
                 if (NuevoProv)
                 {
                     Proveedor provAux = new Proveedor();
-                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email);
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email && c.Habilitado==true);
                     if (provAux == null)
                     {
                         try
@@ -117,7 +117,7 @@ namespace ClinicaVeterinaria.Proveed
                 else
                 {
                     Proveedor provAux = new Proveedor();
-                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId);
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId && c.Habilitado == true);
                     if (provAux == null)
                     {
                         try

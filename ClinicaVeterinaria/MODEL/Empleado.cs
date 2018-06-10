@@ -77,5 +77,7 @@ namespace ClinicaVeterinaria.MODEL
        
 
         public ICollection<Horario> Horarios { get; set; }
+
+        public bool Habilitado { get; set; }
     } 
 }

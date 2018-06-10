@@ -134,11 +134,12 @@ namespace ClinicaVeterinaria.Emple
 
         private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
+            em.Habilitado = true;
             if (Validado(em)) { 
                 if (NuevoEmp)
                 {
                     Empleado aux = new Empleado();
-                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario);//para comprobar que no existe ningun usuario con ese nombre
+                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.Habilitado==true);//para comprobar que no existe ningun usuario con ese nombre
                     if(aux==null)
                     {
                         if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
@@ -150,7 +151,7 @@ namespace ClinicaVeterinaria.Emple
                                 MessageBox.Show("se ha guardado correctamente el empleado");
                                 GuardarValoresEmpEntrada();
                                 modificado = true;
-                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
                                 this.Close();
                             }
                             catch 
@@ -182,7 +183,7 @@ namespace ClinicaVeterinaria.Emple
                 else
                 {
                     Empleado aux = new Empleado();
-                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId);//para comprobar que no existe ningun usuario con ese nombre
+                    aux = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == em.Usuario && c.EmpleadoId != em.EmpleadoId && c.Habilitado==true);//para comprobar que no existe ningun usuario con ese nombre
                     if (aux == null)
                     {
                         if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
@@ -193,7 +194,7 @@ namespace ClinicaVeterinaria.Emple
                                 MessageBox.Show("se ha modificado correctamente el empleado");
                                 GuardarValoresEmpEntrada();
                                 modificado = true;
-                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                                main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
                                 this.Close();
                             }
                             catch
@@ -225,6 +226,11 @@ namespace ClinicaVeterinaria.Emple
         {
             if (em.EmpleadoId != 1)
             {
+                List<Cita> lcita = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.EmpleadoId == em.EmpleadoId && c.Atendida == false);
+                if (lcita.Count > 0)
+                {
+                    MessageBox.Show("cuidado vas a eliminar un empleado con una cita sin atender");
+                }
                 try
                 {
                     string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
@@ -239,9 +245,11 @@ namespace ClinicaVeterinaria.Emple
                         case MessageBoxResult.Yes:
                            
                             dgHorario.ItemsSource = "";
-                            MainWindow.uow.RepositorioEmpleado.eliminar(em);
-                            MainWindow.uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
-                            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+                            em.Habilitado = false;
+                            MainWindow.uow.RepositorioEmpleado.actualizar(em);
+                            MainWindow.uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == em.EmpleadoId);
+                            MainWindow.uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == em.EmpleadoId && c.Atendida == false);
+                            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));                          
                             main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
                             main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             this.Close();
@@ -482,7 +490,7 @@ namespace ClinicaVeterinaria.Emple
             {
                 RecuperarValoresEmpEntrada();
             }
-            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerTodos());
+            main.CargardgEmpleado(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
             
             this.Close();
         }

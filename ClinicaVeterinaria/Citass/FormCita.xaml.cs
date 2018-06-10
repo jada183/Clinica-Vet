@@ -60,7 +60,7 @@ namespace ClinicaVeterinaria.Citass
             //si la cita es para modificar
            
             CargarcbSerCit(MainWindow.uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
-            CargarcbEmpCit(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Tipo=="Sanitario"));
+            CargarcbEmpCit(MainWindow.uow.RepositorioEmpleado.obtenerVarios(c=>c.Tipo=="Sanitario" && c.Habilitado==true));
             try
             {
                 gridCita.DataContext = cita;

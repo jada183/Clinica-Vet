@@ -39,11 +39,11 @@ namespace ClinicaVeterinaria.DAL
             {
                 context.Empleados.AddOrUpdate(
 
-                 new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario", Apellidos = "garcia garcia", Email = "correEjemp@gmail.es", EmpleadoId = 1, Direccion = "calle 2", Titulacion = "veterinario" ,Telefono="699789797",Movil="68154454"},
-                  new Empleado { Nombre = "empleado1", Usuario = "empleado1", Contraseña = "empleado1", Tipo = "Sanitario", Apellidos = "perez perez", Email = "Empleado1@gmail.es", EmpleadoId = 2, Direccion = "calle 3", Titulacion = "veterinario" },
-                  new Empleado { Nombre = "empleado2", Usuario = "empleado2", Contraseña = "empleado2", Tipo = "Sanitario", Apellidos = "fernandez garcia", Email = "Empleado2@gmail.es", EmpleadoId = 3, Direccion = "calle ddf", Titulacion = "veterinario" },
-                  new Empleado { Nombre = "empleado3", Usuario = "empleado3", Contraseña = "empleado3", Tipo = "Dependiente", Apellidos = "Gonzales ferreira", Email = "Empleado3@gmail.es", EmpleadoId = 4, Titulacion = "Vendedor" },
-                  new Empleado { Nombre = "empleado4", Usuario = "empleado4", Contraseña = "empleado4", Tipo = "Dependiente", Apellidos = "Gonzales Perez", Email = "Empleado4@gmail.com", EmpleadoId = 5, Titulacion = "Vendedor" }
+                 new Empleado { Nombre = "Admin", Usuario = "Admin", Contraseña = "admin", Tipo = "Sanitario", Apellidos = "garcia garcia", Email = "correEjemp@gmail.es", EmpleadoId = 1, Direccion = "calle 2", Titulacion = "veterinario" ,Telefono="699789797",Movil="68154454" , Habilitado = true },
+                  new Empleado { Nombre = "empleado1", Usuario = "empleado1", Contraseña = "empleado1", Tipo = "Sanitario", Apellidos = "perez perez", Email = "Empleado1@gmail.es", EmpleadoId = 2, Direccion = "calle 3", Titulacion = "veterinario", Habilitado = true },
+                  new Empleado { Nombre = "empleado2", Usuario = "empleado2", Contraseña = "empleado2", Tipo = "Sanitario", Apellidos = "fernandez garcia", Email = "Empleado2@gmail.es", EmpleadoId = 3, Direccion = "calle ddf", Titulacion = "veterinario", Habilitado = true },
+                  new Empleado { Nombre = "empleado3", Usuario = "empleado3", Contraseña = "empleado3", Tipo = "Dependiente", Apellidos = "Gonzales ferreira", Email = "Empleado3@gmail.es", EmpleadoId = 4, Titulacion = "Vendedor", Habilitado = true },
+                  new Empleado { Nombre = "empleado4", Usuario = "empleado4", Contraseña = "empleado4", Tipo = "Dependiente", Apellidos = "Gonzales Perez", Email = "Empleado4@gmail.com", EmpleadoId = 5, Titulacion = "Vendedor", Habilitado = true }
                   );
                 context.Horarios.AddOrUpdate(
                  new Horario { HorarioId = 1, HoraInic = "8:30", HoraFin = "13:00", Dia = "lunes", EmpleadoId = 1 },

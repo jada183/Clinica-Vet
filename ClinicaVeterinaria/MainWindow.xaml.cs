@@ -73,7 +73,7 @@ namespace ClinicaVeterinaria
             CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
             CargardgServicio(uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
             CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
-            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+            CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
@@ -156,9 +156,9 @@ namespace ClinicaVeterinaria
                     case MessageBoxResult.Yes:
 
                         prodSelect.Habilitado = false;
-                        uow.RepositorioProducto.actualizar(prodSelect);
-                        dgProd.SelectedIndex = 0;
+                        uow.RepositorioProducto.actualizar(prodSelect);                     
                         CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
+                        dgProd.SelectedIndex = 0;
                         CargarTPVproductos_todos("Todos");
                         break;
                     case MessageBoxResult.No:
@@ -337,7 +337,7 @@ namespace ClinicaVeterinaria
                         serviSelect.Habilitado = false;
                         uow.RepositorioServicio.actualizar(serviSelect);
                         CargardgServicio(uow.RepositorioServicio.obtenerVarios(c => c.Habilitado == true));
-
+                        dgServ.SelectedIndex = 0;
 
                         break;
                     case MessageBoxResult.No:
@@ -435,6 +435,7 @@ namespace ClinicaVeterinaria
                         }
                         uow.RepositorioProveedor.actualizar(provSelect);
                         CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
+                        dgProv.SelectedIndex = 0;
 
                         break;
                     case MessageBoxResult.No:
@@ -534,7 +535,12 @@ namespace ClinicaVeterinaria
 
         private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
         {
-            if (empSelect.EmpleadoId != 1) { 
+            if (empSelect.EmpleadoId != 1) {
+                List<Cita> lcita = uow.RepositorioCita.obtenerVarios(c => c.EmpleadoId == empSelect.EmpleadoId && c.Atendida == false);
+                if (lcita.Count > 0)
+                {
+                    MessageBox.Show("cuidado vas a eliminar un empleado con una cita sin atender");
+                }
                 try
                 {
                     string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
@@ -548,11 +554,14 @@ namespace ClinicaVeterinaria
                     {
                         case MessageBoxResult.Yes:
 
+                            empSelect.Habilitado = false;
+                            uow.RepositorioEmpleado.actualizar(empSelect);
+                            uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == empSelect.EmpleadoId);
+                           
+                            //elimino las citas del empleado que no han sido atendidas
+                            uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == empSelect.EmpleadoId && c.Atendida==false);
 
-                            uow.RepositorioEmpleado.eliminar(empSelect);
-                            uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
-                            uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == null);
-                            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
                             CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida==false));
                             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             break;
@@ -579,14 +588,14 @@ namespace ClinicaVeterinaria
         {
             if (cbBuscarListEmp.Text == "Todos")
             {
-                CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
 
             }
             else if (cbBuscarListEmp.Text == "Tipo")
             {
                 try
                 {
-                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == tbBuscadorListEmp.Text));
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == tbBuscadorListEmp.Text && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -594,7 +603,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Titulacion == tbBuscadorListEmp.Text));
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Titulacion == tbBuscadorListEmp.Text && c.Habilitado==true));
                 }
                 catch
                 {
