@@ -76,18 +76,18 @@ namespace ClinicaVeterinaria.DAL
                     new Servicio { ServicioId = 5, Nombre = "servicio prueba5", Descripcion = "descripcion de prueba5", CosteServicio = 40.00, Tiempo = 60, Habilitado = true}
                         );
                 context.Clientes.AddOrUpdate(
-                   new Cliente { ClienteId=1, Nombre="Juan carlos", Apellidos="Sarabando",Telefono="98812247", Movil="6451515251",Direccion="cifp carballeira nº 4",Email="sarabando@gmail.es"},
-                   new Cliente { ClienteId = 2, Nombre = "Luz ", Apellidos = "Lois", Telefono = "9881224407", Movil = "64515100251", Direccion = "cifp carballeira nº 10", Email = "luz@gmail.es" },
-                   new Cliente { ClienteId = 3, Nombre = "Victor", Apellidos = "Fernandez", Telefono = "9881228472", Movil = "64515222", Direccion = "cifp carballeira nº 7", Email = "victor@gmail.es" },
-                   new Cliente { ClienteId = 4, Nombre = "Luisa", Apellidos = "Gonzales", Telefono = "988155247", Movil = "645150015251", Direccion = "cifp carballeira nº 2", Email = "luisa@gmail.es" },
-                   new Cliente { ClienteId = 5, Nombre = "Jose Luis", Apellidos = "Carnero", Telefono = "9881200247", Movil = "6457775251", Direccion = "cifp carballeira nº 8", Email = "josel@gmail.es" }
+                   new Cliente { ClienteId=1, Nombre="Juan carlos", Apellidos="Sarabando",Telefono="98812247", Movil="6451515251",Direccion="cifp carballeira nº 4",Email="sarabando@gmail.es", Habilitado = true },
+                   new Cliente { ClienteId = 2, Nombre = "Luz ", Apellidos = "Lois", Telefono = "9881224407", Movil = "64515100251", Direccion = "cifp carballeira nº 10", Email = "luz@gmail.es", Habilitado = true },
+                   new Cliente { ClienteId = 3, Nombre = "Victor", Apellidos = "Fernandez", Telefono = "9881228472", Movil = "64515222", Direccion = "cifp carballeira nº 7", Email = "victor@gmail.es", Habilitado = true },
+                   new Cliente { ClienteId = 4, Nombre = "Luisa", Apellidos = "Gonzales", Telefono = "988155247", Movil = "645150015251", Direccion = "cifp carballeira nº 2", Email = "luisa@gmail.es", Habilitado = true },
+                   new Cliente { ClienteId = 5, Nombre = "Jose Luis", Apellidos = "Carnero", Telefono = "9881200247", Movil = "6457775251", Direccion = "cifp carballeira nº 8", Email = "josel@gmail.es", Habilitado = true }
                        );
                 context.Pacientes.AddOrUpdate(
-                   new Paciente { PacienteId = 1, Nombre = "mascota1", Especie = "Perro", Raza = "Malamute", Peso = 15, Altura = 90, FechaNacimiento = Convert.ToDateTime("20/10/2015"), Sexo="Macho",Ingresado=true,ClienteId=1 },
-                   new Paciente { PacienteId = 2, Nombre = "mascota2", Especie = "gato", Raza = "persa", Peso = 4, Altura = 60, FechaNacimiento = Convert.ToDateTime("10/11/2015"), Sexo = "Macho", Ingresado = false, ClienteId = 2 },
-                   new Paciente { PacienteId = 3, Nombre = "mascota3", Especie = "gato", Raza = "gris", Peso = 3, Altura = 58, FechaNacimiento = Convert.ToDateTime("05/11/2015"), Sexo = "Embra", Ingresado = false, ClienteId = 3 },
-                   new Paciente { PacienteId = 4, Nombre = "mascota4", Especie = "perro", Raza = "pastor aleman", Peso = 45, Altura = 110, FechaNacimiento = Convert.ToDateTime("01/01/2015"), Sexo = "Macho", Ingresado = true, ClienteId = 3 },
-                   new Paciente { PacienteId = 5, Nombre = "mascota5", Especie = "perro", Raza = "pastor belga", Peso = 4, Altura = 112, FechaNacimiento = Convert.ToDateTime("12/08/2015"), Sexo = "Embra", Ingresado = false, ClienteId = 4 }
+                   new Paciente { PacienteId = 1, Nombre = "mascota1", Especie = "Perro", Raza = "Malamute", Peso = 15, Altura = 90, FechaNacimiento = Convert.ToDateTime("20/10/2015"), Sexo="Macho",Ingresado=true,ClienteId=1, Habilitado = true },
+                   new Paciente { PacienteId = 2, Nombre = "mascota2", Especie = "gato", Raza = "persa", Peso = 4, Altura = 60, FechaNacimiento = Convert.ToDateTime("10/11/2015"), Sexo = "Macho", Ingresado = false, ClienteId = 2 , Habilitado = true },
+                   new Paciente { PacienteId = 3, Nombre = "mascota3", Especie = "gato", Raza = "gris", Peso = 3, Altura = 58, FechaNacimiento = Convert.ToDateTime("05/11/2015"), Sexo = "Embra", Ingresado = false, ClienteId = 3 , Habilitado = true },
+                   new Paciente { PacienteId = 4, Nombre = "mascota4", Especie = "perro", Raza = "pastor aleman", Peso = 45, Altura = 110, FechaNacimiento = Convert.ToDateTime("01/01/2015"), Sexo = "Macho", Ingresado = true, ClienteId = 3, Habilitado = true },
+                   new Paciente { PacienteId = 5, Nombre = "mascota5", Especie = "perro", Raza = "pastor belga", Peso = 4, Altura = 112, FechaNacimiento = Convert.ToDateTime("12/08/2015"), Sexo = "Embra", Ingresado = false, ClienteId = 4 , Habilitado = true }
                    );
                 context.Vacunas.AddOrUpdate(
                   new Vacuna { VacunaId = 1, Nombre = "vacuna prueba", PacienteId = 1, EmpleadoId = 1,Fecha= Convert.ToDateTime("20/10/2015") },

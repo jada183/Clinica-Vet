@@ -26,7 +26,7 @@ namespace ClinicaVeterinaria
         public BuscadorPac(Object obj)
         {
             InitializeComponent();
-            CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+            CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.Habilitado==true));
             try
             {
                 cita = (Cita)obj;
@@ -117,7 +117,7 @@ namespace ClinicaVeterinaria
                 cl = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorPac.Text);
                 if (cl.ClienteId > 0)
                 {
-                    CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.ClienteId==cl.ClienteId));
+                    CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.ClienteId==cl.ClienteId && c.Habilitado==true));
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+                CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.Habilitado==true));
             }
             catch
             {

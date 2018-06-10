@@ -43,6 +43,8 @@ namespace ClinicaVeterinaria.MODEL
 
         public virtual ICollection<Paciente> Mascotas { get; set; }
         public virtual ICollection<Venta> Compras { get; set; }
+
+        public bool Habilitado { get; set; }
     }
    
 }

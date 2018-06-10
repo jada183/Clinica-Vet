@@ -88,7 +88,7 @@ namespace ClinicaVeterinaria.Clie
 
         private void BtGuardarPac_Click(object sender, RoutedEventArgs e)
         {
-
+            pac.Habilitado = true;
             if (Validado(pac)) { 
                 if (NuevoPac)
                 {
@@ -103,7 +103,7 @@ namespace ClinicaVeterinaria.Clie
                             MainWindow.uow.RepositorioPaciente.crear(pac);
                             MessageBox.Show("se ha guardado correctamente la  mascota");
                             modificado = true;
-                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId && c.Habilitado==true));
                             
 
                             this.Close();
@@ -133,7 +133,7 @@ namespace ClinicaVeterinaria.Clie
                             MainWindow.uow.RepositorioPaciente.actualizar(pac);
                             MessageBox.Show("se ha modificado correctamente la mascota");
                             modificado = true;
-                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                            formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId && c.Habilitado==true));
 
                             this.Close();
                         }
@@ -170,7 +170,7 @@ namespace ClinicaVeterinaria.Clie
                         MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
                         MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);                  
                         //recargo las ventanas necesarias
-                        formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId));
+                        formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId && c.Habilitado==true));
                         this.Close();
                         break;
                     case MessageBoxResult.No:

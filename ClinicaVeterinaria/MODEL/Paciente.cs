@@ -54,6 +54,8 @@ namespace ClinicaVeterinaria.MODEL
         public ICollection<Vacuna> Vacunas { get; set; }
     
         public ICollection<EstadoIngresado> EstadoIngresados { get; set; }
+
+        public bool Habilitado { get; set; }
     }
    
 }

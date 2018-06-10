@@ -43,6 +43,7 @@ namespace ClinicaVeterinaria.Migrations
                         Sexo = c.String(nullable: false),
                         Ingresado = c.Boolean(nullable: false),
                         ClienteId = c.Int(),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.PacienteId)
                 .ForeignKey("dbo.Cliente", t => t.ClienteId)
@@ -161,6 +162,7 @@ namespace ClinicaVeterinaria.Migrations
                         Movil = c.String(),
                         Direccion = c.String(maxLength: 120),
                         Email = c.String(nullable: false),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ClienteId);
             

@@ -74,7 +74,7 @@ namespace ClinicaVeterinaria
             CargardgServicio(uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
             CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
-            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+            CargardgCliente(uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
@@ -695,7 +695,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    string messageBoxText = "Estas seguro que deseas eliminar este cliente?";
+                    string messageBoxText = "Estas seguro que deseas eliminar este cliente con sus mascotas, algunas de estas podrian tener citas pendientes que se eliminaran?";
                     string caption = "Word Processor";
                     MessageBoxButton button = MessageBoxButton.YesNoCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
@@ -707,25 +707,23 @@ namespace ClinicaVeterinaria
                         case MessageBoxResult.Yes:
 
                             //eliminado en cascada
-                           
-                            uow.RepositorioCliente.eliminar(cliSelect);
-                            List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == null);
-                            if (pac12.Count > 0)
+                            cliSelect.Habilitado = false;
+                            uow.RepositorioCliente.actualizar(cliSelect);
+                            List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cliSelect.ClienteId);
+
+                            foreach(Paciente p in pac12)
                             {
-
-                                uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId==null);
-
-                                uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
-                                uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
-                                uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
-                                CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                                p.Habilitado = false;
+                                uow.RepositorioPaciente.actualizar(p);
+                                uow.RepositorioCita.eliminarVarios(c => c.PacienteId == p.PacienteId && c.Atendida==false);
                             }
-                            
-                            
-                            
+
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+
+
                             //recargo las tablas que lo necesiten
-                            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-                          
+                            CargardgCliente(uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
+                            CargarcbClientTPV();
 
                             break;
                         case MessageBoxResult.No:
@@ -1112,7 +1110,7 @@ namespace ClinicaVeterinaria
         #region TPV
         public void CargarcbClientTPV()
         {
-            cbClientTPV.ItemsSource = uow.RepositorioCliente.obtenerTodos();
+            cbClientTPV.ItemsSource = uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true);
         }
 
         public void CargarTPVproductos_todos(String categoria)
