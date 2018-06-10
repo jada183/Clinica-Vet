@@ -267,7 +267,7 @@
                     </TabItem.Header>
                     <DockPanel LastChildFill="True">
                         <Label Content="Clientes" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
-                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Email" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorCli" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="BtBuscarCli" Click="BtBuscarCli_Click">
@@ -334,7 +334,7 @@
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCita" Click="BtEliminarCita_Click">
                                         <Image  Source="Imagenes/delete.png" ></Image>
                                     </Button>
-                                    <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarCit" Click="btEditarCit_Click">
+                                    <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarCit" Click="BtEditarCit_Click">
                                         <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                                     </Button>
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtCheckear" Click="BtCheckear_Click" >

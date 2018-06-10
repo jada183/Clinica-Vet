@@ -886,7 +886,7 @@ namespace ClinicaVeterinaria
                
             }
         }
-        private void btEditarCit_Click(object sender, RoutedEventArgs e)
+        private void BtEditarCit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
