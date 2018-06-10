@@ -72,7 +72,7 @@ namespace ClinicaVeterinaria
             //carga de datos inicial    
             CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
             CargardgServicio(uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
-            CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+            CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
             CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
             CargardgCliente(uow.RepositorioCliente.obtenerTodos());
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
@@ -425,9 +425,16 @@ namespace ClinicaVeterinaria
                 {
                     case MessageBoxResult.Yes:
 
-
-                        uow.RepositorioProveedor.eliminar(provSelect);
-                        CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+                        provSelect.Habilitado = false;
+                        List<Producto> lprod = MainWindow.uow.RepositorioProducto.obtenerVarios(c => c.ProveedorId == provSelect.ProveedorId);
+                        foreach (Producto p in lprod)
+                        {
+                            p.ProveedorId = null;
+                            p.Proveedor = null;
+                            uow.RepositorioProducto.actualizar(p);
+                        }
+                        uow.RepositorioProveedor.actualizar(provSelect);
+                        CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
 
                         break;
                     case MessageBoxResult.No:

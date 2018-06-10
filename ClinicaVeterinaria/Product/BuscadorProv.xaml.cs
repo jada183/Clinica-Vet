@@ -31,7 +31,7 @@ namespace ClinicaVeterinaria
         {
             InitializeComponent();
             prod= p;
-            listProv = MainWindow.uow.RepositorioProveedor.obtenerTodos();
+            listProv = MainWindow.uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true);
             dgProveedor.ItemsSource = listProv;
            
         }

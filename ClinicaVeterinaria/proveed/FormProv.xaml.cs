@@ -190,8 +190,15 @@ namespace ClinicaVeterinaria.Proveed
                 {
                     case MessageBoxResult.Yes:
 
-
-                        MainWindow.uow.RepositorioProveedor.eliminar(pv);
+                        pv.Habilitado = false;
+                        List<Producto> lprod=MainWindow.uow.RepositorioProducto.obtenerVarios(c => c.ProveedorId == pv.ProveedorId);
+                        foreach(Producto p in lprod)
+                        {
+                            p.ProveedorId = null;
+                            p.Proveedor = null;
+                            MainWindow.uow.RepositorioProducto.actualizar(p);
+                        }
+                        MainWindow.uow.RepositorioProveedor.actualizar(pv);
                         main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
                         this.Close();
                         break;
