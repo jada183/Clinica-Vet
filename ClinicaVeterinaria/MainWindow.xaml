@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="876.5" Width="1278"
+        Title="MainWindow" Height="600" Width="750"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -15,7 +15,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        WindowState="Maximized" Closed="Window_Closed"
+        Closed="Window_Closed"
         >
     <Grid x:Name="gridPrueba">
 
@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,10,0" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Height="123" Width="382" >
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="2,10,3,0" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Height="136" Width="350" >
                 <StackPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#7FC5BCBC" Offset="0"/>
@@ -58,11 +58,11 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Usuario" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" FontWeight="Bold"/>
-                    <TextBox x:Name="tbUsuarioAcess" MinWidth="200" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Label Content="Contraseña" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" FontWeight="Bold"/>
-                    <PasswordBox MinWidth="200" Margin="5,5,5,5" Grid.Column="1" Grid.Row="1" x:Name="passAcess" Grid.ColumnSpan="3"/>
-                    <Button Content="Acceder" Grid.Column="1" Grid.Row="2" Margin="5,5,5,5" x:Name="btAcceso" FontWeight="Bold" Grid.ColumnSpan="2" Click="BtAcceso_Click"/>
+                    <Label Content="Usuario" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="5,5,0,5" FontWeight="Bold" Width="83"/>
+                    <TextBox x:Name="tbUsuarioAcess" MinWidth="200" Margin="25,5,53,10" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Label Content="Contraseña" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="5,5,0,5" FontWeight="Bold" Width="83"/>
+                    <PasswordBox MinWidth="120" Margin="25,5,53,5" Grid.Column="1" Grid.Row="1" x:Name="passAcess" Grid.ColumnSpan="3"/>
+                    <Button Content="Acceder" Grid.Column="1" Grid.Row="2" Margin="5,10,5,5" x:Name="btAcceso" FontWeight="Bold" Grid.ColumnSpan="2" Click="BtAcceso_Click" Height="Auto"/>
 
                 </Grid>
 
@@ -391,14 +391,14 @@
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Servicio.Nombre}" />
                                     </DataGrid.Columns>
-                                    
+
                                 </DataGrid>
-                                
+
                             </DockPanel>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-               
+
                 <TabItem  x:Name="tabVenta"  FontSize="18">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -421,8 +421,8 @@
                                 <Image x:Name="imgBuscarListVen" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                  
-                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom" Header="Lineas de venta" Margin="10,10,10,10"   IsExpanded="False"> 
+
+                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom" Header="Lineas de venta" Margin="10,10,10,10"   IsExpanded="False">
                             <DataGrid x:Name="DgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Producto" Width="2*" Binding="{Binding Path=Producto.NombreProducto}"/>
@@ -432,7 +432,7 @@
 
                             </DataGrid>
                         </Expander>
-                        
+
 
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtElimarVenta" Click="BtElimarVenta_Click">
@@ -461,22 +461,22 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                      
-                            <Grid Grid.Column="0" >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+
+                        <Grid Grid.Column="0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                    <Label Content="Categoría" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
-                                </materialDesign:ColorZone>
-                                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0,10">
+                                <Label Content="Categoría" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                            </materialDesign:ColorZone>
+                            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0,10">
                                 <Button x:Name="BTSelectCatTodos" Margin="10,10,10,10" Background="DarkGreen" Click="BTSelectCatTodos_Click" >
                                     <StackPanel Orientation="Horizontal">
                                         <Label Content="Todos" Foreground="White"></Label>
-                                      
+
                                     </StackPanel>
                                 </Button>
                                 <Button x:Name="BTSelectCatMedicamento" Margin="10,10,10,10" Background="DarkCyan" Click="BTSelectCatMedicamento_Click">
@@ -498,35 +498,35 @@
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
-                                <Grid Grid.Row="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="2*"/>
-                                    </Grid.RowDefinitions>
-                                    <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                        <Label Content="Cliente" FontSize="22" HorizontalAlignment="Center" Foreground="White"></Label>
-                                    </materialDesign:ColorZone>
-
-                                <ComboBox Grid.Row="1" Margin="5,5,5,5" x:Name="cbClientTPV" SelectionChanged="CbClientTPV_SelectionChanged" DisplayMemberPath = "Email" SelectedValuePath = "ClienteId" SelectedIndex="0"></ComboBox>
-                                </Grid>
-                            </Grid>
-                       
-                        <Grid  Grid.Column="1" >
+                            <Grid Grid.Row="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="7*"/>
+                                    <RowDefinition Height="2*"/>
                                 </Grid.RowDefinitions>
-                                <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                    <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White" x:Name="lListProd"></Label>
+                                    <Label Content="Cliente" FontSize="22" HorizontalAlignment="Center" Foreground="White"></Label>
                                 </materialDesign:ColorZone>
+
+                                <ComboBox Grid.Row="1" Margin="5,5,5,5" x:Name="cbClientTPV" SelectionChanged="CbClientTPV_SelectionChanged" DisplayMemberPath = "Email" SelectedValuePath = "ClienteId" SelectedIndex="0"></ComboBox>
+                            </Grid>
+                        </Grid>
+
+                        <Grid  Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="7*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White" x:Name="lListProd"></Label>
+                            </materialDesign:ColorZone>
                             <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
                                 <WrapPanel  x:Name="tpv_dock_productos" Margin="0,0,0,10" ScrollViewer.CanContentScroll="True"></WrapPanel>
                             </ScrollViewer>
-                           
-                            </Grid>
-                        
+
+                        </Grid>
+
                         <Grid  Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
@@ -554,9 +554,9 @@
                                 <Button x:Name="BtConfirmarVentaTPV" Content="confirmar" Margin="10,10,10,10" Click="BtConfirmarVentaTPV_Click"></Button>
                             </StackPanel>
                         </Grid>
-                     
+
                     </Grid>
-                   
+
                 </TabItem>
                 <TabItem  x:Name="tabDatosPers"  FontSize="18">
                     <TabItem.Header>
@@ -621,7 +621,7 @@
                         <TextBox x:Name="tbConfirmContraseñaEmp" Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,10,10,10"  Text="{Binding Path=Contraseña, Mode=OneTime}" />
 
                         <Button x:Name="BtGuardarEmp" Content="Modificar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="12" Margin="5,10,5,10" Click="BtGuardarEmp_Click"/>
-                       
+
 
                     </Grid>
                 </TabItem>

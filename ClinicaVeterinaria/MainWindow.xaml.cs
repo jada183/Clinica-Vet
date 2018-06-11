@@ -1488,6 +1488,7 @@ namespace ClinicaVeterinaria
                     gridAcceso.Visibility = Visibility.Hidden;
                     gridGestion.Visibility = Visibility.Visible;
                     gridEmpleadoActual.DataContext = EmpActual;
+                    this.WindowState = WindowState.Maximized;
 
                 }
                 else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
@@ -1499,6 +1500,7 @@ namespace ClinicaVeterinaria
                     tabProv.Visibility = Visibility.Collapsed;
                     tabEmp.Visibility = Visibility.Collapsed;
                     gridEmpleadoActual.DataContext = EmpActual;
+                    this.WindowState = WindowState.Maximized;
                 }
             }
             else
