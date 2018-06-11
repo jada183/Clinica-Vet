@@ -19,7 +19,7 @@
         >
     <Grid x:Name="gridPrueba">
 
-        <Grid x:Name="gridAcceso" Visibility="Hidden">
+        <Grid x:Name="gridAcceso" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="Imagenes/fondoLogin.jpg" Opacity="0.85"/>
             </Grid.Background>
@@ -69,7 +69,7 @@
             </StackPanel>
 
         </Grid>
-        <Grid x:Name="gridGestion" Visibility="Visible">
+        <Grid x:Name="gridGestion" Visibility="Hidden">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
