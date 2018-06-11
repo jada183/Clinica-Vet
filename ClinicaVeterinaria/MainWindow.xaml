@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="702.5" Width="1154"
+        Title="MainWindow" Height="876.5" Width="1278"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -45,7 +45,7 @@
                 <StackPanel.Effect>
                     <DropShadowEffect/>
                 </StackPanel.Effect>
-                <Grid>
+                <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -69,7 +69,7 @@
             </StackPanel>
 
         </Grid>
-        <Grid x:Name="gridGestion">
+        <Grid x:Name="gridGestion" Visibility="Visible">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
@@ -554,6 +554,73 @@
                      
                     </Grid>
                    
+                </TabItem>
+                <TabItem  x:Name="tabDatosPers"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/misDatos.png" Margin="5,10,5,10"/>
+                            <Label Content="Datos personales"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid x:Name="gridEmpleadoActual" Margin="10,10,10,10" HorizontalAlignment="Center" MinWidth="950" MaxWidth="1650">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="lgridEmpTitulo" Content="Datos de mi cuenta" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                        <Label Content="Nombre" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbNombreEmp" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Nombre, Mode=TwoWay}"></TextBox>
+
+                        <Label Content="Apellidos" Grid.Column="0" Grid.Row="2" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbApellidosEmp" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" Margin="10,10,10,10"  Text="{Binding Path=Apellidos, Mode=TwoWay}"></TextBox>
+                        <Label Content="Tipo" Grid.Column="0" Grid.Row="3" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="10,11" x:Name="cbTipoEmp" Text="{Binding Path=Tipo}" Grid.ColumnSpan="1">
+                            <ComboBoxItem Content="Sanitario"></ComboBoxItem>
+                            <ComboBoxItem Content="Dependiente"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Titulacion" Grid.Column="0" Grid.Row="4" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbTitulacionEmp" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Path=Titulacion, Mode=TwoWay}" Margin="10,10,10,10"/>
+                        <Label Content="Direccion" Grid.Column="0" Grid.Row="5" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Margin="10,10,10,10" Text="{Binding Path=Direccion}"/>
+                        <Label Content="Telefono" Grid.Column="0" Grid.Row="6" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Telefono, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                        <Label Content="Movil" Grid.Column="0" Grid.Row="7" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Movil, Mode=TwoWay}"/>
+
+                        <Label Content="Email" Grid.Column="0" Grid.Row="8" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Text="{Binding Path=Email, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                        <Label Grid.Column="0" Grid.Row="9" Content="Usuario" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbUsuarioEmp" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="10,10,10,10" Text="{Binding Path=Usuario, Mode=TwoWay}"/>
+                        <Label Grid.Column="0" Grid.Row="10" Content="Contraseña" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,10,10,10" Text="{Binding Path=Contraseña, Mode=TwoWay}" x:Name="tbContraseñaEmp"/>
+                        <Label Grid.Column="3" Grid.Row="10" Content="Confirmar" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="tbConfirmContraseñaEmp" Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,10,10,10"  Text="{Binding Path=Contraseña, Mode=OneTime}" />
+
+                        <Button x:Name="BtGuardarEmp" Content="Modificar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="12" Margin="5,10,5,10" Click="BtGuardarEmp_Click"/>
+                       
+
+                    </Grid>
                 </TabItem>
             </TabControl>
 

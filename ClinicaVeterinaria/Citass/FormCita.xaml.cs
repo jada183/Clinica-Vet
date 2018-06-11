@@ -434,7 +434,7 @@ namespace ClinicaVeterinaria.Citass
             CargarHorasCbCita();
         }
 
-        private void btEliminarCita_Click(object sender, RoutedEventArgs e)
+        private void BtEliminarCita_Click(object sender, RoutedEventArgs e)
         {
             try
             {

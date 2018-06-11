@@ -19,6 +19,8 @@ using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
 using ClinicaVeterinaria.Clie;
 using ClinicaVeterinaria.Citass;
+using System.ComponentModel.DataAnnotations;
+
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -80,9 +82,35 @@ namespace ClinicaVeterinaria
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
             //temporal 
             EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 2);
+            //hago binding del empleado logueado
+            gridEmpleadoActual.DataContext = EmpActual;
             //carga tpv
+
             CargarTPVproductos_todos("Todos");
             CargarcbClientTPV();
+        }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         #region Producto
         //metodos
@@ -1427,7 +1455,29 @@ namespace ClinicaVeterinaria
         }
 
         #endregion
+        #region Logueado
+        
+        //para el empleado logueado
+        private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (Validado(EmpActual))
+            {
+                if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
+                {
+                    uow.RepositorioEmpleado.actualizar(EmpActual);
+                    MessageBox.Show("se ha actualizado correctamente");
+                }
+                else
+                {
+                    MessageBox.Show("las contraseñas no coinciden");
+                }
+            }
+            else
+            {
 
+            }
+        }
+        #endregion
         private void Window_Closed(object sender, EventArgs e)
         {
             //para el tpv que no guarde los cambios en caso de no ejecutar la venta
@@ -1451,7 +1501,6 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
-
        
     }
 }
