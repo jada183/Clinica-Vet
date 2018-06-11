@@ -80,10 +80,7 @@ namespace ClinicaVeterinaria
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
-            //temporal 
-            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 2);
-            //hago binding del empleado logueado
-            gridEmpleadoActual.DataContext = EmpActual;
+         
             //carga tpv
 
             CargarTPVproductos_todos("Todos");
@@ -1477,6 +1474,35 @@ namespace ClinicaVeterinaria
 
             }
         }
+        private void BtAcceso_Click(object sender, RoutedEventArgs e)
+        {
+            
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.Habilitado == true && c.Usuario == tbUsuarioAcess.Text && c.Contraseña == passAcess.Password);
+            if (EmpActual != null)
+            {
+                if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Administrador")
+                {
+                    gridAcceso.Visibility = Visibility.Hidden;
+                    gridGestion.Visibility = Visibility.Visible;
+                    gridEmpleadoActual.DataContext = EmpActual;
+
+                }
+                else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
+                {
+                    gridAcceso.Visibility = Visibility.Hidden;
+                    gridGestion.Visibility = Visibility.Visible;
+                    tabProd.Visibility = Visibility.Collapsed;
+                    tabServ.Visibility = Visibility.Collapsed;
+                    tabProv.Visibility = Visibility.Collapsed;
+                    tabEmp.Visibility = Visibility.Collapsed;
+                    gridEmpleadoActual.DataContext = EmpActual;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se ha encontrado un empleado con esos datos");
+            }
+        }
         #endregion
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -1501,6 +1527,7 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
-       
+
+      
     }
 }
