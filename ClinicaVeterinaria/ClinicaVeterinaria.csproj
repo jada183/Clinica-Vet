@@ -246,9 +246,6 @@
     <Resource Include="Imagenes\variosanimales.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\fondoLogin.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +313,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\misDatos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\fondoLoginColores.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('packages\Fody.3.0.3\build\Fody.targets')" />
