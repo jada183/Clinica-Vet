@@ -439,15 +439,14 @@ namespace ClinicaVeterinaria.Emple
             }
         }
         //carga de primer comboBox
-        private void cbHoraINuevoHor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbHoraINuevoHor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbHoraINuevoHor.Text != "" && cbHoraINuevoHor.Text != null)
             {
 
-
                 cbHoraFNuevoHor.IsEnabled = true;
-               
-               
+                cbHoraFNuevoHor.Items.Clear();
+
             }
         }
         //carga de segundo comboBox

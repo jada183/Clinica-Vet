@@ -145,7 +145,7 @@
 
                         </ComboBox>
                         <Label Content="Hora inicial" Grid.Column="0" Grid.Row="2" Margin="4.5,10,10,10"/>
-                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" x:Name="cbHoraINuevoHor" SelectedIndex="0" Text="{Binding Path=HoraInic, Mode=TwoWay}" SelectionChanged="cbHoraINuevoHor_SelectionChanged">
+                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" x:Name="cbHoraINuevoHor" SelectedIndex="0" Text="{Binding Path=HoraInic, Mode=TwoWay}" SelectionChanged="CbHoraINuevoHor_SelectionChanged">
                            
                         </ComboBox>
                         <Label Content="Hora Final" Grid.Column="2" Grid.Row="2" Margin="4.5,10,10,10"/>
