@@ -1227,18 +1227,19 @@ namespace ClinicaVeterinaria
 
                 stackp.Orientation = Orientation.Vertical;
                 stackp.VerticalAlignment = VerticalAlignment.Center;
-                stackp.HorizontalAlignment = HorizontalAlignment.Stretch;
+                stackp.HorizontalAlignment = HorizontalAlignment.Center;
                 stackp.Width = 155;
                 stackp.Height = 135;
 
                 Label l = new Label();
                 l.Content = (prod.NombreProducto+"-"+prod.NombreMarca);
                 l.FontSize = 12;
-
+                l.HorizontalAlignment = HorizontalAlignment.Center;
                 Label lprice = new Label();
                 lprice.Content = "Precio:"+Convert.ToString(prod.Precio)+"€";
                 lprice.FontSize = 12;
                 lprice.Background = Brushes.SkyBlue;
+                lprice.HorizontalAlignment = HorizontalAlignment.Center;
                 Image img = new Image();
 
                 try
@@ -1248,7 +1249,9 @@ namespace ClinicaVeterinaria
                     logo.UriSource = new Uri(prod.Imagen);
                     logo.EndInit();
                     img.Source = logo;
-                    img.Stretch = Stretch.Fill;
+                    img.HorizontalAlignment = HorizontalAlignment.Center;
+                    img.Width = 120;
+                    img.Height = 85;
                     
 
                     stackp.Children.Add(img);
@@ -1276,7 +1279,7 @@ namespace ClinicaVeterinaria
                 bt.Content = stackp;
                 bt.Width = 165;
                 bt.Height = 140;
-
+                bt.HorizontalAlignment = HorizontalAlignment.Center;
                 bt.Margin = new Thickness(10, 10, 10, 10);
                 bt.Click += Producto_click;
 
