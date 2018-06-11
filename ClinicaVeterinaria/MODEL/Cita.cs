@@ -28,7 +28,7 @@ namespace ClinicaVeterinaria.MODEL
         public virtual Servicio Servicio { get; set; }
         public int? ServicioId { get; set; }
 
-        [StringLength(80)]
+        [StringLength(250)]
         public string Causa { get; set; }
         public bool Atendida { get; set; }
     }

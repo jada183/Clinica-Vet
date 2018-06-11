@@ -24,6 +24,7 @@ namespace ClinicaVeterinaria.MODEL
         [StringLength(80, MinimumLength = 4)]
         public string Enfermedad { get; set; }
 
+        [StringLength(250)]
         public string Detalles { get; set; }
 
         public virtual Empleado Empleado { get; set; }

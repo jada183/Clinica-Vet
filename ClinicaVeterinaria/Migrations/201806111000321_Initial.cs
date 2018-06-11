@@ -17,7 +17,7 @@ namespace ClinicaVeterinaria.Migrations
                         PacienteId = c.Int(),
                         EmpleadoId = c.Int(),
                         ServicioId = c.Int(),
-                        Causa = c.String(maxLength: 80),
+                        Causa = c.String(maxLength: 250),
                         Atendida = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CitaId)
@@ -98,7 +98,7 @@ namespace ClinicaVeterinaria.Migrations
                         Fecha = c.DateTime(nullable: false),
                         PacienteId = c.Int(),
                         Enfermedad = c.String(nullable: false, maxLength: 80),
-                        Detalles = c.String(),
+                        Detalles = c.String(maxLength: 250),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HistorialClinicoId)
