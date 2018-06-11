@@ -915,8 +915,15 @@ namespace ClinicaVeterinaria
         {
             try
             {
-
-                CargarVentanaFormCita(citaSelect);
+                if (citaSelect.CitaId > 0)
+                {
+                    CargarVentanaFormCita(citaSelect);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una cita");
+                }
+                
             }
             catch
             {

@@ -313,7 +313,7 @@
 
                             </TabItem.Header>
                             <DockPanel>
-                                <Label Content="Citas" HorizontalAlignment="Center" FontSize="32" DockPanel.Dock="Top"/>
+                                <Label Content="Citas sin atender" HorizontalAlignment="Center" FontSize="32" DockPanel.Dock="Top"/>
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                                     <Label Content="Fecha" Margin="5,5,5,5"></Label>
                                     <DatePicker x:Name="dpFechaBusCita" Margin="5,5,5,5" Width="150"  Language="Es-es"></DatePicker>
@@ -342,7 +342,7 @@
                                     </Button>
                                 </StackPanel>
 
-                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick">
+                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick" SelectedIndex="0">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha , StringFormat='dd/MM/yyyy'}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
