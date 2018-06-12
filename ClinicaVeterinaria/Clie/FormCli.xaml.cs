@@ -95,7 +95,7 @@ namespace ClinicaVeterinaria.Clie
                 if (NuevoCli)
                 {
                     Cliente aux;
-                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email);//para comprobar que no existe ningun cliente con ese correo
+                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.Habilitado==true);//para comprobar que no existe ningun cliente con ese correo
                     if (aux == null)
                     {
                    
@@ -131,7 +131,7 @@ namespace ClinicaVeterinaria.Clie
                 else
                 {
                     Cliente aux;
-                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.ClienteId != cli.ClienteId);//para comprobar que no existe ningun cliente con ese correo
+                    aux = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == cli.Email && c.ClienteId != cli.ClienteId && c.Habilitado==true);//para comprobar que no existe ningun cliente con ese correo
                     if (aux == null)
                     {
                    
@@ -192,7 +192,7 @@ namespace ClinicaVeterinaria.Clie
             {
                 try
                 {
-                    string messageBoxText = "Estas seguro que deseas eliminar este Cliente?";
+                    string messageBoxText = "Estas seguro que deseas eliminar este cliente con sus mascotas, algunas de estas podrian tener citas pendientes que se eliminaran?";
                     string caption = "Word Processor";
                     MessageBoxButton button = MessageBoxButton.YesNoCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
@@ -203,16 +203,26 @@ namespace ClinicaVeterinaria.Clie
                     {
                         case MessageBoxResult.Yes:
 
-                            //elimino en cascada
-                            MainWindow.uow.RepositorioCliente.eliminar(cli);
-                            MainWindow.uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId == null);
-                            MainWindow.uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
-                            MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
-                            MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
+                            //eliminado en cascada
+                            cli.Habilitado = false;
+                            MainWindow.uow.RepositorioCliente.actualizar(cli);
+                            List<Paciente> pac12 =MainWindow. uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId);
 
-                            //recargo las tablas
-                            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-                            this.Close();
+                            foreach (Paciente p in pac12)
+                            {
+                                p.Habilitado = false;
+                                MainWindow.uow.RepositorioPaciente.actualizar(p);
+                                MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == p.PacienteId && c.Atendida == false);
+                                MainWindow.uow.RepositorioEstadoIngresado.eliminarVarios(c => c.PacienteId == p.PacienteId);
+                            }
+
+                            main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            main.CargardgIngresado(MainWindow.uow.RepositorioEstadoIngresado.obtenerTodos());
+
+                            //recargo las tablas que lo necesiten
+                            main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerVarios(c => c.Habilitado == true));
+                            main.CargarcbClientTPV();
+
                             break;
                         case MessageBoxResult.No:
 
@@ -223,14 +233,14 @@ namespace ClinicaVeterinaria.Clie
                             break;
                     }
                 }
-                catch
+                catch (Exception erro)
                 {
-                    MessageBox.Show("Error no se ha podido borrar este cliente");
+                    MessageBox.Show(erro.InnerException.Message);
                 }
             }
             else
             {
-                MessageBox.Show("el cliente por defecto no se puede borrarr");
+                MessageBox.Show(" no se puede borrar el cliente por defecto");
             }
         }
         #endregion
@@ -309,9 +319,14 @@ namespace ClinicaVeterinaria.Clie
         private void BtEliminarMascota_Click(object sender, RoutedEventArgs e)
         {
             List<Cita> lcita = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.PacienteId == masSelect.PacienteId && c.Atendida == false);
+            List<EstadoIngresado> lingresado = MainWindow.uow.RepositorioEstadoIngresado.obtenerVarios(c => c.PacienteId == masSelect.PacienteId);
             if (lcita.Count > 0)
             {
                 MessageBox.Show("Cuidado vas a eliminar una mascota con una cita sin atender");
+            }
+            if (lingresado.Count > 0)
+            {
+                MessageBox.Show("Cuidado vas a eliminar una mascota que se encuentra ingresada");
             }
             try
             {
@@ -328,7 +343,7 @@ namespace ClinicaVeterinaria.Clie
                         MainWindow.uow.RepositorioPaciente.actualizar(masSelect);
                        
                         MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId ==masSelect.PacienteId && c.Atendida==false);
-
+                        MainWindow.uow.RepositorioEstadoIngresado.eliminarVarios(c => c.PacienteId == masSelect.PacienteId);
                         //recargo las tablas
                         CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cli.ClienteId && c.Habilitado==true));                      
                         break;
@@ -352,7 +367,7 @@ namespace ClinicaVeterinaria.Clie
         {
             try
             {
-                masSelect= MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == tbBuscadorPac.Text && cli.ClienteId == c.ClienteId);
+                masSelect= MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == tbBuscadorPac.Text && cli.ClienteId == c.ClienteId && c.Habilitado==true);
                 CargarVentanaFormMas(masSelect);
             }
             catch
@@ -393,6 +408,7 @@ namespace ClinicaVeterinaria.Clie
             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
             main.CargardgCitas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
             main.CargardgCitasAtendidas(MainWindow.uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
+            main.CargardgIngresado(MainWindow.uow.RepositorioEstadoIngresado.obtenerTodos());
         }
 
      

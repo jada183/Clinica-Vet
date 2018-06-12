@@ -26,7 +26,7 @@ namespace ClinicaVeterinaria.DAL
         private RepositorioHorario repositorioHorario;
         private RepositorioHistorialClinico repositorioHistorialClinico;
         private RepositorioProveedor repositorioProveedor;
-
+        private RepositorioEstadoIngresado repositorioEstadoIngresado;
         public RepositorioCliente RepositorioCliente
         {
             get
@@ -164,6 +164,18 @@ namespace ClinicaVeterinaria.DAL
                     this.repositorioProveedor = new RepositorioProveedor(context);
                 }
                 return repositorioProveedor;
+            }
+        }
+
+        public RepositorioEstadoIngresado RepositorioEstadoIngresado
+        {
+            get
+            {
+                if (this.repositorioEstadoIngresado == null)
+                {
+                    this.repositorioEstadoIngresado = new RepositorioEstadoIngresado(context);
+                }
+                return repositorioEstadoIngresado;
             }
         }
     }   

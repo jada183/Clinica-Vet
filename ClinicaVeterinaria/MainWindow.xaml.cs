@@ -19,6 +19,7 @@ using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
 using ClinicaVeterinaria.Clie;
 using ClinicaVeterinaria.Citass;
+using ClinicaVeterinaria.Ingresadoo;
 using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaVeterinaria
@@ -66,6 +67,9 @@ namespace ClinicaVeterinaria
         Cliente cliTPV= new Cliente();
         public Producto productoTPV { get; set; }
         private double total = 0;
+        //ingresados
+        private EstadoIngresado EstadoIngresadoSelect = new EstadoIngresado();
+        private List<EstadoIngresado> listIngresados = new List<EstadoIngresado>();
         //empleado accceso
         Empleado EmpActual = new Empleado();
         public MainWindow()
@@ -80,7 +84,12 @@ namespace ClinicaVeterinaria
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
-         
+
+            //temporal
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+
+            //ingresados
+            dgIngresados.ItemsSource = uow.RepositorioEstadoIngresado.obtenerTodos();
             //carga tpv
 
             CargarTPVproductos_todos("Todos");
@@ -249,7 +258,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Producto aux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == tbBuscadorProdNombre.Text && c.NombreMarca==tbBuscadorProdMarca.Text);
+                Producto aux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == tbBuscadorProdNombre.Text && c.NombreMarca==tbBuscadorProdMarca.Text && c.Habilitado==true);
                 if (aux.ProductoId != 0)
                 {
                     prodSelect = aux;
@@ -308,7 +317,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text);
+                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text && c.Habilitado==true);
                 if (aux.ServicioId != 0)
                 {
                     serviSelect = aux;
@@ -481,7 +490,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text);
+                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text && c.Habilitado==true);
                 if (aux.ProveedorId != 0)
                 {
                     provSelect = aux;
@@ -642,7 +651,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Empleado aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorEmp.Text);
+                Empleado aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorEmp.Text && c.Habilitado==true);
                 if (aux.Usuario != null)
                 {
                     CargarVentanaFormEmp(aux);
@@ -741,10 +750,11 @@ namespace ClinicaVeterinaria
                                 p.Habilitado = false;
                                 uow.RepositorioPaciente.actualizar(p);
                                 uow.RepositorioCita.eliminarVarios(c => c.PacienteId == p.PacienteId && c.Atendida==false);
+                                uow.RepositorioEstadoIngresado.eliminarVarios(c => c.PacienteId == p.PacienteId);
                             }
-
+                            
                             CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
-
+                            CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
 
                             //recargo las tablas que lo necesiten
                             CargardgCliente(uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
@@ -775,10 +785,10 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text);
+                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text && c.Habilitado==true);
                 if (aux.Email != null)
                 {
-                    CargarVentanaFormCli(cliSelect);
+                    CargarVentanaFormCli(aux);
                     tbBuscadorCli.Text = "";
                 }
 
@@ -938,7 +948,7 @@ namespace ClinicaVeterinaria
             {
                 if (cbBuscarListCit.Text == "Usuario empleado")
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCit.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCit.Text && c.Habilitado==true);
                     if (empaux.Usuario != null)
                     {
                         if (dpFechaBusCita.SelectedDate != null)
@@ -979,7 +989,7 @@ namespace ClinicaVeterinaria
             {
                 if (cbBuscarListCitAten.Text == "Usuario empleado")
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCitAten.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCitAten.Text && c.Habilitado == true);
                     if (empaux.Usuario != null)
                     {
                         if (dpFechaBusCitaAten.SelectedDate != null)
@@ -1117,7 +1127,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text && c.Habilitado == true);
                     if (empaux.Usuario != null)
                     {
                         if (DpFechaBuscVent.SelectedDate == null)
@@ -1141,7 +1151,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text);
+                    Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text && c.Habilitado == true);
                     if (cliaux.Email != null)
                     {
                         if (DpFechaBuscVent.SelectedDate == null)
@@ -1516,6 +1526,36 @@ namespace ClinicaVeterinaria
             }
         }
         #endregion
+        #region Ingresado
+        //metodos
+        public void CargardgIngresado(List<EstadoIngresado> lIng)
+        {
+            listIngresados = lIng;
+            dgIngresados.ItemsSource = listIngresados;
+        }
+        private void DgIngresados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                EstadoIngresadoSelect = (EstadoIngresado)(dgIngresados.SelectedItem);
+
+            }
+            catch
+            {
+
+            }
+        }
+        private void BtAgregarIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            EstadoIngresado ei = new EstadoIngresado();
+            ei.Fecha = DateTime.Now;
+            ei.EmpleadoId = EmpActual.EmpleadoId;
+            ei.Empleado = EmpActual;
+            FormIngresado fi = new FormIngresado(ei, this);
+            fi.ShowDialog();
+        }
+        #endregion
+
         private void Window_Closed(object sender, EventArgs e)
         {
             //para el tpv que no guarde los cambios en caso de no ejecutar la venta
@@ -1540,6 +1580,6 @@ namespace ClinicaVeterinaria
             catch { }
         }
 
-      
+       
     }
 }

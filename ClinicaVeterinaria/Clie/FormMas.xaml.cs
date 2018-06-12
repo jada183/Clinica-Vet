@@ -93,7 +93,7 @@ namespace ClinicaVeterinaria.Clie
                 if (NuevoPac)
                 {
                     Paciente pacAux = new Paciente();
-                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId);
+                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId && c.Habilitado==true);
                     if (pacAux == null)
                     {
                         try
@@ -124,7 +124,7 @@ namespace ClinicaVeterinaria.Clie
                 else
                 {
                     Paciente pacAux = new Paciente();
-                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId && pac.PacienteId != c.PacienteId);
+                    pacAux = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.Nombre == pac.Nombre && c.ClienteId == pac.ClienteId && pac.PacienteId != c.PacienteId  && c.Habilitado == true);
                     if (pacAux == null)
                     {
                         try
@@ -155,8 +155,20 @@ namespace ClinicaVeterinaria.Clie
 
         private void BtEliminarPac_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
+                List<Cita> lcita = MainWindow.uow.RepositorioCita.obtenerVarios(c => c.PacienteId == pac.PacienteId && c.Atendida == false);
+                List<EstadoIngresado> lingresado = MainWindow.uow.RepositorioEstadoIngresado.obtenerVarios(c => c.PacienteId == pac.PacienteId);
+                if (lcita.Count > 0)
+                {
+                    MessageBox.Show("Cuidado vas a eliminar una mascota con una cita sin atender");
+                }
+                if (lingresado.Count > 0)
+                {
+                    MessageBox.Show("Cuidado vas a eliminar una mascota que se encuentra ingresada");
+                }
+
                 string messageBoxText = "Estas seguro que deseas eliminar esta mascota?";
                 string caption = "Word Processor";
                 MessageBoxButton button = MessageBoxButton.YesNoCancel;
@@ -165,10 +177,12 @@ namespace ClinicaVeterinaria.Clie
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        MainWindow.uow.RepositorioPaciente.eliminar(pac);
-                        MainWindow.uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
-                        MainWindow.uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
-                        MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);                  
+                        pac.Habilitado = false;
+                        MainWindow.uow.RepositorioPaciente.actualizar(pac);
+
+                        MainWindow.uow.RepositorioCita.eliminarVarios(c => c.PacienteId == pac.PacienteId && c.Atendida == false);
+                        MainWindow.uow.RepositorioEstadoIngresado.eliminarVarios(c => c.PacienteId == pac.PacienteId);
+                        //recargo las tablas
                         //recargo las ventanas necesarias
                         formcli.CargarDgMascotas(MainWindow.uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == pac.ClienteId && c.Habilitado==true));
                         this.Close();

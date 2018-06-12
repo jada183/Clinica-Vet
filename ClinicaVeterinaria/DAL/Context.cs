@@ -128,6 +128,12 @@ namespace ClinicaVeterinaria.DAL
                    new LineaVenta { LineaVentaId = 8, VentaId = 4, Cantidad = 1, ProductoId = 2, },
                    new LineaVenta { LineaVentaId = 9, VentaId = 4, Cantidad = 2, ProductoId = 3, }
                   );
+                context.EstadoIngresados.AddOrUpdate(
+                    new EstadoIngresado { EstadoIngresadoId = 1, Temperatura = 39.5, FrecuenciaCardiaca=80, FrecuenciaRespiratoria=35,RevisionGeneral="corte en el cuello",PerdidasFisiologicas="perdida de sangre", Medicacion="medicamento para el dolor"
+                    , Fecha=Convert.ToDateTime("15/06/2018"),PacienteId=1,EmpleadoId=1},
+                     new EstadoIngresado { EstadoIngresadoId = 2, Temperatura = 39.9, FrecuenciaCardiaca=85, FrecuenciaRespiratoria=37,RevisionGeneral="herida interna",PerdidasFisiologicas="perdida de sangre", Medicacion="medicamento para el dolor"
+                    , Fecha=Convert.ToDateTime("14/06/2018"),PacienteId=3,EmpleadoId=2}
+                    );
             }
         }
     
