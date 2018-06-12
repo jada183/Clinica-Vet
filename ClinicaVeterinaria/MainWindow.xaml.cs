@@ -1554,6 +1554,74 @@ namespace ClinicaVeterinaria
             FormIngresado fi = new FormIngresado(ei, this);
             fi.ShowDialog();
         }
+        private void BtBorrarIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que desea eliminar el registro de ingreso?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+                        uow.RepositorioEstadoIngresado.eliminar(EstadoIngresadoSelect);
+                        CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un ingresado");
+            }
+        }
+        private void BtDarAltaIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que desea dar de alta el paciente?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+                        uow.RepositorioEstadoIngresado.eliminarVarios(c=>c.PacienteId==EstadoIngresadoSelect.PacienteId);
+                        CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un ingresado");
+            }
+        }
         #endregion
 
         private void Window_Closed(object sender, EventArgs e)

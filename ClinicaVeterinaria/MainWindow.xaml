@@ -567,10 +567,10 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarIngresado" Click="BtAgregarIngresado_Click" >
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarIngresado">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarIngresado" Click="BtBorrarIngresado_Click">
                                 <Image  Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtDarAltaIngresado">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtDarAltaIngresado" Click="BtDarAltaIngresado_Click">
                                 <Image Source="Imagenes/exit.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
