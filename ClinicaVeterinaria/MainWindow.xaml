@@ -426,7 +426,7 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaExcel">
                                 <Image Source="Imagenes/excel.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos" Click="BtVentaGraficos_Click">
                                 <Image Source="Imagenes/charts.png"></Image>
                             </Button>
                         </StackPanel>
