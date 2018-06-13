@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria.Citass"
         mc:Ignorable="d"
-        Title="FormCita" Height="650" Width="700"
+        Title="FormCita" Height="700" Width="700"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -34,6 +34,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Label Content="Cita" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"  HorizontalAlignment="Center" FontSize="32" Grid.ColumnSpan="2"/>
             <Label Content="Servicio" Grid.Column="0" Grid.Row="1" Margin="10,10,10,10"  VerticalAlignment="Bottom"/>
@@ -54,9 +55,9 @@
 
 
             <Label Content="Causa" Grid.Column="0" Grid.Row="5" Margin="10,10,10,10" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="tbCausaCita" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Causa, Mode=TwoWay}" TextWrapping="Wrap"/>
-            <Button Grid.Column="1" Grid.Row="7" Content="Guardar" x:Name="btGuardarCita" Margin="10,10,10,10" Click="BtGuardarCita_Click" />
-            <Button Grid.Column="2" Grid.Row="7" Content="Eliminar" x:Name="btEliminarCita" Margin="10,10,10,10" Click="btEliminarCita_Click"/>
+            <TextBox x:Name="tbCausaCita" Grid.Column="0" Grid.Row="6" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Causa, Mode=TwoWay}" Grid.RowSpan="2" Style="{StaticResource MaterialDesignTextAreaTextBox}" TextWrapping="Wrap"/>
+            <Button Grid.Column="1" Grid.Row="8" Content="Guardar" x:Name="btGuardarCita" Margin="10,10,10,10" Click="BtGuardarCita_Click" />
+            <Button Grid.Column="2" Grid.Row="8" Content="Eliminar" x:Name="btEliminarCita" Margin="10,10,10,10" Click="BtEliminarCita_Click"/>
         </Grid>
     </Grid>
 </Window>

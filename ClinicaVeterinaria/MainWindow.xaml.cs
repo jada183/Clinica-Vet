@@ -19,6 +19,9 @@ using ClinicaVeterinaria.Proveed;
 using ClinicaVeterinaria.Emple;
 using ClinicaVeterinaria.Clie;
 using ClinicaVeterinaria.Citass;
+using ClinicaVeterinaria.Ingresadoo;
+using System.ComponentModel.DataAnnotations;
+
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -58,18 +61,62 @@ namespace ClinicaVeterinaria
         private List<Venta> ventas = new List<Venta>();
         private List<LineaVenta> lineasVenta = new List<LineaVenta>();
         private Venta ventaSelect = new Venta();
+
+        //variables para tpv
+        Venta venta = new Venta();
+        Cliente cliTPV= new Cliente();
+        public Producto productoTPV { get; set; }
+        private double total = 0;
+        //ingresados
+        private EstadoIngresado EstadoIngresadoSelect = new EstadoIngresado();
+        private List<EstadoIngresado> listIngresados = new List<EstadoIngresado>();
+        //empleado accceso
+        Empleado EmpActual = new Empleado();
         public MainWindow()
         {
             InitializeComponent();
             //carga de datos inicial    
-            CargardgProductos(uow.RepositorioProducto.obtenerTodos());
-            CargardgServicio(uow.RepositorioServicio.obtenerTodos());
-            CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
-            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
-            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
+            CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
+            CargardgServicio(uow.RepositorioServicio.obtenerVarios(c=>c.Habilitado==true));
+            CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
+            CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
+            CargardgCliente(uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
             CargardgCitas(uow.RepositorioCita.obtenerVarios(c=>c.Atendida==false));
             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+
+            //temporal
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+
+            //ingresados
+            dgIngresados.ItemsSource = uow.RepositorioEstadoIngresado.obtenerTodos();
+            //carga tpv
+
+            CargarTPVproductos_todos("Todos");
+            CargarcbClientTPV();
+        }
+        private Boolean Validado(Object obj)
+        {
+            ValidationContext validationContext = new ValidationContext(obj, null, null);
+            List<System.ComponentModel.DataAnnotations.ValidationResult> errors = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+            Validator.TryValidateObject(obj, validationContext, errors, true);
+
+            if (errors.Count() > 0)
+            {
+
+                string mensageErrores = string.Empty;
+                foreach (var error in errors)
+                {
+                    error.MemberNames.First();
+
+                    mensageErrores += error.ErrorMessage + Environment.NewLine;
+                }
+                System.Windows.MessageBox.Show(mensageErrores); return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         #region Producto
         //metodos
@@ -142,10 +189,11 @@ namespace ClinicaVeterinaria
                 {
                     case MessageBoxResult.Yes:
 
-
-                        uow.RepositorioProducto.eliminar(prodSelect);
-                        CargardgProductos(uow.RepositorioProducto.obtenerTodos());
-
+                        prodSelect.Habilitado = false;
+                        uow.RepositorioProducto.actualizar(prodSelect);                     
+                        CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
+                        dgProd.SelectedIndex = 0;
+                        CargarTPVproductos_todos("Todos");
                         break;
                     case MessageBoxResult.No:
 
@@ -156,23 +204,23 @@ namespace ClinicaVeterinaria
                         break;
                 }
             }
-            catch
+            catch(Exception erro)
             {
-                MessageBox.Show("seleccione un producto");
+                MessageBox.Show(erro.Message);
             }
         }
         private void BtBucarList_Click(object sender, RoutedEventArgs e)
         {
             if (cbBuscarListProd.Text == "Todos")
             {
-                CargardgProductos(uow.RepositorioProducto.obtenerTodos());
+                CargardgProductos(uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true));
 
             }
             else if (cbBuscarListProd.Text == "Marca")
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.NombreMarca == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.NombreMarca == tbBuscadorList.Text && c.Habilitado==true ));
                 }
                 catch { }
             }
@@ -180,7 +228,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.AnimalDirigido == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.AnimalDirigido == tbBuscadorList.Text && c.Habilitado==true));
                 }
                 catch
                 {
@@ -191,7 +239,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Stock == 0));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Stock == 0 && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -199,7 +247,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Categoria == tbBuscadorList.Text));
+                    CargardgProductos(uow.RepositorioProducto.obtenerVarios(c => c.Categoria == tbBuscadorList.Text && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -210,7 +258,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Producto aux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == tbBuscadorProdNombre.Text && c.NombreMarca==tbBuscadorProdMarca.Text);
+                Producto aux = uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == tbBuscadorProdNombre.Text && c.NombreMarca==tbBuscadorProdMarca.Text && c.Habilitado==true);
                 if (aux.ProductoId != 0)
                 {
                     prodSelect = aux;
@@ -269,7 +317,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text);
+                Servicio aux = uow.RepositorioServicio.obtenerUno(c => c.Nombre == tbBuscadorServNombre.Text && c.Habilitado==true);
                 if (aux.ServicioId != 0)
                 {
                     serviSelect = aux;
@@ -320,10 +368,11 @@ namespace ClinicaVeterinaria
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
-                        
-                        uow.RepositorioServicio.eliminar(serviSelect);
-                        CargardgServicio(uow.RepositorioServicio.obtenerTodos());
-                       
+                        serviSelect.Habilitado = false;
+                        uow.RepositorioServicio.actualizar(serviSelect);
+                        CargardgServicio(uow.RepositorioServicio.obtenerVarios(c => c.Habilitado == true));
+                        dgServ.SelectedIndex = 0;
+
                         break;
                     case MessageBoxResult.No:
 
@@ -410,9 +459,17 @@ namespace ClinicaVeterinaria
                 {
                     case MessageBoxResult.Yes:
 
-
-                        uow.RepositorioProveedor.eliminar(provSelect);
-                        CargardgProveedor(uow.RepositorioProveedor.obtenerTodos());
+                        provSelect.Habilitado = false;
+                        List<Producto> lprod = MainWindow.uow.RepositorioProducto.obtenerVarios(c => c.ProveedorId == provSelect.ProveedorId);
+                        foreach (Producto p in lprod)
+                        {
+                            p.ProveedorId = null;
+                            p.Proveedor = null;
+                            uow.RepositorioProducto.actualizar(p);
+                        }
+                        uow.RepositorioProveedor.actualizar(provSelect);
+                        CargardgProveedor(uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
+                        dgProv.SelectedIndex = 0;
 
                         break;
                     case MessageBoxResult.No:
@@ -433,7 +490,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text);
+                Proveedor aux = uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProvEmail.Text && c.Habilitado==true);
                 if (aux.ProveedorId != 0)
                 {
                     provSelect = aux;
@@ -461,7 +518,7 @@ namespace ClinicaVeterinaria
         public void CargarVentanaFormEmp(Empleado em)
         {
 
-            FormEmp femp = new FormEmp(em,this);
+            FormEmp femp = new FormEmp(em,this,EmpActual.EmpleadoId);
             femp.ShowDialog();
         }
         //eventos
@@ -512,7 +569,12 @@ namespace ClinicaVeterinaria
 
         private void BtBorrarEmp_Click(object sender, RoutedEventArgs e)
         {
-            if (empSelect.EmpleadoId != 1) { 
+            if (empSelect.EmpleadoId != 1 && empSelect.EmpleadoId!=EmpActual.EmpleadoId) {
+                List<Cita> lcita = uow.RepositorioCita.obtenerVarios(c => c.EmpleadoId == empSelect.EmpleadoId && c.Atendida == false);
+                if (lcita.Count > 0)
+                {
+                    MessageBox.Show("cuidado vas a eliminar un empleado con una cita sin atender");
+                }
                 try
                 {
                     string messageBoxText = "Estas seguro que deseas eliminar este empleado?";
@@ -526,11 +588,14 @@ namespace ClinicaVeterinaria
                     {
                         case MessageBoxResult.Yes:
 
+                            empSelect.Habilitado = false;
+                            uow.RepositorioEmpleado.actualizar(empSelect);
+                            uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == empSelect.EmpleadoId);
+                           
+                            //elimino las citas del empleado que no han sido atendidas
+                            uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == empSelect.EmpleadoId && c.Atendida==false);
 
-                            uow.RepositorioEmpleado.eliminar(empSelect);
-                            uow.RepositorioHorario.eliminarVarios(c => c.EmpleadoId == null);
-                            uow.RepositorioCita.eliminarVarios(c => c.EmpleadoId == null);
-                            CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                            CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
                             CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida==false));
                             CargardgCitasAtendidas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == true));
                             break;
@@ -550,21 +615,21 @@ namespace ClinicaVeterinaria
             }
             else
             {
-                MessageBox.Show(" no se puede borrar el empleado admin");
+                MessageBox.Show(" no se puede borrar el empleado admin ni el empleado logueado");
             }
         }
         private void BtBucarListEmp_Click(object sender, RoutedEventArgs e)
         {
             if (cbBuscarListEmp.Text == "Todos")
             {
-                CargardgEmpleado(uow.RepositorioEmpleado.obtenerTodos());
+                CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c=>c.Habilitado==true));
 
             }
             else if (cbBuscarListEmp.Text == "Tipo")
             {
                 try
                 {
-                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == tbBuscadorListEmp.Text));
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Tipo == tbBuscadorListEmp.Text && c.Habilitado==true));
                 }
                 catch { }
             }
@@ -572,7 +637,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Titulacion == tbBuscadorListEmp.Text));
+                    CargardgEmpleado(uow.RepositorioEmpleado.obtenerVarios(c => c.Titulacion == tbBuscadorListEmp.Text && c.Habilitado==true));
                 }
                 catch
                 {
@@ -586,7 +651,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Empleado aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorEmp.Text);
+                Empleado aux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorEmp.Text && c.Habilitado==true);
                 if (aux.Usuario != null)
                 {
                     CargarVentanaFormEmp(aux);
@@ -664,7 +729,7 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    string messageBoxText = "Estas seguro que deseas eliminar este cliente?";
+                    string messageBoxText = "Estas seguro que deseas eliminar este cliente con sus mascotas, algunas de estas podrian tener citas pendientes que se eliminaran?";
                     string caption = "Word Processor";
                     MessageBoxButton button = MessageBoxButton.YesNoCancel;
                     MessageBoxImage icon = MessageBoxImage.Warning;
@@ -676,25 +741,24 @@ namespace ClinicaVeterinaria
                         case MessageBoxResult.Yes:
 
                             //eliminado en cascada
-                           
-                            uow.RepositorioCliente.eliminar(cliSelect);
-                            List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == null);
-                            if (pac12.Count > 0)
+                            cliSelect.Habilitado = false;
+                            uow.RepositorioCliente.actualizar(cliSelect);
+                            List<Paciente> pac12 = uow.RepositorioPaciente.obtenerVarios(c => c.ClienteId == cliSelect.ClienteId);
+
+                            foreach(Paciente p in pac12)
                             {
-
-                                uow.RepositorioPaciente.eliminarVarios(c => c.ClienteId==null);
-
-                                uow.RepositorioVacuna.eliminarVarios(c => c.PacienteId == null);
-                                uow.RepositorioHistorialClinico.eliminarVarios(c => c.PacienteId == null);
-                                uow.RepositorioCita.eliminarVarios(c => c.PacienteId == null);
-                                CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                                p.Habilitado = false;
+                                uow.RepositorioPaciente.actualizar(p);
+                                uow.RepositorioCita.eliminarVarios(c => c.PacienteId == p.PacienteId && c.Atendida==false);
+                                uow.RepositorioEstadoIngresado.eliminarVarios(c => c.PacienteId == p.PacienteId);
                             }
                             
-                            
-                            
+                            CargardgCitas(uow.RepositorioCita.obtenerVarios(c => c.Atendida == false));
+                            CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+
                             //recargo las tablas que lo necesiten
-                            CargardgCliente(uow.RepositorioCliente.obtenerTodos());
-                          
+                            CargardgCliente(uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
+                            CargarcbClientTPV();
 
                             break;
                         case MessageBoxResult.No:
@@ -721,10 +785,10 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text);
+                Cliente aux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorCli.Text && c.Habilitado==true);
                 if (aux.Email != null)
                 {
-                    CargarVentanaFormCli(cliSelect);
+                    CargarVentanaFormCli(aux);
                     tbBuscadorCli.Text = "";
                 }
 
@@ -857,12 +921,19 @@ namespace ClinicaVeterinaria
                
             }
         }
-        private void btEditarCit_Click(object sender, RoutedEventArgs e)
+        private void BtEditarCit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
-                CargarVentanaFormCita(citaSelect);
+                if (citaSelect.CitaId > 0)
+                {
+                    CargarVentanaFormCita(citaSelect);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione una cita");
+                }
+                
             }
             catch
             {
@@ -877,7 +948,7 @@ namespace ClinicaVeterinaria
             {
                 if (cbBuscarListCit.Text == "Usuario empleado")
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCit.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCit.Text && c.Habilitado==true);
                     if (empaux.Usuario != null)
                     {
                         if (dpFechaBusCita.SelectedDate != null)
@@ -918,7 +989,7 @@ namespace ClinicaVeterinaria
             {
                 if (cbBuscarListCitAten.Text == "Usuario empleado")
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCitAten.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscarListCitAten.Text && c.Habilitado == true);
                     if (empaux.Usuario != null)
                     {
                         if (dpFechaBusCitaAten.SelectedDate != null)
@@ -1034,8 +1105,16 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
-                    DgVentas.SelectedIndex = 0;
+                    if (DpFechaBuscVent.SelectedDate == null)
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                        DgVentas.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c=> c.FechaVenta==DpFechaBuscVent.SelectedDate));
+                        DgVentas.SelectedIndex = 0;
+                    }
                 
                 }
                 catch
@@ -1048,11 +1127,19 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text);
+                    Empleado empaux = uow.RepositorioEmpleado.obtenerUno(c => c.Usuario == tbBuscadorListVen.Text && c.Habilitado == true);
                     if (empaux.Usuario != null)
                     {
-                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c=>c.EmpleadoId==empaux.EmpleadoId));
-                        DgVentas.SelectedIndex = 0;
+                        if (DpFechaBuscVent.SelectedDate == null)
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.EmpleadoId == empaux.EmpleadoId));
+                            DgVentas.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.FechaVenta == DpFechaBuscVent.SelectedDate && c.EmpleadoId == empaux.EmpleadoId));
+                            DgVentas.SelectedIndex = 0;
+                        }  
                     }
                 }
                 catch
@@ -1064,11 +1151,19 @@ namespace ClinicaVeterinaria
             {
                 try
                 {
-                    Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text);
+                    Cliente cliaux = uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorListVen.Text && c.Habilitado == true);
                     if (cliaux.Email != null)
                     {
-                        CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.ClienteId == cliaux.ClienteId));
-                        DgVentas.SelectedIndex = 0;
+                        if (DpFechaBuscVent.SelectedDate == null)
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.ClienteId == cliaux.ClienteId));
+                            DgVentas.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            CargarDgVenta(uow.RepositorioVenta.obtenerVarios(c => c.FechaVenta == DpFechaBuscVent.SelectedDate && c.ClienteId==cliaux.ClienteId));
+                            DgVentas.SelectedIndex = 0;
+                        }   
                     }
                 }
                 catch
@@ -1076,9 +1171,505 @@ namespace ClinicaVeterinaria
 
                 }
             }
+
+        }
+        private void BtElimarVenta_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que deseas eliminar esta venta?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+
+                        uow.RepositorioVenta.eliminar(ventaSelect);
+                        CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                        DgVentas.SelectedIndex = 0;
+                        CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("seleccione una cita");
+            }
+        }
+        #endregion
+        #region TPV
+        public void CargarcbClientTPV()
+        {
+            cbClientTPV.ItemsSource = uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true);
+        }
+
+        public void CargarTPVproductos_todos(String categoria)
+        {
+          
+            List<Producto> list = new List<Producto>();
+            if (categoria != "Todos")
+            {
+                 list = uow.RepositorioProducto.obtenerVarios(c => c.Categoria == categoria && c.Habilitado==true);
+                lListProd.Content = categoria+"s";
+            }
+            else
+            {
+                list = uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true);
+                lListProd.Content = "Todos los productos";
+            }
+            //cliTPV = (Cliente)cbClientTPV.SelectedItem;
+
+
+
+            tpv_dock_productos.Children.Clear();
+
+            foreach (Producto prod in list)
+            {
+
+
+
+                StackPanel stackp = new StackPanel();
+
+                stackp.Orientation = Orientation.Vertical;
+                stackp.VerticalAlignment = VerticalAlignment.Center;
+                stackp.HorizontalAlignment = HorizontalAlignment.Center;
+                stackp.Width = 155;
+                stackp.Height = 135;
+
+                Label l = new Label();
+                l.Content = (prod.NombreProducto+"-"+prod.NombreMarca);
+                l.FontSize = 12;
+                l.HorizontalAlignment = HorizontalAlignment.Center;
+                Label lprice = new Label();
+                lprice.Content = "Precio:"+Convert.ToString(prod.Precio)+"€";
+                lprice.FontSize = 12;
+                lprice.Background = Brushes.SkyBlue;
+                lprice.HorizontalAlignment = HorizontalAlignment.Center;
+                Image img = new Image();
+
+                try
+                {
+                    BitmapImage logo = new BitmapImage();
+                    logo.BeginInit();
+                    logo.UriSource = new Uri(prod.Imagen);
+                    logo.EndInit();
+                    img.Source = logo;
+                    img.HorizontalAlignment = HorizontalAlignment.Center;
+                    img.Width = 120;
+                    img.Height = 85;
+                    
+
+                    stackp.Children.Add(img);
+                }
+                catch { }
+             
+                stackp.Children.Add(l);
+                stackp.Children.Add(lprice);
+
+                Button bt = new Button();
+
+
+                String btNombreSinEspacios= prod.NombreProducto.Replace(" ", "_");
+                String btname= btNombreSinEspacios +"_"+Convert.ToString(prod.ProductoId);
+                bt.Name = btname;
+                if (prod.Stock > 0)
+                {
+                    bt.Background = Brushes.Lavender;
+                }
+                else
+                {
+                    bt.Background = Brushes.LightSalmon;
+                }
+
+                bt.Content = stackp;
+                bt.Width = 165;
+                bt.Height = 140;
+                bt.HorizontalAlignment = HorizontalAlignment.Center;
+                bt.Margin = new Thickness(10, 10, 10, 10);
+                bt.Click += Producto_click;
+
+                tpv_dock_productos.Children.Add(bt);
+
+            }
+        }
+
+        private void Producto_click(object sender, RoutedEventArgs e)
+        {
+         
+            LineaVenta lv = new LineaVenta();
+
+
+            var aux = e.OriginalSource;
+            if (aux.GetType() == typeof(Button))
+            {
+                Button b = (Button)aux;
+                String btname = b.Name;
+
+                string[] divbtName = b.Name.Split('_');
+                
+                int auxint = Convert.ToInt32(divbtName[(divbtName.Count()) - 1]);
+                productoTPV = uow.RepositorioProducto.obtenerUno(c => auxint == c.ProductoId);
+
+                if (productoTPV.Stock < 1)
+                {
+                    MessageBox.Show("El producto no tiene stock", "ERROR", MessageBoxButton.OK, MessageBoxImage.Stop);
+                }
+                else
+                {
+                    venta.EmpleadoVenta = EmpActual;
+                    venta.EmpleadoId = EmpActual.EmpleadoId;
+                   
+                    venta.FechaVenta = DateTime.Today;
+
+
+                    if (venta.LineasVenta.Where(c => c.Producto.ProductoId.Equals(productoTPV.ProductoId)).FirstOrDefault() == null && venta.VentaId == 0)
+                    {
+
+                        lv = new LineaVenta();
+                        lv.Producto = productoTPV;
+                        lv.ProductoId = productoTPV.ProductoId;
+                        lv.Cantidad = 1;
+                        lv.Venta = venta;
+
+                        venta.LineasVenta.Add(lv);
+
+                        total += lv.Producto.Precio;
+                        setTotal();
+
+                        productoTPV.Stock--;//@@@@@@@@@@@@
+                        uow.RepositorioProducto.actualizar(productoTPV);
+                    }
+                    else
+                    {
+
+                        LineaVenta linea = venta.LineasVenta.Where(c => c.Producto.ProductoId.Equals(productoTPV.ProductoId)).FirstOrDefault();
+                        linea.Cantidad++;
+                        total += linea.Producto.Precio;
+                        setTotal();
+
+                        productoTPV.Stock--;
+                        uow.RepositorioProducto.actualizar(productoTPV);
+                    }
+
+
+                    dgridTPV.ItemsSource = "";
+                    dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+
+
+                }
+            }
+        }
+        public void setTotal()
+        {
+
+            TPVTotal.Content = Convert.ToString(total);
+        }
+        private void BTSelectCatMedicamento_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Medicamento");
+          
+        }
+        private void BTSelectCatTodos_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Todos");
+            
+        }
+        private void BTSelectCatAccesorio_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Accesorio");
+            
+        }
+        private void BTSelectCatAlimento_Click(object sender, RoutedEventArgs e)
+        {
+            CargarTPVproductos_todos("Alimento");
+           
+        }
+        private void CbClientTPV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Cliente cl= (Cliente)cbClientTPV.SelectedItem;
+            venta.ClienteVenta = cl;
+            venta.ClienteId = cl.ClienteId;
+        }
+
+        private void BtCancelarVentaTPV_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                foreach (LineaVenta l in venta.LineasVenta)
+                {
+                    Producto proaux = uow.RepositorioProducto.obtenerUno(c => c.ProductoId == l.ProductoId);
+                    proaux.Stock += l.Cantidad;
+                    uow.RepositorioProducto.actualizar(proaux);
+                }
+                venta = new Venta();
+                total = 0;
+
+                dgridTPV.ItemsSource = "";
+                dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+                total = 0;
+                setTotal();
+                venta = new Venta();
+
+                cbClientTPV.SelectedIndex = 0;
+
+            }
+            catch { }
+
+
+
+        }
+
+        private void BtConfirmarVentaTPV_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (venta.LineasVenta.Count > 0)
+                {
+                    uow.RepositorioVenta.crear(venta);
+
+                    MessageBox.Show("se ha realizado la venta satisfactoriamente");
+                    CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
+                    //cbClientTPV.Text = "";
+
+                    venta = new Venta();
+                    Cliente cl=(Cliente)cbClientTPV.SelectedItem;
+                    venta.ClienteVenta = cl;
+                    venta.ClienteId = cl.ClienteId;
+                    dgridTPV.ItemsSource = "";
+                    dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+                    total = 0;
+                    setTotal();
+                    cbClientTPV.SelectedIndex = 0;
+                             
+
+                }
+                else
+                {
+                    MessageBox.Show("no ha seleccionado ningun producto");
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("no ha seleccionado ningun producto");
+            }
+        }
+
+        #endregion
+        #region Logueado
+        
+        //para el empleado logueado
+        private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
+        {
+            if (Validado(EmpActual))
+            {
+                if (tbContraseñaEmp.Text == tbConfirmContraseñaEmp.Text)
+                {
+                    uow.RepositorioEmpleado.actualizar(EmpActual);
+                    MessageBox.Show("se ha actualizado correctamente");
+                }
+                else
+                {
+                    MessageBox.Show("las contraseñas no coinciden");
+                }
+            }
+            else
+            {
+
+            }
+        }
+        private void BtAcceso_Click(object sender, RoutedEventArgs e)
+        {
+            
+            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.Habilitado == true && c.Usuario == tbUsuarioAcess.Text && c.Contraseña == passAcess.Password);
+            if (EmpActual != null)
+            {
+                if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Administrador")
+                {
+                    gridAcceso.Visibility = Visibility.Hidden;
+                    gridGestion.Visibility = Visibility.Visible;
+                    gridEmpleadoActual.DataContext = EmpActual;
+                    this.WindowState = WindowState.Maximized;
+
+                }
+                else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
+                {
+                    gridAcceso.Visibility = Visibility.Hidden;
+                    gridGestion.Visibility = Visibility.Visible;
+                    tabProd.Visibility = Visibility.Collapsed;
+                    tabServ.Visibility = Visibility.Collapsed;
+                    tabProv.Visibility = Visibility.Collapsed;
+                    tabEmp.Visibility = Visibility.Collapsed;
+                    gridEmpleadoActual.DataContext = EmpActual;
+                    this.WindowState = WindowState.Maximized;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No se ha encontrado un empleado con esos datos");
+            }
+        }
+        #endregion
+        #region Ingresado
+        //metodos
+        public void CargardgIngresado(List<EstadoIngresado> lIng)
+        {
+            listIngresados = lIng;
+            dgIngresados.ItemsSource = listIngresados;
+        }
+        private void DgIngresados_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                EstadoIngresadoSelect = (EstadoIngresado)(dgIngresados.SelectedItem);
+
+            }
+            catch
+            {
+
+            }
+        }
+        private void BtAgregarIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            EstadoIngresado ei = new EstadoIngresado();
+            ei.Fecha = DateTime.Now;
+            ei.EmpleadoId = EmpActual.EmpleadoId;
+            ei.Empleado = EmpActual;
+            FormIngresado fi = new FormIngresado(ei, this);
+            fi.ShowDialog();
+        }
+        private void BtBorrarIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que desea eliminar el registro de ingreso?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+                        uow.RepositorioEstadoIngresado.eliminar(EstadoIngresadoSelect);
+                        CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un ingresado");
+            }
+        }
+        private void BtDarAltaIngresado_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string messageBoxText = "Estas seguro que desea dar de alta el paciente?";
+                string caption = "Word Processor";
+                MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+
+                // Process message box results
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+
+                        uow.RepositorioEstadoIngresado.eliminarVarios(c=>c.PacienteId==EstadoIngresadoSelect.PacienteId);
+                        CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+
+                        break;
+                    case MessageBoxResult.No:
+
+                        break;
+                    case MessageBoxResult.Cancel:
+                        // User pressed Cancel button
+                        // ...
+                        break;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("seleccione un ingresado");
+            }
+        }
+        private void BtBucarListIngresados_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cbBuscarListIngresados.Text == "Todos")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+                }
+                else if (cbBuscarListIngresados.Text == "Nombre mascota")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerVarios(c => c.Paciente.Nombre == tbBuscadorListIngresados.Text));
+                }
+                else if (cbBuscarListIngresados.Text == "Usuario empleado")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerVarios(c => c.Empleado.Usuario == tbBuscadorListIngresados.Text));
+                }
+            }
+            catch
+            {
+               
+            }
         }
         #endregion
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //para el tpv que no guarde los cambios en caso de no ejecutar la venta
+            try
+            {
+                foreach (LineaVenta l in venta.LineasVenta)
+                {
+                    Producto proaux = uow.RepositorioProducto.obtenerUno(c => c.ProductoId == l.ProductoId);
+                    proaux.Stock += l.Cantidad;
+                    uow.RepositorioProducto.actualizar(proaux);
+                }
+                venta = new Venta();
+                total = 0;
+
+                dgridTPV.ItemsSource = "";
+                dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+                venta = new Venta();
+
+            }
+            catch { }
+        }
+       
 
     }
 }

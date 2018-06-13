@@ -88,7 +88,7 @@ namespace ClinicaVeterinaria.Proveed
                 if (NuevoProv)
                 {
                     Proveedor provAux = new Proveedor();
-                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email);
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == pv.Email && c.Habilitado==true);
                     if (provAux == null)
                     {
                         try
@@ -117,7 +117,7 @@ namespace ClinicaVeterinaria.Proveed
                 else
                 {
                     Proveedor provAux = new Proveedor();
-                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId);
+                    provAux = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email==pv.Email && c.ProveedorId!=pv.ProveedorId && c.Habilitado == true);
                     if (provAux == null)
                     {
                         try
@@ -190,8 +190,15 @@ namespace ClinicaVeterinaria.Proveed
                 {
                     case MessageBoxResult.Yes:
 
-
-                        MainWindow.uow.RepositorioProveedor.eliminar(pv);
+                        pv.Habilitado = false;
+                        List<Producto> lprod=MainWindow.uow.RepositorioProducto.obtenerVarios(c => c.ProveedorId == pv.ProveedorId);
+                        foreach(Producto p in lprod)
+                        {
+                            p.ProveedorId = null;
+                            p.Proveedor = null;
+                            MainWindow.uow.RepositorioProducto.actualizar(p);
+                        }
+                        MainWindow.uow.RepositorioProveedor.actualizar(pv);
                         main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
                         this.Close();
                         break;

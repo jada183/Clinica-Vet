@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="702.5" Width="1154"
+        Title="MainWindow" Height="600" Width="1595"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -15,61 +15,46 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        WindowState="Maximized"
+        Closed="Window_Closed"
         >
     <Grid x:Name="gridPrueba">
 
         <Grid x:Name="gridAcceso" Visibility="Hidden">
             <Grid.Background>
-                <ImageBrush ImageSource="Imagenes/fondoLogin.jpg" Opacity="0.85"/>
+                <ImageBrush ImageSource="Imagenes/fondoLoginColores.jpeg" Opacity="0.85"/>
             </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,10,0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Height="123" Width="382" >
-                <StackPanel.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#7FC5BCBC" Offset="0"/>
-                        <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                    </LinearGradientBrush>
-                </StackPanel.Background>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Background="White"  >
                 <StackPanel.Effect>
                     <DropShadowEffect/>
                 </StackPanel.Effect>
-                <Grid>
+                
+                <Grid Margin="10,20,10,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                                          
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Usuario" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" FontWeight="Bold"/>
-                    <TextBox x:Name="tbUsuarioAcess" MinWidth="200" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Label Content="Contraseña" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" FontWeight="Bold"/>
-                    <PasswordBox MinWidth="200" Margin="5,5,5,5" Grid.Column="1" Grid.Row="1" x:Name="passAcess" Grid.ColumnSpan="3"/>
-                    <Button Content="Acceder" Grid.Column="1" Grid.Row="2" Margin="5,5,5,5" x:Name="btAcceso" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                    <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch">
+                        <Label Content="Acceso a empleados" FontSize="18" HorizontalAlignment="Center" Foreground="White" x:Name="LoginHeader" ></Label>
+                    </materialDesign:ColorZone>
+                    <TextBox x:Name="tbUsuarioAcess"  Margin="5,50,10,20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" materialDesign:HintAssist.Hint="Usuario" HorizontalAlignment="Center" Width="250"/>
+                    <PasswordBox  Margin="5,20,5,20" Grid.Column="0" Grid.Row="2" x:Name="passAcess" Grid.ColumnSpan="3" materialDesign:HintAssist.Hint="Contraseña" HorizontalAlignment="Center" Width="250"/>
+                    <Button Content="Acceder" Grid.Column="0" Grid.Row="3" Margin="5,10,5,5" x:Name="btAcceso" FontWeight="Bold" Grid.ColumnSpan="2" Click="BtAcceso_Click" Height="Auto" HorizontalAlignment="Center"/>
 
                 </Grid>
 
             </StackPanel>
-
+            
         </Grid>
-        <Grid x:Name="gridGestion">
+        <Grid x:Name="gridGestion" Visibility="Visible">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
@@ -267,14 +252,14 @@
                     </TabItem.Header>
                     <DockPanel LastChildFill="True">
                         <Label Content="Clientes" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  Margin="0,10,0,0" />
-                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10,20,10,5">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <Label Content="Email" Margin="5,5,5,5"></Label>
                             <TextBox x:Name="tbBuscadorCli" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="BtBuscarCli" Click="BtBuscarCli_Click">
                                 <Image x:Name="imgBuscarCli" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0,0,0,10">
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarCli" Click="BtAgregarCli_Click">
                                 <Image Source="Imagenes/add.png"></Image>
                             </Button>
@@ -313,7 +298,7 @@
 
                             </TabItem.Header>
                             <DockPanel>
-                                <Label Content="Citas" HorizontalAlignment="Center" FontSize="32" DockPanel.Dock="Top"/>
+                                <Label Content="Citas sin atender" HorizontalAlignment="Center" FontSize="32" DockPanel.Dock="Top"/>
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                                     <Label Content="Fecha" Margin="5,5,5,5"></Label>
                                     <DatePicker x:Name="dpFechaBusCita" Margin="5,5,5,5" Width="150"  Language="Es-es"></DatePicker>
@@ -334,7 +319,7 @@
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtEliminarCita" Click="BtEliminarCita_Click">
                                         <Image  Source="Imagenes/delete.png" ></Image>
                                     </Button>
-                                    <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarCit" Click="btEditarCit_Click">
+                                    <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="btEditarCit" Click="BtEditarCit_Click">
                                         <Image Source="Imagenes/editIcon.png" Width="auto" Height="auto"></Image>
                                     </Button>
                                     <Button   HorizontalAlignment="Left" Margin="10,10,10,10" x:Name="BtCheckear" Click="BtCheckear_Click" >
@@ -342,12 +327,13 @@
                                     </Button>
                                 </StackPanel>
 
-                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick">
+                                <DataGrid Margin="10,10,10,10" x:Name="dgCita"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DgCita_SelectionChanged" MouseDoubleClick="DgCita_MouseDoubleClick" SelectedIndex="0">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha , StringFormat='dd/MM/yyyy'}"/>
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
+                                        <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Servicio.Nombre}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
 
@@ -388,15 +374,16 @@
                                         <DataGridTextColumn Header="Hora" Width="1*" Binding="{Binding Path=Hora}"/>
                                         <DataGridTextColumn Header="Paciente" Width="2*" Binding="{Binding Path=Paciente.Nombre}" />
                                         <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Sanitario.Nombre}" />
+                                        <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=Servicio.Nombre}" />
                                     </DataGrid.Columns>
-                                    
+
                                 </DataGrid>
-                                
+
                             </DockPanel>
                         </TabItem>
                     </TabControl>
                 </TabItem>
-               
+
                 <TabItem  x:Name="tabVenta"  FontSize="18">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -406,21 +393,21 @@
                     </TabItem.Header>
                     <DockPanel LastChildFill="False">
                         <Label Content="Ventas" HorizontalAlignment="Center" DockPanel.Dock="Top" FontSize="32"/>
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
-                            <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListVen">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,5,10">
+                            <Label Content="Fecha" Margin="5,5,5,5"></Label>
+                            <DatePicker x:Name="DpFechaBuscVent" Width="150" Margin="5,5,5,5"  Language="Es-es"></DatePicker>
+                            <ComboBox Margin="20,5,5,5" x:Name="cbBuscarListVen">
                                 <ComboBoxItem Content="Todos" x:Name="cbListVenTodos" IsSelected="True"></ComboBoxItem>
                                 <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
                                 <ComboBoxItem Content="Email cliente"></ComboBoxItem>
-
-
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorListVen" Width="400"  Margin="5,5,5,5"></TextBox>
                             <Button   Margin="5,5,5,5" x:Name="BtBucarListVenta" Click="BtBucarListVenta_Click">
                                 <Image x:Name="imgBuscarListVen" Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
-                  
-                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom" Header="Lineas de venta" Margin="10,10,10,10"   IsExpanded="False"> 
+
+                        <Expander x:Name="expanderLineasVentaV" DockPanel.Dock="Bottom" Header="Lineas de venta" Margin="10,10,10,10"   IsExpanded="False">
                             <DataGrid x:Name="DgLineasVentaV" MinHeight="250" Margin="10,10,10,10" AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Producto" Width="2*" Binding="{Binding Path=Producto.NombreProducto}"/>
@@ -430,16 +417,22 @@
 
                             </DataGrid>
                         </Expander>
-                        
+
 
                         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtElimarVenta" Click="BtElimarVenta_Click">
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaExcel">
+                                <Image Source="Imagenes/excel.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos">
+                                <Image Source="Imagenes/charts.png"></Image>
                             </Button>
                         </StackPanel>
                         <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgVentas_SelectionChanged">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta}"/>
+                                <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=FechaVenta, StringFormat='dd/MM/yyyy'}"/>
                                 <DataGridTextColumn Header="Empleado" Width="2*" Binding="{Binding Path=EmpleadoVenta.Nombre}"/>
                                 <DataGridTextColumn Header="Cliente" Width="2*" Binding="{Binding Path=ClienteVenta.Nombre}" />
                             </DataGrid.Columns>
@@ -459,31 +452,76 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
+
                         <Grid Grid.Column="0" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="5*"/>
-                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
                             </Grid.RowDefinitions>
                             <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                <Label Content="Cetegoria" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                                <Label Content="Categoría" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
                             </materialDesign:ColorZone>
+                            <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0,10">
+                                <Button x:Name="BTSelectCatTodos" Margin="10,10,10,10" Background="DarkGreen" Click="BTSelectCatTodos_Click" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Todos" Foreground="White"></Label>
+
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatMedicamento" Margin="10,10,10,10" Background="DarkCyan" Click="BTSelectCatMedicamento_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Medicamento" Foreground="White"></Label>
+                                        <Image Source="Imagenes/medicine.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatAccesorio" Margin="10,10,10,10" Background="DarkSalmon" Click="BTSelectCatAccesorio_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Accesorios" Foreground="White"></Label>
+                                        <Image Source="Imagenes/collar.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BTSelectCatAlimento" Margin="10,10,10,10" Background="DarkBlue" Click="BTSelectCatAlimento_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Alimentos" Foreground="White"></Label>
+                                        <Image Source="Imagenes/petFood.png" Width="20" Height="20" HorizontalAlignment="Right"></Image>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                            Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
+                                    <Label Content="Cliente" FontSize="22" HorizontalAlignment="Center" Foreground="White"></Label>
+                                </materialDesign:ColorZone>
+
+                                <ComboBox Grid.Row="1" Margin="5,5,5,5" x:Name="cbClientTPV" SelectionChanged="CbClientTPV_SelectionChanged" DisplayMemberPath = "Email" SelectedValuePath = "ClienteId" SelectedIndex="0"></ComboBox>
+                            </Grid>
                         </Grid>
-                        <Grid  Grid.Column="1">
+
+                        <Grid  Grid.Column="1" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
-                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="7*"/>
                             </Grid.RowDefinitions>
                             <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
-                                <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
+                                <Label Content="Productos" FontSize="28" HorizontalAlignment="Center" Foreground="White" x:Name="lListProd"></Label>
                             </materialDesign:ColorZone>
+                            <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1">
+                                <WrapPanel  x:Name="tpv_dock_productos" Margin="0,0,0,10" ScrollViewer.CanContentScroll="True"></WrapPanel>
+                            </ScrollViewer>
+
                         </Grid>
+
                         <Grid  Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
-                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="5*"/>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
@@ -491,10 +529,142 @@
                                             Mode="PrimaryMid" Grid.Row="0" VerticalAlignment="Center" Margin="5,5,5,5">
                                 <Label Content="Factura" FontSize="28" HorizontalAlignment="Center" Foreground="White"></Label>
                             </materialDesign:ColorZone>
+                            <DataGrid Grid.Row="1" x:Name="dgridTPV"  AutoGenerateColumns="False"  Margin="5,5,5,5" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Producto" Binding="{Binding Path=Producto.NombreProducto}" Width="3*"/>
+                                    <DataGridTextColumn Header="Precio unidad" Binding="{Binding Path=Producto.Precio}" Width="*"/>
+                                    <DataGridTextColumn Header="Cantidad" Binding="{Binding Path=Cantidad}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" Background="Gold">
+                                <Label Content="Total:" VerticalAlignment="Center" FontSize="28"></Label>
+                                <Label x:Name="TPVTotal" Content="0.00" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+                                <Button x:Name="BtCancelarVentaTPV" Content="Cancelar" Margin="10,10,10,10" Click="BtCancelarVentaTPV_Click"></Button>
+                                <Button x:Name="BtConfirmarVentaTPV" Content="confirmar" Margin="10,10,10,10" Click="BtConfirmarVentaTPV_Click"></Button>
+                            </StackPanel>
                         </Grid>
-                     
+
                     </Grid>
-                   
+
+                </TabItem>
+                <TabItem  x:Name="tabEstadoIngresados"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/hospital.png" Margin="5,10,5,10"/>
+                            <Label Content="Ingresados"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel>
+                    <Label DockPanel.Dock="Top" Content="Ingresados" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="32"></Label>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
+                            <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListIngresados">
+                                <ComboBoxItem Content="Todos" x:Name="cbListIngresadosTodos" IsSelected="True"></ComboBoxItem>
+                                <ComboBoxItem Content="Nombre mascota"></ComboBoxItem>
+                                <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox x:Name="tbBuscadorListIngresados" Width="400"  Margin="5,5,5,5"></TextBox>
+                            <Button   Margin="5,5,5,5" x:Name="BtBucarListIngresados" Click="BtBucarListIngresados_Click">
+                                <Image  Source="Imagenes/lupa.png"/>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="10,10,10,10">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtAgregarIngresado" Click="BtAgregarIngresado_Click" >
+                                <Image Source="Imagenes/add.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtBorrarIngresado" Click="BtBorrarIngresado_Click">
+                                <Image  Source="Imagenes/delete.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtDarAltaIngresado" Click="BtDarAltaIngresado_Click">
+                                <Image Source="Imagenes/exit.png" Width="auto" Height="auto"></Image>
+                            </Button>
+                        </StackPanel>
+                        <DataGrid x:Name="dgIngresados" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True" SelectedIndex="0" SelectionChanged="DgIngresados_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Foto" Width="SizeToCells" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Path=Paciente.Imagen}" Width="135" Height="100"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Nombre mascota" Width="3*" Binding="{Binding Path=Paciente.Nombre}"/>
+                            <DataGridTextColumn Header="Usuario empleado" Width="3*" Binding="{Binding Path=Empleado.Usuario}"/>
+                            <DataGridTextColumn Header="Fecha ingreso" Width="3*" Binding="{Binding Path=Fecha, StringFormat='dd/MM/yyyy'}"/>
+                            <DataGridTextColumn Header="Temperatura" Width="2*" Binding="{Binding Path=Temperatura}"/>
+                            <DataGridTextColumn Header="Frecuencia cardiaca" Width="2*" Binding="{Binding Path=FrecuenciaCardiaca}"/>
+                            <DataGridTextColumn Header="Frecuencia Respiratoria" Width="2*" Binding="{Binding Path=FrecuenciaRespiratoria}"/>
+                            </DataGrid.Columns>
+                    </DataGrid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem  x:Name="tabDatosPers"  FontSize="18">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Imagenes/misDatos.png" Margin="5,10,5,10"/>
+                            <Label Content="Datos personales"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid x:Name="gridEmpleadoActual" Margin="10,10,10,10" HorizontalAlignment="Center" MinWidth="950" MaxWidth="1650">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="lgridEmpTitulo" Content="Datos de mi cuenta" FontSize="32" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                        <Label Content="Nombre" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbNombreEmp" Grid.Column="1" Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Nombre, Mode=TwoWay}"></TextBox>
+
+                        <Label Content="Apellidos" Grid.Column="0" Grid.Row="2" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbApellidosEmp" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" Margin="10,10,10,10"  Text="{Binding Path=Apellidos, Mode=TwoWay}"></TextBox>
+                        <Label Content="Tipo" Grid.Column="0" Grid.Row="3" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="10,11" x:Name="cbTipoEmp" Text="{Binding Path=Tipo}" Grid.ColumnSpan="1">
+                            <ComboBoxItem Content="Sanitario"></ComboBoxItem>
+                            <ComboBoxItem Content="Dependiente"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Titulacion" Grid.Column="0" Grid.Row="4" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbTitulacionEmp" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Path=Titulacion, Mode=TwoWay}" Margin="10,10,10,10"/>
+                        <Label Content="Direccion" Grid.Column="0" Grid.Row="5" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Margin="10,10,10,10" Text="{Binding Path=Direccion}"/>
+                        <Label Content="Telefono" Grid.Column="0" Grid.Row="6" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Margin="10,10,10,10" Text="{Binding Path=Telefono, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                        <Label Content="Movil" Grid.Column="0" Grid.Row="7" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Margin="10,10,10,10" Grid.ColumnSpan="3" Text="{Binding Path=Movil, Mode=TwoWay}"/>
+
+                        <Label Content="Email" Grid.Column="0" Grid.Row="8" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="8" Margin="10,10,10,10" Text="{Binding Path=Email, Mode=TwoWay}" Grid.ColumnSpan="3"/>
+                        <Label Grid.Column="0" Grid.Row="9" Content="Usuario" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox x:Name="tbUsuarioEmp" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="10,10,10,10" Text="{Binding Path=Usuario, Mode=TwoWay}"/>
+                        <Label Grid.Column="0" Grid.Row="10" Content="Contraseña" Margin="10,0,10,10"  VerticalAlignment="Bottom"/>
+                        <TextBox Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,10,10,10" Text="{Binding Path=Contraseña, Mode=TwoWay}" x:Name="tbContraseñaEmp"/>
+                        <Label Grid.Column="3" Grid.Row="10" Content="Confirmar" Margin="0,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                        <TextBox x:Name="tbConfirmContraseñaEmp" Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Margin="10,10,10,10"  Text="{Binding Path=Contraseña, Mode=OneTime}" />
+
+                        <Button x:Name="BtGuardarEmp" Content="Modificar" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="12" Margin="5,10,5,10" Click="BtGuardarEmp_Click"/>
+
+
+                    </Grid>
                 </TabItem>
             </TabControl>
 

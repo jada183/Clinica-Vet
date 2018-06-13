@@ -31,7 +31,7 @@ namespace ClinicaVeterinaria
         {
             InitializeComponent();
             prod= p;
-            listProv = MainWindow.uow.RepositorioProveedor.obtenerTodos();
+            listProv = MainWindow.uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true);
             dgProveedor.ItemsSource = listProv;
            
         }
@@ -64,7 +64,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                prov = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProv.Text);
+                prov = MainWindow.uow.RepositorioProveedor.obtenerUno(c => c.Email == tbBuscadorProv.Text && c.Habilitado==true);
                 if(prov!= null)
                 {
                     listProv = new List<Proveedor>();
@@ -84,7 +84,7 @@ namespace ClinicaVeterinaria
         //muestra todos los proveedores en datagrid de ventana
         private void BtMostrarTodos_Click(object sender, RoutedEventArgs e)
         {
-            listProv = MainWindow.uow.RepositorioProveedor.obtenerTodos();
+            listProv = MainWindow.uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true);
             dgProveedor.ItemsSource = listProv;
         }
         //cambia el producto seleccionado 

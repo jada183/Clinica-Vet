@@ -41,6 +41,8 @@ namespace ClinicaVeterinaria.MODEL
         public string Email { get; set; }
 
         public ICollection<Producto> Productos { get; set; }
+        
+        public bool Habilitado { get; set; }
 
 }
 }

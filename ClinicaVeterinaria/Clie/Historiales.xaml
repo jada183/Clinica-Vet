@@ -44,10 +44,10 @@
             <Label Content="Fecha" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10"/>
             <DatePicker x:Name="dpHistorialFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyyy'}" Language="Es-es" />
             <Label Content="Empleado" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"/>
-            <ComboBox x:Name="cbListEmpHis" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Nombre" SelectedValuePath="Usuario">
+            <ComboBox x:Name="cbListEmpHis" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Usuario" SelectedValuePath="Usuario" SelectedItem="{Binding Path=Empleado, Mode=TwoWay}">
             </ComboBox>
             <Label Content="Detalles" Grid.Column="1" Grid.Row="4" Margin="10,10,10,10"></Label>
-            <TextBox x:Name="tbDetallesHistorial" Margin="10,10,10,10" MinLines="5" MaxLines="10" Text="{Binding Path=Detalles, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"  Grid.ColumnSpan="4" Grid.RowSpan="2" TextWrapping="Wrap"/>
+            <TextBox x:Name="tbDetallesHistorial" Margin="10,10,10,10" MinLines="5" MaxLines="10" Text="{Binding Path=Detalles, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"  Grid.ColumnSpan="4" Grid.RowSpan="2" TextWrapping="Wrap" Style="{StaticResource MaterialDesignTextAreaTextBox}"/>
             <Button x:Name="btGuardarHis" Content="guardar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="7" Margin="10,10,10,10" Click="btGuardarHis_Click"/>
 
 
@@ -68,7 +68,7 @@
         <DataGrid x:Name="dgHistorial" Margin="10,10,10,10" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgHistorial_SelectionChanged" MouseDoubleClick="DgHistorial_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Width="2*" Binding="{Binding Path=Enfermedad}"/>
-               
+                <DataGridTextColumn Header="gestionada por:" Width="2*" Binding="{Binding Path=Empleado.Nombre}"/>
                 <DataGridTextColumn Header="Fecha" Width="2*" Binding="{Binding Path=Fecha}"/>
             </DataGrid.Columns>
         </DataGrid>

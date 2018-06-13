@@ -23,14 +23,24 @@ namespace ClinicaVeterinaria
         Paciente pac;
         Cita cita;
         Cliente cl;
+        EstadoIngresado ei;
+        String tipoEntrada = "";
         public BuscadorPac(Object obj)
         {
             InitializeComponent();
-            CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+            CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.Habilitado==true));
+           
             try
             {
                 cita = (Cita)obj;
-              
+                tipoEntrada = "cita";
+            }
+            catch {
+            }
+            try
+            {
+                ei = (EstadoIngresado)obj;
+                tipoEntrada = "ingresado";
             }
             catch { }
             
@@ -80,34 +90,69 @@ namespace ClinicaVeterinaria
 
         private void DgPaciente_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            try
+            if (tipoEntrada == "cita")
             {
-                pac = (Paciente)dgPaciente.SelectedItem;
-                if (pac.PacienteId > 0)
+                try
                 {
-                    cita.PacienteId = pac.PacienteId;
-                    cita.Paciente = pac;
-                    if (Validado(cita))
+                    pac = (Paciente)dgPaciente.SelectedItem;
+                    if (pac.PacienteId > 0)
                     {
-                        if (cita.CitaId > 0)
+                        cita.PacienteId = pac.PacienteId;
+                        cita.Paciente = pac;
+                        if (Validado(cita))
                         {
-                            MainWindow.uow.RepositorioCita.actualizar(cita);
+                            if (cita.CitaId > 0)
+                            {
+                                MainWindow.uow.RepositorioCita.actualizar(cita);
+                            }
+
                         }
-                        
+                        else
+                        {
+
+                        }
+                        this.Close();
                     }
                     else
                     {
-
+                        MessageBox.Show("Seleccione una mascota");
                     }
                     this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione una mascota");
-                }
-                this.Close();
+                catch { }
             }
-            catch { }
+            else
+            {
+                try
+                {
+                    pac = (Paciente)dgPaciente.SelectedItem;
+                    if (pac.PacienteId > 0)
+                    {
+                        ei.PacienteId = pac.PacienteId;
+                        ei.Paciente = pac;
+                        if (Validado(ei))
+                        {
+                            if (ei.EstadoIngresadoId > 0)
+                            {
+                                MainWindow.uow.RepositorioEstadoIngresado.actualizar(ei);
+                            }
+
+                        }
+                        else
+                        {
+
+                        }
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Seleccione una mascota");
+                    }
+                    this.Close();
+                }
+                catch { }
+            }
+         
         }
 
         private void BtBuscarListPac_Click(object sender, RoutedEventArgs e)
@@ -117,7 +162,7 @@ namespace ClinicaVeterinaria
                 cl = MainWindow.uow.RepositorioCliente.obtenerUno(c => c.Email == tbBuscadorPac.Text);
                 if (cl.ClienteId > 0)
                 {
-                    CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.ClienteId==cl.ClienteId));
+                    CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.ClienteId==cl.ClienteId && c.Habilitado==true));
                 }
                 else
                 {
@@ -134,7 +179,7 @@ namespace ClinicaVeterinaria
         {
             try
             {
-                CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerTodos());
+                CargarDgPacientes(MainWindow.uow.RepositorioPaciente.obtenerVarios(c=>c.Habilitado==true));
             }
             catch
             {
@@ -144,34 +189,67 @@ namespace ClinicaVeterinaria
 
         private void BtSeleccionarPac_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (tipoEntrada == "cita")
             {
-                if (pac.PacienteId > 0)
+                try
                 {
-                    cita.PacienteId = pac.PacienteId;
-                    cita.Paciente = pac;
-                    if (Validado(cita))
+                    pac = (Paciente)dgPaciente.SelectedItem;
+                    if (pac.PacienteId > 0)
                     {
-                        if (cita.CitaId > 0)
+                        cita.PacienteId = pac.PacienteId;
+                        cita.Paciente = pac;
+                        if (Validado(cita))
                         {
-                            MainWindow.uow.RepositorioCita.actualizar(cita);
+                            if (cita.CitaId > 0)
+                            {
+                                MainWindow.uow.RepositorioCita.actualizar(cita);
+                            }
+
                         }
-                        
+                        else
+                        {
+
+                        }
+                        this.Close();
                     }
                     else
                     {
-
+                        MessageBox.Show("Seleccione una mascota");
                     }
                     this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione una mascota");
-                }
+                catch { }
             }
-            catch
+            else
             {
+                try
+                {
+                    pac = (Paciente)dgPaciente.SelectedItem;
+                    if (pac.PacienteId > 0)
+                    {
+                        ei.PacienteId = pac.PacienteId;
+                        ei.Paciente = pac;
+                        if (Validado(ei))
+                        {
+                            if (ei.EstadoIngresadoId > 0)
+                            {
+                                MainWindow.uow.RepositorioEstadoIngresado.actualizar(ei);
+                            }
 
+                        }
+                        else
+                        {
+
+                        }
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Seleccione una mascota");
+                    }
+                    this.Close();
+                }
+                catch { }
             }
         }
     }

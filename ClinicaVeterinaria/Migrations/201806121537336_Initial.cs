@@ -17,7 +17,7 @@ namespace ClinicaVeterinaria.Migrations
                         PacienteId = c.Int(),
                         EmpleadoId = c.Int(),
                         ServicioId = c.Int(),
-                        Causa = c.String(maxLength: 80),
+                        Causa = c.String(maxLength: 250),
                         Atendida = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.CitaId)
@@ -43,6 +43,7 @@ namespace ClinicaVeterinaria.Migrations
                         Sexo = c.String(nullable: false),
                         Ingresado = c.Boolean(nullable: false),
                         ClienteId = c.Int(),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.PacienteId)
                 .ForeignKey("dbo.Cliente", t => t.ClienteId)
@@ -84,6 +85,8 @@ namespace ClinicaVeterinaria.Migrations
                         Direccion = c.String(),
                         Email = c.String(nullable: false, maxLength: 40),
                         Contraseña = c.String(nullable: false, maxLength: 12),
+                        Permiso = c.String(),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.EmpleadoId);
             
@@ -95,7 +98,7 @@ namespace ClinicaVeterinaria.Migrations
                         Fecha = c.DateTime(nullable: false),
                         PacienteId = c.Int(),
                         Enfermedad = c.String(nullable: false, maxLength: 80),
-                        Detalles = c.String(),
+                        Detalles = c.String(maxLength: 250),
                         EmpleadoId = c.Int(),
                     })
                 .PrimaryKey(t => t.HistorialClinicoId)
@@ -160,6 +163,7 @@ namespace ClinicaVeterinaria.Migrations
                         Movil = c.String(),
                         Direccion = c.String(maxLength: 120),
                         Email = c.String(nullable: false),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ClienteId);
             
@@ -193,6 +197,7 @@ namespace ClinicaVeterinaria.Migrations
                         Stock = c.Int(nullable: false),
                         Categoria = c.String(),
                         ProveedorId = c.Int(),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ProductoId)
                 .ForeignKey("dbo.Proveedor", t => t.ProveedorId)
@@ -209,6 +214,7 @@ namespace ClinicaVeterinaria.Migrations
                         Movil = c.String(),
                         Direccion = c.String(maxLength: 120),
                         Email = c.String(nullable: false),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ProveedorId);
             
@@ -221,6 +227,7 @@ namespace ClinicaVeterinaria.Migrations
                         CosteServicio = c.Double(nullable: false),
                         Descripcion = c.String(maxLength: 250),
                         Tiempo = c.Int(nullable: false),
+                        Habilitado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ServicioId);
             

@@ -39,5 +39,7 @@ namespace ClinicaVeterinaria.MODEL
 
         public virtual Proveedor Proveedor{ get; set; }
         public int? ProveedorId { get; set; }
+
+        public bool Habilitado { get; set; }
     }
 }

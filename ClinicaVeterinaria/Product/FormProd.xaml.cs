@@ -96,10 +96,11 @@ namespace ClinicaVeterinaria
 
         private void BtGuardarProd_Click(object sender, RoutedEventArgs e)
         {
+            pr.Habilitado = true;
             if (Validado(pr)) { 
                 if (NuevoProd) {
                     Producto prodAux = new Producto();
-                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca);
+                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca && c.Habilitado==true);
                     if (prodAux == null)
                     {
                         try
@@ -107,8 +108,8 @@ namespace ClinicaVeterinaria
                             MainWindow.uow.RepositorioProducto.crear(pr);
                             MessageBox.Show("se ha guardado correctamente el producto");
                             modificado = true;
-                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
-
+                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true));
+                            
                             this.Close();
                         }
                         catch
@@ -127,7 +128,7 @@ namespace ClinicaVeterinaria
                 else
                 {
                     Producto prodAux = new Producto();
-                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca && c.ProductoId!=pr.ProductoId);
+                    prodAux = MainWindow.uow.RepositorioProducto.obtenerUno(c => c.NombreProducto == pr.NombreProducto && c.NombreMarca == pr.NombreMarca && c.ProductoId!=pr.ProductoId  && c.Habilitado==true);
                     if (prodAux == null)
                     {
                         try
@@ -135,8 +136,9 @@ namespace ClinicaVeterinaria
 
                             MainWindow.uow.RepositorioProducto.actualizar(pr);
                             MessageBox.Show("se ha modificado correctamente el producto");
+                           
                             modificado = true;
-                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
+                            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true));
 
                             this.Close();
                         }
@@ -218,9 +220,9 @@ namespace ClinicaVeterinaria
                 {
                     case MessageBoxResult.Yes:
 
-
-                        MainWindow.uow.RepositorioProducto.eliminar(pr);
-                        main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
+                        pr.Habilitado = false;
+                        MainWindow.uow.RepositorioProducto.actualizar(pr);
+                        main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerVarios(c=> c.Habilitado==true));
                         this.Close();
                         break;
                     case MessageBoxResult.No:
@@ -244,7 +246,8 @@ namespace ClinicaVeterinaria
             {
                 RecuperarValoresProdEntrada();
             }
-            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerTodos());
+            main.CargardgProductos(MainWindow.uow.RepositorioProducto.obtenerVarios(c=>c.Habilitado==true));
+            main.CargarTPVproductos_todos("Todos");
         }
 
 

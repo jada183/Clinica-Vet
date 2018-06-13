@@ -42,7 +42,7 @@
                 <Label Content="Fecha" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10"/>
                 <DatePicker x:Name="dpVacunaFecha" Grid.Column="2" Grid.Row="2" Margin="10,10,10,10" Grid.ColumnSpan="2" SelectedDate="{Binding Path=Fecha, Mode=TwoWay, StringFormat='dd/MM/yyyy'}" Language="Es-es"/>
                 <Label Content="Empleado" Grid.Column="1" Grid.Row="3" Margin="10,10,10,10"/>
-                <ComboBox x:Name="cbListEmpVac" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Usuario" SelectedValuePath="EmpleadoId" />
+                <ComboBox x:Name="cbListEmpVac" Grid.Column="2" Grid.Row="3" Margin="10,10,10,10" Grid.ColumnSpan="2" DisplayMemberPath="Usuario" SelectedValuePath="Usuario" SelectedItem="{Binding Path=Empleado, Mode=TwoWay}"/>
 
                 <Button x:Name="btGuardarHor" Content="guardar" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="6" Margin="10,10,10,10" Click="BtGuardarHor_Click"/>
 
