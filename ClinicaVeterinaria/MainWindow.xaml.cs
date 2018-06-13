@@ -1622,6 +1622,28 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("seleccione un ingresado");
             }
         }
+        private void BtBucarListIngresados_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cbBuscarListIngresados.Text == "Todos")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerTodos());
+                }
+                else if (cbBuscarListIngresados.Text == "Nombre mascota")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerVarios(c => c.Paciente.Nombre == tbBuscadorListIngresados.Text));
+                }
+                else if (cbBuscarListIngresados.Text == "Usuario empleado")
+                {
+                    CargardgIngresado(uow.RepositorioEstadoIngresado.obtenerVarios(c => c.Empleado.Usuario == tbBuscadorListIngresados.Text));
+                }
+            }
+            catch
+            {
+               
+            }
+        }
         #endregion
 
         private void Window_Closed(object sender, EventArgs e)
@@ -1647,7 +1669,7 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
-
        
+
     }
 }

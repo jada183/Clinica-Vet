@@ -555,11 +555,11 @@
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                             <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListIngresados">
                                 <ComboBoxItem Content="Todos" x:Name="cbListIngresadosTodos" IsSelected="True"></ComboBoxItem>
-                                <ComboBoxItem Content="Tipo"></ComboBoxItem>
-                                <ComboBoxItem Content="Titulacion"></ComboBoxItem>
+                                <ComboBoxItem Content="Nombre mascota"></ComboBoxItem>
+                                <ComboBoxItem Content="Usuario empleado"></ComboBoxItem>
                             </ComboBox>
                             <TextBox x:Name="tbBuscadorListIngresados" Width="400"  Margin="5,5,5,5"></TextBox>
-                            <Button   Margin="5,5,5,5" x:Name="BtBucarListIngresados">
+                            <Button   Margin="5,5,5,5" x:Name="BtBucarListIngresados" Click="BtBucarListIngresados_Click">
                                 <Image  Source="Imagenes/lupa.png"/>
                             </Button>
                         </StackPanel>
