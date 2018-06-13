@@ -330,6 +330,12 @@
   <ItemGroup>
     <Resource Include="Imagenes\exit.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\charts.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

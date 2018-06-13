@@ -423,6 +423,12 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtElimarVenta" Click="BtElimarVenta_Click">
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
                             </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaExcel">
+                                <Image Source="Imagenes/excel.png"></Image>
+                            </Button>
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos">
+                                <Image Source="Imagenes/charts.png"></Image>
+                            </Button>
                         </StackPanel>
                         <DataGrid x:Name="DgVentas" Margin="10,5,10,20" AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True" SelectionChanged="DgVentas_SelectionChanged">
                             <DataGrid.Columns>
@@ -583,12 +589,12 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Nombre mascota" Width="2*" Binding="{Binding Path=Paciente.Nombre}"/>
-                            <DataGridTextColumn Header="Usuario empleado" Width="2*" Binding="{Binding Path=Empleado.Usuario}"/>
-                            <DataGridTextColumn Header="Fecha ingreso" Width="2*" Binding="{Binding Path=Fecha, StringFormat='dd/MM/yyyy'}"/>
-                            <DataGridTextColumn Header="Temperatura" Width="1*" Binding="{Binding Path=Temperatura}"/>
-                            <DataGridTextColumn Header="Frecuencia cardiaca" Width="1*" Binding="{Binding Path=FrecuenciaCardiaca}"/>
-                            <DataGridTextColumn Header="Frecuencia Respiratoria" Width="1*" Binding="{Binding Path=FrecuenciaRespiratoria}"/>
+                            <DataGridTextColumn Header="Nombre mascota" Width="3*" Binding="{Binding Path=Paciente.Nombre}"/>
+                            <DataGridTextColumn Header="Usuario empleado" Width="3*" Binding="{Binding Path=Empleado.Usuario}"/>
+                            <DataGridTextColumn Header="Fecha ingreso" Width="3*" Binding="{Binding Path=Fecha, StringFormat='dd/MM/yyyy'}"/>
+                            <DataGridTextColumn Header="Temperatura" Width="2*" Binding="{Binding Path=Temperatura}"/>
+                            <DataGridTextColumn Header="Frecuencia cardiaca" Width="2*" Binding="{Binding Path=FrecuenciaCardiaca}"/>
+                            <DataGridTextColumn Header="Frecuencia Respiratoria" Width="2*" Binding="{Binding Path=FrecuenciaRespiratoria}"/>
                             </DataGrid.Columns>
                     </DataGrid>
                     </DockPanel>
