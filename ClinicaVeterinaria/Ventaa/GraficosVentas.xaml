@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClinicaVeterinaria.Ventaa"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="GraficosVentas" Height="450" Width="800"
+        Title="GraficosVentas" Height="750" Width="800"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -16,8 +16,13 @@
         ResizeMode="CanResizeWithGrip"
         >
     <Grid>
-        <Grid  x:Name="tabGrafico1">
-            <oxy:PlotView Model="{Binding GraficoMayoresVentas}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid  x:Name="tabGrafico1" Grid.Row="0" >
+            <oxy:PlotView Model="{Binding GraficoMayoresVentas}" />
         </Grid>
     </Grid>
     
