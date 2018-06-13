@@ -21,7 +21,7 @@ using ClinicaVeterinaria.Clie;
 using ClinicaVeterinaria.Citass;
 using ClinicaVeterinaria.Ingresadoo;
 using System.ComponentModel.DataAnnotations;
-
+using ClinicaVeterinaria.Ventaa;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -1669,7 +1669,11 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
-       
 
+        private void BtVentaGraficos_Click(object sender, RoutedEventArgs e)
+        {
+            GraficosVentas gv = new GraficosVentas();
+            gv.ShowDialog();
+        }
     }
 }

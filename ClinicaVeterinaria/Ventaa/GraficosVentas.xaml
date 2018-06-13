@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria.Ventaa"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="GraficosVentas" Height="450" Width="800"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,8 +13,12 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        >
     <Grid>
-        
+        <Grid  x:Name="tabGrafico1">
+            <oxy:PlotView Model="{Binding GraficoMayoresVentas}"/>
+        </Grid>
     </Grid>
+    
 </Window>
