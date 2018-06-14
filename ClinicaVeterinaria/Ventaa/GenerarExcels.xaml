@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria.Ventaa"
         mc:Ignorable="d"
-        Title="GenerarExcels" Height="472" Width="526.336"
+        Title="GenerarExcels" Height="556" Width="526.336"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -14,7 +14,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip">
     <Grid>
-        <Label Content="Generar Excels" HorizontalAlignment="Center" FontSize="32" Margin="10,10,10,10" Foreground="Green"></Label>
+        <Label Content="Generar Excel" HorizontalAlignment="Center" FontSize="32" Margin="10,10,10,10" Foreground="Green"></Label>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <Button HorizontalAlignment="Center" Margin="10,10,10,30" x:Name="BtGenExcelMisVent" Width="250" Click="BtGenExcelMisVent_Click">
                 <StackPanel Orientation="Horizontal">
@@ -42,16 +42,16 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <Label Content="Nombre del producto" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"></Label>
-                <TextBox HorizontalAlignment="Center" Grid.Row="1" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2"></TextBox>
-                <Label Content="marca del producto" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" ></Label>
-                <TextBox HorizontalAlignment="Center" Grid.Row="3" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2"></TextBox>
-                <Button Content="Aceptar" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10" x:Name="BtAceptarExcelProd"></Button>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbNombreProd"></TextBox>
+                <Label Content="marca del producto" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2"></Label>
+                <TextBox HorizontalAlignment="Center" Grid.Row="3" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbMarcaProd"></TextBox>
+                <Button Content="Aceptar" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10" x:Name="BtAceptarExcelProd" Click="BtAceptarExcelProd_Click"></Button>
                 <Button Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" x:Name="BtCancelarExcelProd" Click="BtCancelarExcelProd_Click"></Button>
 
             </Grid>
             <Button HorizontalAlignment="Center" x:Name="BtGenExcelCompClient" Margin="10,30,10,10"  Width="250">
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Ventas de un producto" Foreground="White" Margin="0,0,5,0"></Label>
+                    <Label Content="Compras de cliente" Foreground="White" Margin="0,0,5,0"></Label>
                     <Image Source="../Imagenes/excel.png"></Image>
                 </StackPanel>
             </Button>
