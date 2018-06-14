@@ -86,7 +86,7 @@ namespace ClinicaVeterinaria
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
 
             //temporal
-            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+            //EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
 
             //ingresados
             dgIngresados.ItemsSource = uow.RepositorioEstadoIngresado.obtenerTodos();
@@ -1506,6 +1506,8 @@ namespace ClinicaVeterinaria
                     gridGestion.Visibility = Visibility.Visible;
                     gridEmpleadoActual.DataContext = EmpActual;
                     this.WindowState = WindowState.Maximized;
+                    this.Width = 1050;
+                    this.Height = 650;
 
                 }
                 else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
@@ -1518,6 +1520,8 @@ namespace ClinicaVeterinaria
                     tabEmp.Visibility = Visibility.Collapsed;
                     gridEmpleadoActual.DataContext = EmpActual;
                     this.WindowState = WindowState.Maximized;
+                    this.Width = 1050;
+                    this.Height = 650;
                 }
             }
             else
@@ -1678,7 +1682,7 @@ namespace ClinicaVeterinaria
 
         private void BtVentaExcel_Click(object sender, RoutedEventArgs e)
         {
-            GenerarExcels gexel = new GenerarExcels();
+            GenerarExcels gexel = new GenerarExcels(EmpActual);
             gexel.ShowDialog();
         }
     }

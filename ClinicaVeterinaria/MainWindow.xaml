@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1595"
+        Title="MainWindow" Height="450" Width="450"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -19,7 +19,7 @@
         >
     <Grid x:Name="gridPrueba">
 
-        <Grid x:Name="gridAcceso" Visibility="Hidden">
+        <Grid x:Name="gridAcceso" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="Imagenes/fondoLoginColores.jpeg" Opacity="0.85"/>
             </Grid.Background>
@@ -54,7 +54,7 @@
             </StackPanel>
             
         </Grid>
-        <Grid x:Name="gridGestion" Visibility="Visible">
+        <Grid x:Name="gridGestion" Visibility="Hidden">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
