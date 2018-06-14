@@ -111,7 +111,6 @@
                                 <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=Precio}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
                     </DockPanel>
                 </TabItem>
                 <TabItem  x:Name="tabServ"  FontSize="18">
