@@ -1675,5 +1675,11 @@ namespace ClinicaVeterinaria
             GraficosVentas gv = new GraficosVentas();
             gv.ShowDialog();
         }
+
+        private void BtVentaExcel_Click(object sender, RoutedEventArgs e)
+        {
+            GenerarExcels gexel = new GenerarExcels();
+            gexel.ShowDialog();
+        }
     }
 }

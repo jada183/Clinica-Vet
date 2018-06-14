@@ -127,6 +127,9 @@
     <Compile Include="Service\FormService.xaml.cs">
       <DependentUpon>FormService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventaa\GenerarExcels.xaml.cs">
+      <DependentUpon>GenerarExcels.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventaa\GraficosVentas.xaml.cs">
       <DependentUpon>GraficosVentas.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Service\FormService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventaa\GenerarExcels.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
