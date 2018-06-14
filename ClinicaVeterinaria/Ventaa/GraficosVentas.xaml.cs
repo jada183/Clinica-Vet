@@ -48,10 +48,11 @@ namespace ClinicaVeterinaria.Ventaa
             // Create the plot model
             try
             {
+               
                 var tmp = new PlotModel { Title = "Productos que aparecen en mas ventas", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
 
                 // Add the axes, note that MinimumPadding and AbsoluteMinimum should be set on the value axis.
-                tmp.Axes.Add(new CategoryAxis {  ItemsSource = MasVendidos, LabelField = "NombreProducto" });
+                tmp.Axes.Add(new CategoryAxis {  ItemsSource = MasVendidos, LabelField = "NombreProducto"});
                 tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, AbsoluteMinimum = 0 });
 
                 // Add the series, note that the BarSeries are using the same ItemsSource as the CategoryAxis.
@@ -75,8 +76,10 @@ namespace ClinicaVeterinaria.Ventaa
             }
             try
             {
-                var tmp = new PlotModel { Title = "productos que aparecen en menos ventas", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
+                
 
+                var tmp = new PlotModel { Title = "productos que aparecen en menos ventas", LegendPlacement = LegendPlacement.Outside, LegendPosition = LegendPosition.RightTop, LegendOrientation = LegendOrientation.Vertical };
+                
                 // Add the axes, note that MinimumPadding and AbsoluteMinimum should be set on the value axis.
                 tmp.Axes.Add(new CategoryAxis { ItemsSource = MenosVendidos, LabelField = "NombreProducto" });
                 tmp.Axes.Add(new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, AbsoluteMinimum = 0 });
@@ -86,6 +89,11 @@ namespace ClinicaVeterinaria.Ventaa
 
                 this.GraficoMenoresVentas = tmp;
 
+                GraficoMenoresVentas.DefaultColors = new List<OxyColor>
+                {
+                    OxyColors.Red
+                    
+                };
                 gridGrafico2.DataContext = this;
             }
             catch { }
@@ -108,6 +116,11 @@ namespace ClinicaVeterinaria.Ventaa
 
                 this.GraficoVentasEmpleado = tmp;
 
+                GraficoVentasEmpleado.DefaultColors = new List<OxyColor>
+                {
+                    OxyColor.FromRgb(67,31,137)
+
+                };
                 gridGrafico3.DataContext = this;
             }
             catch { }

@@ -19,7 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -38,5 +38,4 @@
             <oxy:PlotView Model="{Binding GraficoComprascliente}"/>
         </Grid>
     </Grid>
-    
 </Window>
