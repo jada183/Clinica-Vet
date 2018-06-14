@@ -49,12 +49,27 @@
                 <Button Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" x:Name="BtCancelarExcelProd" Click="BtCancelarExcelProd_Click"></Button>
 
             </Grid>
-            <Button HorizontalAlignment="Center" x:Name="BtGenExcelCompClient" Margin="10,30,10,10"  Width="250">
+            <Button HorizontalAlignment="Center" x:Name="BtGenExcelCompClient" Margin="10,30,10,10"  Width="250" Click="BtGenExcelCompClient_Click">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Compras de cliente" Foreground="White" Margin="0,0,5,0"></Label>
                     <Image Source="../Imagenes/excel.png"></Image>
                 </StackPanel>
             </Button>
+            <Grid x:Name="gridDatosCliente" HorizontalAlignment="Center"  Width="250" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Email del cliente" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbEmailCli"></TextBox>
+                <Button Content="Aceptar" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10" x:Name="BtAceptarExcelCli" Click="BtAceptarExcelCli_Click" ></Button>
+                <Button Content="Cancelar" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10" x:Name="BtCancelarExcelCli" Click="BtCancelarExcelCli_Click"></Button>
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>
