@@ -105,9 +105,12 @@ namespace ClinicaVeterinaria.Clie
         {
             try
             {
-
-                CargaNuevaVacuna(VacSelect);
-                modificar = true;
+                if (VacSelect.Nombre != null)
+                {
+                    CargaNuevaVacuna(VacSelect);
+                    modificar = true;
+                }
+               
             }
             catch
             {
@@ -201,6 +204,7 @@ namespace ClinicaVeterinaria.Clie
 
                         MainWindow.uow.RepositorioVacuna.eliminar(VacSelect);
                         dgVacuna.ItemsSource = MainWindow.uow.RepositorioVacuna.obtenerVarios(c => c.PacienteId == Paci.PacienteId);
+                        gridNuevaVacuna.Visibility = Visibility.Hidden;
                         //this.Close();
                         break;
                     case MessageBoxResult.No:
@@ -212,9 +216,9 @@ namespace ClinicaVeterinaria.Clie
                         break;
                 }
             }
-            catch(Exception erro)
+            catch
             {
-                MessageBox.Show(erro.Message);
+                MessageBox.Show("seleccione una vacuna");
             }
         }
     }

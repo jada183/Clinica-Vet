@@ -97,7 +97,7 @@ namespace ClinicaVeterinaria.Proveed
                             MainWindow.uow.RepositorioProveedor.crear(pv);
                             MessageBox.Show("se ha guardado correctamente el Proveedor");
                             modificado = true;
-                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
+                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerVarios(c=> c.Habilitado==true));
 
                             this.Close();
                         }
@@ -126,7 +126,7 @@ namespace ClinicaVeterinaria.Proveed
                             MainWindow.uow.RepositorioProveedor.actualizar(pv);
                             MessageBox.Show("se ha modificado correctamente el proveedor");
                             modificado = true;
-                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
+                            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerVarios(c=> c.Habilitado==true));
 
                             this.Close();
                         }
@@ -172,7 +172,7 @@ namespace ClinicaVeterinaria.Proveed
             {
                 RecuperarValoresProvEntrada();
             }
-            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
+            main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
         }
 
         private void BtEliminarProv_Click(object sender, RoutedEventArgs e)
@@ -199,7 +199,7 @@ namespace ClinicaVeterinaria.Proveed
                             MainWindow.uow.RepositorioProducto.actualizar(p);
                         }
                         MainWindow.uow.RepositorioProveedor.actualizar(pv);
-                        main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerTodos());
+                        main.CargardgProveedor(MainWindow.uow.RepositorioProveedor.obtenerVarios(c=>c.Habilitado==true));
                         this.Close();
                         break;
                     case MessageBoxResult.No:

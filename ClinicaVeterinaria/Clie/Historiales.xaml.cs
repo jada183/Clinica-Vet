@@ -201,6 +201,7 @@ namespace ClinicaVeterinaria.Clie
 
                         MainWindow.uow.RepositorioHistorialClinico.eliminar(HisSelect);
                         dgHistorial.ItemsSource = MainWindow.uow.RepositorioHistorialClinico.obtenerVarios(c => c.PacienteId == Paci.PacienteId);
+                        gridNuevoHistorial.Visibility = Visibility.Hidden;
                         //this.Close();
                         break;
                     case MessageBoxResult.No:
@@ -212,9 +213,9 @@ namespace ClinicaVeterinaria.Clie
                         break;
                 }
             }
-            catch (Exception erro)
+            catch
             {
-                MessageBox.Show(erro.Message);
+                MessageBox.Show("seleccione un historial");
             }
         }
     }

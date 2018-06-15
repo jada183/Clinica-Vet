@@ -105,8 +105,8 @@ namespace ClinicaVeterinaria.Clie
                                 MainWindow.uow.RepositorioCliente.crear(cli);
                                 MessageBox.Show("se ha guardado correctamente el Cliente");                           
                                 modificado = true;
-                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
-                                
+                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
+                                main.CargarcbClientTPV();
                                 this.Close();
                             }
                             catch
@@ -140,7 +140,7 @@ namespace ClinicaVeterinaria.Clie
                                 MainWindow.uow.RepositorioCliente.actualizar(cli);
                                 MessageBox.Show("se ha modificado correctamente el cliente");                           
                                 modificado = true;
-                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerTodos());
+                                main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerVarios(c=>c.Habilitado==true));
                                 this.Close();
                             }
                             catch
@@ -222,7 +222,7 @@ namespace ClinicaVeterinaria.Clie
                             //recargo las tablas que lo necesiten
                             main.CargardgCliente(MainWindow.uow.RepositorioCliente.obtenerVarios(c => c.Habilitado == true));
                             main.CargarcbClientTPV();
-
+                            this.Close();
                             break;
                         case MessageBoxResult.No:
 
