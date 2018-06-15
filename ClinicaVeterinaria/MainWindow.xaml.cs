@@ -1192,7 +1192,13 @@ namespace ClinicaVeterinaria
                         uow.RepositorioVenta.eliminar(ventaSelect);
                         CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
                         DgVentas.SelectedIndex = 0;
-                        CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        if (DgVentas.SelectedItem != null)
+                        {
+                            CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        }
+                        else{
+                            DgLineasVentaV.ItemsSource = "";
+                        }
                         break;
                     case MessageBoxResult.No:
 
@@ -1456,7 +1462,7 @@ namespace ClinicaVeterinaria
                     total = 0;
                     setTotal();
                     cbClientTPV.SelectedIndex = 0;
-                             
+                    CargarTPVproductos_todos("Todos");
 
                 }
                 else

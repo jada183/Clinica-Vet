@@ -75,18 +75,18 @@ namespace ClinicaVeterinaria.Citass
                 try
                 {
                     servi = cita.Servicio;
-                    //cita.Servicio = MainWindow.uow.RepositorioServicio.obtenerUno(c => c.ServicioId == cita.ServicioId);
+                   
                 }
                 catch { }
                 try
                 {
                     empl = cita.Sanitario;
-                    //cita.Sanitario = MainWindow.uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == cita.EmpleadoId);
+                   
                 }
                 catch { }
                 try
                 {
-                    //cita.Paciente = MainWindow.uow.RepositorioPaciente.obtenerUno(c => c.PacienteId == cita.PacienteId);
+                    
                     pac = cita.Paciente;
                 }
                 catch { }
@@ -257,7 +257,7 @@ namespace ClinicaVeterinaria.Citass
                         for (int i = auxint1; i <= auxint2; i++)
                         {
 
-                            for (int j = 0; j < 60; j += 30)
+                            for (int j = auxint3; j < 60; j += 30)
                             {
                                 if (j == auxint3 && i == auxint2)
                                 {
@@ -386,7 +386,7 @@ namespace ClinicaVeterinaria.Citass
             }
             else
             {
-               
+                RecuperarValoresEntrada();
             }
         }
 
