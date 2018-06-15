@@ -1,0 +1,75 @@
+﻿<Window x:Class="ClinicaVeterinaria.Ventaa.GenerarExcels"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClinicaVeterinaria.Ventaa"
+        mc:Ignorable="d"
+        Title="GenerarExcels" Height="556" Width="526.336"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <Label Content="Generar Excel" HorizontalAlignment="Center" FontSize="32" Margin="10,10,10,10" Foreground="Green"></Label>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <Button HorizontalAlignment="Center" Margin="10,10,10,30" x:Name="BtGenExcelMisVent" Width="250" Click="BtGenExcelMisVent_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Mis ventas" Foreground="White" Margin="0,0,5,0" HorizontalAlignment="Center"></Label>
+                    <Image Source="../Imagenes/excel.png"></Image>
+                </StackPanel>
+            </Button>
+            <Button HorizontalAlignment="Center" x:Name="BtGenExcelVentProd" Click="BtGenExcelVentProd_Click" Margin="10,10,10,10"  Width="250">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ventas de un producto" Foreground="White" Margin="0,0,5,0"></Label>
+                    <Image Source="../Imagenes/excel.png"></Image>
+                </StackPanel>
+            </Button>
+
+            <Grid x:Name="gridDatosProductos" HorizontalAlignment="Center"  Width="250" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Nombre del producto" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbNombreProd"></TextBox>
+                <Label Content="marca del producto" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2"></Label>
+                <TextBox HorizontalAlignment="Center" Grid.Row="3" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbMarcaProd"></TextBox>
+                <Button Content="Aceptar" Grid.Row="4" Grid.Column="0" Margin="10,10,10,10" x:Name="BtAceptarExcelProd" Click="BtAceptarExcelProd_Click"></Button>
+                <Button Content="Cancelar" Grid.Row="4" Grid.Column="1" Margin="10,10,10,10" x:Name="BtCancelarExcelProd" Click="BtCancelarExcelProd_Click"></Button>
+
+            </Grid>
+            <Button HorizontalAlignment="Center" x:Name="BtGenExcelCompClient" Margin="10,30,10,10"  Width="250" Click="BtGenExcelCompClient_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Compras de cliente" Foreground="White" Margin="0,0,5,0"></Label>
+                    <Image Source="../Imagenes/excel.png"></Image>
+                </StackPanel>
+            </Button>
+            <Grid x:Name="gridDatosCliente" HorizontalAlignment="Center"  Width="250" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Email del cliente" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+                <TextBox HorizontalAlignment="Center" Grid.Row="1" Width="193" Margin="10,0,10,0" Grid.ColumnSpan="2" x:Name="tbEmailCli"></TextBox>
+                <Button Content="Aceptar" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10" x:Name="BtAceptarExcelCli" Click="BtAceptarExcelCli_Click" ></Button>
+                <Button Content="Cancelar" Grid.Row="2" Grid.Column="1" Margin="10,10,10,10" x:Name="BtCancelarExcelCli" Click="BtCancelarExcelCli_Click"></Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

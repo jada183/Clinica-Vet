@@ -21,7 +21,7 @@ using ClinicaVeterinaria.Clie;
 using ClinicaVeterinaria.Citass;
 using ClinicaVeterinaria.Ingresadoo;
 using System.ComponentModel.DataAnnotations;
-
+using ClinicaVeterinaria.Ventaa;
 namespace ClinicaVeterinaria
 {
     /// <summary>
@@ -86,7 +86,7 @@ namespace ClinicaVeterinaria
             CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
 
             //temporal
-            EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
+            //EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.EmpleadoId == 1);
 
             //ingresados
             dgIngresados.ItemsSource = uow.RepositorioEstadoIngresado.obtenerTodos();
@@ -1192,7 +1192,13 @@ namespace ClinicaVeterinaria
                         uow.RepositorioVenta.eliminar(ventaSelect);
                         CargarDgVenta(uow.RepositorioVenta.obtenerTodos());
                         DgVentas.SelectedIndex = 0;
-                        CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        if (DgVentas.SelectedItem != null)
+                        {
+                            CargarDgLineasVenta(uow.RepositorioLineaVenta.obtenerVarios(c => c.VentaId == ventaSelect.VentaId));
+                        }
+                        else{
+                            DgLineasVentaV.ItemsSource = "";
+                        }
                         break;
                     case MessageBoxResult.No:
 
@@ -1456,7 +1462,7 @@ namespace ClinicaVeterinaria
                     total = 0;
                     setTotal();
                     cbClientTPV.SelectedIndex = 0;
-                             
+                    CargarTPVproductos_todos("Todos");
 
                 }
                 else
@@ -1506,6 +1512,8 @@ namespace ClinicaVeterinaria
                     gridGestion.Visibility = Visibility.Visible;
                     gridEmpleadoActual.DataContext = EmpActual;
                     this.WindowState = WindowState.Maximized;
+                    this.Width = 1050;
+                    this.Height = 650;
 
                 }
                 else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
@@ -1518,6 +1526,8 @@ namespace ClinicaVeterinaria
                     tabEmp.Visibility = Visibility.Collapsed;
                     gridEmpleadoActual.DataContext = EmpActual;
                     this.WindowState = WindowState.Maximized;
+                    this.Width = 1050;
+                    this.Height = 650;
                 }
             }
             else
@@ -1669,7 +1679,17 @@ namespace ClinicaVeterinaria
             }
             catch { }
         }
-       
 
+        private void BtVentaGraficos_Click(object sender, RoutedEventArgs e)
+        {
+            GraficosVentas gv = new GraficosVentas();
+            gv.ShowDialog();
+        }
+
+        private void BtVentaExcel_Click(object sender, RoutedEventArgs e)
+        {
+            GenerarExcels gexel = new GenerarExcels(EmpActual);
+            gexel.ShowDialog();
+        }
     }
 }

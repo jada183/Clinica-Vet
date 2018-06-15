@@ -4,16 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClinicaVeterinaria.Ventaa"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="GraficosVentas" Height="450" Width="800"
+        Title="GraficosVentas" Height="850" Width="1300"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  x:Name="gridGrafico1" Grid.Row="0" Grid.Column="0" >
+            <oxy:PlotView Model="{Binding GraficoMayoresVentas}"/>
+        </Grid>
+        <Grid x:Name="gridGrafico2" Grid.Row="0" Grid.Column="1">
+            <oxy:PlotView Model="{Binding  GraficoMenoresVentas }"/>
+        </Grid>
+        <Grid x:Name="gridGrafico3" Grid.Row="1" Grid.Column="0">
+            <oxy:PlotView Model="{Binding GraficoVentasEmpleado}"/>
+        </Grid>
+        <Grid x:Name="gridGrafico4" Grid.Row="1" Grid.Column="1">
+            <oxy:PlotView Model="{Binding GraficoComprascliente}"/>
+        </Grid>
     </Grid>
 </Window>

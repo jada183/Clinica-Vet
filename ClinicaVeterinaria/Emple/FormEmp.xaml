@@ -99,7 +99,7 @@
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10,20,10,5">
                         <ComboBox Margin="5,5,5,5" x:Name="cbBuscarListHorarios">
                             <ComboBoxItem Content="Todos" x:Name="cbLisHorTodos" IsSelected="True"></ComboBoxItem>
-                            <ComboBoxItem Content="Lunes"></ComboBoxItem>
+                            <ComboBoxItem Content="lunes"></ComboBoxItem>
                             <ComboBoxItem Content="martes"></ComboBoxItem>
                             <ComboBoxItem Content="miércoles"></ComboBoxItem>
                             <ComboBoxItem Content="jueves"></ComboBoxItem>

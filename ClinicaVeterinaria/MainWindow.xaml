@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClinicaVeterinaria.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1595"
+        Title="MainWindow" Height="450" Width="450"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -19,7 +19,7 @@
         >
     <Grid x:Name="gridPrueba">
 
-        <Grid x:Name="gridAcceso" Visibility="Hidden">
+        <Grid x:Name="gridAcceso" Visibility="Visible">
             <Grid.Background>
                 <ImageBrush ImageSource="Imagenes/fondoLoginColores.jpeg" Opacity="0.85"/>
             </Grid.Background>
@@ -54,7 +54,7 @@
             </StackPanel>
             
         </Grid>
-        <Grid x:Name="gridGestion" Visibility="Visible">
+        <Grid x:Name="gridGestion" Visibility="Hidden">
             <TabControl>
                 <TabItem  x:Name="tabProd"  FontSize="18">
                     <TabItem.Header>
@@ -111,7 +111,6 @@
                                 <DataGridTextColumn Header="Precio" Width="*" Binding="{Binding Path=Precio}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
                     </DockPanel>
                 </TabItem>
                 <TabItem  x:Name="tabServ"  FontSize="18">
@@ -423,10 +422,10 @@
                             <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtElimarVenta" Click="BtElimarVenta_Click">
                                 <Image x:Name="imgBorrarVenta" Source="Imagenes/delete.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaExcel">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaExcel" Click="BtVentaExcel_Click">
                                 <Image Source="Imagenes/excel.png"></Image>
                             </Button>
-                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos">
+                            <Button   HorizontalAlignment="Left" Margin="10,0,10,0" x:Name="BtVentaGraficos" Click="BtVentaGraficos_Click">
                                 <Image Source="Imagenes/charts.png"></Image>
                             </Button>
                         </StackPanel>
