@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
+        ResizeMode="CanResizeWithGrip" Closed="Window_Closed"
+        Icon="../Imagenes/clientIcon.png">
     <Grid>
         <TabControl>
             <TabItem  x:Name="tabProf"  FontSize="18">

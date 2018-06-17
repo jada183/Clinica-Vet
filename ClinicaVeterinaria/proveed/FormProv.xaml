@@ -12,7 +12,9 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Icon="../Imagenes/proveedorIcon.png"
+        >
     <Grid>
         <Grid x:Name="gridProv" Margin="10,10,10,10">
             <Grid.ColumnDefinitions>

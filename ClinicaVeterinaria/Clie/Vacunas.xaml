@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Icon="../Imagenes/vacunaIcon.png">
     <Grid>
         <DockPanel x:Name="dockHorarios">
             <Label x:Name="lPacienteTitulo"  Content="Vacunas" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  />

@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Icon="../Imagenes/historialesMIcon.png">
     <DockPanel x:Name="dockHistorial" LastChildFill="True">
 
         <Label x:Name="lHistorialTitulo"  Content="Historiales medicos" DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="32"  />

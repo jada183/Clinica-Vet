@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Icon="../Imagenes/hospital.png">
     <Grid>
      
         <Grid x:Name="gridIngresado" Grid.ColumnSpan="2" Margin="10,10,10,10">

@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        Icon="../Imagenes/excel.png">
     <Grid>
         <Label Content="Generar Excel" HorizontalAlignment="Center" FontSize="32" Margin="10,10,10,10" Foreground="Green"></Label>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">

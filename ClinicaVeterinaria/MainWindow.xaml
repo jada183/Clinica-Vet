@@ -16,6 +16,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         Closed="Window_Closed"
+       Icon ="Imagenes/dog.png"
         >
     <Grid x:Name="gridPrueba">
 

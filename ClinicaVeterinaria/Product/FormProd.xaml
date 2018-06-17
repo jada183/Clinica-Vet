@@ -12,7 +12,8 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
+        ResizeMode="CanResizeWithGrip" Closed="Window_Closed"
+        Icon="../Imagenes/ProdIcon32.png">
     <Grid>
        
         <Grid x:Name="gridProductoSelect"  Margin="10,10,10,10">
