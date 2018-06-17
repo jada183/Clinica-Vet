@@ -1445,6 +1445,14 @@ namespace ClinicaVeterinaria
         {
             try
             {
+                try
+                {
+                    Cliente cltpvselect = (Cliente)(cbClientTPV.SelectedItem);
+                    venta.ClienteVenta = cltpvselect;
+                    venta.ClienteId = cltpvselect.ClienteId;
+                }
+                catch { }
+              
                 if (venta.LineasVenta.Count > 0)
                 {
                     uow.RepositorioVenta.crear(venta);
