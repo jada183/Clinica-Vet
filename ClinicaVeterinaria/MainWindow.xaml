@@ -584,7 +584,7 @@
                                 <Image Source="Imagenes/exit.png" Width="auto" Height="auto"></Image>
                             </Button>
                         </StackPanel>
-                        <DataGrid x:Name="dgIngresados" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True" SelectedIndex="0" SelectionChanged="DgIngresados_SelectionChanged">
+                        <DataGrid x:Name="dgIngresados" AutoGenerateColumns="False" Margin="10,10,10,10" IsReadOnly="True" SelectedIndex="0" SelectionChanged="DgIngresados_SelectionChanged" MouseDoubleClick="DgIngresados_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Foto" Width="SizeToCells" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>

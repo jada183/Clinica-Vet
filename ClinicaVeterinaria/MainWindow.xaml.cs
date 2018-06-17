@@ -1748,6 +1748,21 @@ namespace ClinicaVeterinaria
                
             }
         }
+        private void DgIngresados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                EstadoIngresadoSelect = (EstadoIngresado)(dgIngresados.SelectedItem);
+
+                
+                FormIngresado fi = new FormIngresado(EstadoIngresadoSelect, this);
+                fi.ShowDialog();
+            }
+            catch
+            {
+
+            }
+        }
         #endregion
 
         private void Window_Closed(object sender, EventArgs e)
@@ -1775,7 +1790,5 @@ namespace ClinicaVeterinaria
         }
 
        
-
-     
     }
 }

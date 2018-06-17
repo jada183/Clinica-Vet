@@ -29,6 +29,10 @@ namespace ClinicaVeterinaria.Ingresadoo
             estadoIng = ei;
             main = mw;
             gridIngresado.DataContext = estadoIng;
+            if (estadoIng.EstadoIngresadoId > 0)
+            {
+                DeshabilitarCampos();
+            }
         }
 
         private Boolean Validado(Object obj)
@@ -80,6 +84,17 @@ namespace ClinicaVeterinaria.Ingresadoo
 
                 }
             }
+        }
+        public void DeshabilitarCampos()
+        {
+            TbTemperatura.IsEnabled = false;
+            TbFrecCardiaca.IsEnabled = false;
+            TbFrecRespiratoria.IsEnabled = false;
+            TbPerdidasFisio.IsEnabled = false;
+            TbMedicacion.IsEnabled = false;
+            BtBuscarPac.IsEnabled = false;
+            tbRevisionGeneral.IsEnabled = false;
+            BtGuardarIngresado.Visibility = Visibility.Hidden;
         }
     }
 }
