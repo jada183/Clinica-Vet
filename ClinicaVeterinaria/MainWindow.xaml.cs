@@ -1476,10 +1476,21 @@ namespace ClinicaVeterinaria
                 MessageBox.Show("no ha seleccionado ningun producto");
             }
         }
+        private void BtVentaGraficos_Click(object sender, RoutedEventArgs e)
+        {
+            GraficosVentas gv = new GraficosVentas();
+            gv.ShowDialog();
+        }
+
+        private void BtVentaExcel_Click(object sender, RoutedEventArgs e)
+        {
+            GenerarExcels gexel = new GenerarExcels(EmpActual);
+            gexel.ShowDialog();
+        }
 
         #endregion
         #region Logueado
-        
+
         //para el empleado logueado
         private void BtGuardarEmp_Click(object sender, RoutedEventArgs e)
         {
@@ -1506,6 +1517,8 @@ namespace ClinicaVeterinaria
             EmpActual = uow.RepositorioEmpleado.obtenerUno(c => c.Habilitado == true && c.Usuario == tbUsuarioAcess.Text && c.Contraseña == passAcess.Password);
             if (EmpActual != null)
             {
+                tbUsuarioAcess.Text = "";
+                passAcess.Password = "";
                 if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Administrador")
                 {
                     gridAcceso.Visibility = Visibility.Hidden;
@@ -1514,7 +1527,7 @@ namespace ClinicaVeterinaria
                     this.WindowState = WindowState.Maximized;
                     this.Width = 1050;
                     this.Height = 650;
-
+                    tabGlobal.SelectedIndex = 0;
                 }
                 else if (EmpActual.EmpleadoId > 0 && EmpActual.Permiso == "Usuario")
                 {
@@ -1528,12 +1541,81 @@ namespace ClinicaVeterinaria
                     this.WindowState = WindowState.Maximized;
                     this.Width = 1050;
                     this.Height = 650;
+                    tabGlobal.SelectedIndex = 4;
                 }
             }
             else
             {
                 MessageBox.Show("No se ha encontrado un empleado con esos datos");
             }
+        }
+        private void BtCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                foreach (LineaVenta l in venta.LineasVenta)
+                {
+                    Producto proaux = uow.RepositorioProducto.obtenerUno(c => c.ProductoId == l.ProductoId);
+                    proaux.Stock += l.Cantidad;
+                    uow.RepositorioProducto.actualizar(proaux);
+                }
+                venta = new Venta();
+                total = 0;
+
+                dgridTPV.ItemsSource = "";
+                dgridTPV.ItemsSource = venta.LineasVenta.ToList();
+
+
+                venta = new Venta();
+
+            }
+            catch { }
+            EmpActual = null;
+           
+            this.Width = 450;
+            this.Height = 450;
+            this.WindowState = WindowState.Normal;
+            gridGestion.Visibility = Visibility.Hidden;
+            gridAcceso.Visibility = Visibility.Visible;
+            LimnpiarComponentesApp();
+          
+
+
+        }
+        public void LimnpiarComponentesApp()
+        {
+            cbBuscarListProd.SelectedIndex = 0;
+            tbBuscadorList.Text = "";
+            tbBuscadorProdNombre.Text = "";
+            tbBuscadorProdMarca.Text = "";
+
+            tbBuscadorServNombre.Text = "";
+
+            tbBuscadorProvEmail.Text = "";
+
+            tbBuscadorListEmp.Text = "";
+            cbBuscarListEmp.SelectedIndex = 0;
+            tbBuscadorEmp.Text = "";
+
+            tbBuscadorCli.Text = "";
+
+            dpFechaBusCita.Text = "";
+            cbBuscarListCit.SelectedIndex = 0;
+            tbBuscarListCit.Text = "";
+
+            dpFechaBusCitaAten.Text = "";
+            tbBuscarListCitAten.Text = "";
+            cbBuscarListCitAten.SelectedIndex = 0;
+
+            DpFechaBuscVent.Text = "";
+            cbBuscarListVen.SelectedIndex = 0;
+            tbBuscadorListVen.Text = "";
+
+            cbClientTPV.SelectedIndex = 0;
+            CargarTPVproductos_todos("Todos");
+
+            cbBuscarListIngresados.SelectedIndex = 0;
+            tbBuscadorListIngresados.Text = "";
         }
         #endregion
         #region Ingresado
@@ -1680,16 +1762,8 @@ namespace ClinicaVeterinaria
             catch { }
         }
 
-        private void BtVentaGraficos_Click(object sender, RoutedEventArgs e)
-        {
-            GraficosVentas gv = new GraficosVentas();
-            gv.ShowDialog();
-        }
+       
 
-        private void BtVentaExcel_Click(object sender, RoutedEventArgs e)
-        {
-            GenerarExcels gexel = new GenerarExcels(EmpActual);
-            gexel.ShowDialog();
-        }
+     
     }
 }
