@@ -1585,6 +1585,10 @@ namespace ClinicaVeterinaria
             this.WindowState = WindowState.Normal;
             gridGestion.Visibility = Visibility.Hidden;
             gridAcceso.Visibility = Visibility.Visible;
+            tabProd.Visibility = Visibility.Visible;
+            tabServ.Visibility = Visibility.Visible;
+            tabProv.Visibility = Visibility.Visible;
+            tabEmp.Visibility = Visibility.Visible;
             LimnpiarComponentesApp();
           
 
